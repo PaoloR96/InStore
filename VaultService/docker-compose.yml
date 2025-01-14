@@ -1,0 +1,41 @@
+# Definisce i servizi del progetto
+services:
+  # Nome del servizio Vault
+  vault:
+    # Usa il contesto di build corrente (dove si trova il Dockerfile)
+    build:
+      context: .
+    # Assegna un nome specifico al container
+    container_name: Vault_Manager
+    # Collega il container alla rete specificata
+    networks:
+      - app-network
+    # Mappa la porta 8200 del container sulla porta 8200 dell'host
+    ports:
+      - "8200:8200"
+    # Monta la directory locale `vault-config` nel container
+    volumes:
+      - ./vault-config:/vault-config
+    # Definisce le variabili d'ambiente per Vault
+    environment:
+      VAULT_ADDR: http://127.0.0.1:8200
+    # Configura un controllo dello stato del servizio
+    healthcheck:
+      # Usa il comando `vault status` per verificare la salute
+      test: ["CMD", "vault", "status"]
+      # Esegue il controllo ogni 30 secondi
+      interval: 30s
+      # Timeout di 10 secondi per ogni controllo
+      timeout: 10s
+      # Numero massimo di tentativi prima di dichiarare il container "unhealthy"
+      retries: 3
+    # Aggiunge la capacità IPC_LOCK per Vault
+    cap_add:
+      - IPC_LOCK
+
+# Configura le reti Docker
+networks:
+  # Utilizza una rete esistente chiamata `app-network`
+  app-network:
+    external: true
+
