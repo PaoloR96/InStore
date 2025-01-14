@@ -1,4 +1,4 @@
 package com.howtodoinjava.app.applicationcore.service;
 
-public class UtentePremiumService {
+public class ClienteService {
 }
