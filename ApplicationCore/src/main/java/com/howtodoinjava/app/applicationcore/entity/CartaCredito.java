@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class CartaCredito {
         //definzione variabili
-        protected String numeroCarta;;
+        protected String numeroCarta;
         protected Date dataScadenza;
         protected String nomeIntestatario;
         protected String cognomeIntestatario;
