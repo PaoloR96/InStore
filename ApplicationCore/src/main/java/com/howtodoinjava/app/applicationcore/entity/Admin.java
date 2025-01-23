@@ -1,6 +1,40 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+//TODO CLASSE DTO E MAPPER
+
+@Entity
+@Table(name="ADMIN")
 public class Admin extends  Utente {
-            private String nome;
-            private String cognome;
+
+    private String nome;
+    private String cognome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public Admin() {
+
+    }
+
+
+    public Admin(String email, String username, String password, String numCell, String nome, String cognome) {
+        super(email, username, password, numCell);
+        this.nome = nome;
+        this.cognome = cognome;
+    }
 }
