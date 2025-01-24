@@ -1,0 +1,22 @@
+services:
+  mysql-db:
+    image: mysql:latest  # Usa l'immagine ufficiale di MySQL
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: InStore_db
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_HOST: '%'  # Permette l'accesso da qualsiasi host
+    networks:
+      - app-network  # Usa la rete definita in application_demo
+    ports:
+      - "3306:3306"  # Espone MySQL sulla porta 3306
+    volumes:
+      - mysql-data:/var/lib/mysql  # Persistenza dei dati del database
+
+networks:
+  app-network:
+    driver: bridge  # Usa una rete di tipo bridge per la comunicazione tra i container
+
+volumes:
+  mysql-data:  # Definisce un volume persistente per MySQL

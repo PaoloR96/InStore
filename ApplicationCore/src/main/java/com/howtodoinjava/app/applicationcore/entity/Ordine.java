@@ -2,7 +2,6 @@ package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 //TODO CLASSE DTO E MAPPER

@@ -1,8 +1,6 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.Entity;
-
-import java.util.ArrayList;
 //TODO CLASSE DTO E MAPPER
 
 @Entity

@@ -1,8 +1,6 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
-
-import java.security.PublicKey;
 //TODO CLASSE DTO E MAPPER
 
 @Entity
