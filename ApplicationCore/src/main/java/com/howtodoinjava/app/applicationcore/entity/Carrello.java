@@ -1,7 +1,6 @@
 package com.howtodoinjava.app.applicationcore.entity;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
+import java.util.List;
 //TODO CLASSE DTO E MAPPER
 
 @Entity
@@ -12,15 +11,19 @@ public class Carrello {
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Long id;
         private Float prezzoComplessivo;
-        @OneToMany
-        private ArrayList <Prodotto> listaProdottiCarrello;
+        @OneToMany(cascade = CascadeType.ALL)
+        @JoinColumn(name = "id_carrello")
+        private List<Prodotto> listaProdottiCarrello;
+        @OneToOne
+        private Cliente cliente;
 
         public Carrello() {}
 
-        public Carrello(Long id, Float prezzoComplessivo, ArrayList<Prodotto> listaProdottiCarrello) {
+        public Carrello(Long id, Float prezzoComplessivo, List<Prodotto> listaProdottiCarrello, Cliente cliente) {
                 this.id = id;
                 this.prezzoComplessivo = prezzoComplessivo;
                 this.listaProdottiCarrello = listaProdottiCarrello;
+                this.cliente = cliente;
         }
 
         public Long getId() {
@@ -39,11 +42,11 @@ public class Carrello {
                 this.prezzoComplessivo = prezzoComplessivo;
         }
 
-        public ArrayList<Prodotto> getListaProdottiCarrello() {
+        public List<Prodotto> getListaProdottiCarrello() {
                 return listaProdottiCarrello;
         }
 
-        public void setListaProdottiCarrello(ArrayList<Prodotto> listaProdottiCarrello) {
+        public void setListaProdottiCarrello(List<Prodotto> listaProdottiCarrello) {
                 this.listaProdottiCarrello = listaProdottiCarrello;
         }
 }

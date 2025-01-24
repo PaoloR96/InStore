@@ -2,6 +2,7 @@ package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import java.util.Date;
@@ -17,15 +18,18 @@ public class CartaCredito {
         private String nomeIntestatario;
         private String cognomeIntestatario;
         private Integer cvc;
+        @OneToOne
+        private Cliente cliente;
 
         public CartaCredito() {}
 
-        public CartaCredito(String numeroCarta, Date dataScadenza, String nomeIntestatario, String cognomeIntestatario, Integer cvc) {
+        public CartaCredito(String numeroCarta, Date dataScadenza, String nomeIntestatario, String cognomeIntestatario, Integer cvc, Cliente cliente) {
                 this.numeroCarta = numeroCarta;
                 this.dataScadenza = dataScadenza;
                 this.nomeIntestatario = nomeIntestatario;
                 this.cognomeIntestatario = cognomeIntestatario;
                 this.cvc = cvc;
+                this.cliente = cliente;
         }
 
         public String getNumeroCarta() {

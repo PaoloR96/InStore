@@ -15,13 +15,13 @@ public class ClientePremium extends Cliente {
                 this.numeroCartaFedelta = numeroCartaFedelta;
         }
 
-        public ClientePremium(String email, String username, String password, String numCell, String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, ArrayList<Ordine> listaOrdineCliente, StatoCliente statoCliente, String numeroCartaFedelta) {
-                super(email, username, password, numCell, nome, cognome, cartaCredito, carrello, listaOrdineCliente, statoCliente);
+        public ClientePremium(String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, StatoCliente statoCliente, String numeroCartaFedelta) {
+                super(nome, cognome, cartaCredito, carrello, statoCliente);
                 this.numeroCartaFedelta = numeroCartaFedelta;
         }
 
-        public ClientePremium(String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, ArrayList<Ordine> listaOrdineCliente, StatoCliente statoCliente, String numeroCartaFedelta) {
-                super(nome, cognome, cartaCredito, carrello, listaOrdineCliente, statoCliente);
+        public ClientePremium(String email, String username, String password, String numCell, String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, StatoCliente statoCliente, String numeroCartaFedelta) {
+                super(email, username, password, numCell, nome, cognome, cartaCredito, carrello, statoCliente);
                 this.numeroCartaFedelta = numeroCartaFedelta;
         }
 

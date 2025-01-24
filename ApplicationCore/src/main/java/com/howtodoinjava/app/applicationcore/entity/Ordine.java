@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 //TODO CLASSE DTO E MAPPER
 
 @Entity
@@ -15,12 +16,17 @@ public class Ordine {
         private Long idOrdine;
         private Date dataProdotto;
         private Float prezzoComplessivo;
-        @OneToMany
-        private ArrayList <Prodotto> listaProdottiOrdine;
+        //Relazione unidirezionale tra prodotto e ordine
+        @OneToMany(cascade = CascadeType.ALL)
+        @JoinColumn(name = "id_ordine")
+        private List<Prodotto> listaProdottiOrdine;
+        @ManyToOne
+        @JoinColumn(name = "cliente_username", nullable = false)
+        private Cliente cliente;
 
         public Ordine() {}
 
-        public Ordine(Long idOrdine, Date dataProdotto, Float prezzoComplessivo, ArrayList<Prodotto> listaProdottiOrdine) {
+        public Ordine(Long idOrdine, Date dataProdotto, Float prezzoComplessivo, List<Prodotto> listaProdottiOrdine) {
                 this.idOrdine = idOrdine;
                 this.dataProdotto = dataProdotto;
                 this.prezzoComplessivo = prezzoComplessivo;
@@ -51,11 +57,11 @@ public class Ordine {
                 this.prezzoComplessivo = prezzoComplessivo;
         }
 
-        public ArrayList<Prodotto> getListaProdottiOrdine() {
+        public List<Prodotto> getListaProdottiOrdine() {
                 return listaProdottiOrdine;
         }
 
-        public void setListaProdottiOrdine(ArrayList<Prodotto> listaProdottiOrdine) {
+        public void setListaProdottiOrdine(List<Prodotto> listaProdottiOrdine) {
                 this.listaProdottiOrdine = listaProdottiOrdine;
         }
 }

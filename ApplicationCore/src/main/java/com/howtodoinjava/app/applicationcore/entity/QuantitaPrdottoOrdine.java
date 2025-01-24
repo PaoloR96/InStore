@@ -14,7 +14,7 @@ public class QuantitaPrdottoOrdine {
     private Prodotto prodotto;
     @OneToOne
     private Ordine ordine;
-    private int quantita;
+    private Integer quantita;
 
     public QuantitaPrdottoOrdine() {}
 

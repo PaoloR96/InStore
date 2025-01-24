@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Prodotti</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 class="text-center">Lista Prodotti</h1>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Nome Prodotto</th>
+            <th>Descrizione</th>
+            <th>Prezzo (€)</th>
+            <th>Taglia</th>
+            <th>Quantità Totale</th>
+            <th>Rivenditore</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterazione dei prodotti -->
+        <tr th:each="prodotto : ${prodotti}">
+            <td th:text="${prodotto.idProdotto}"></td>
+            <td th:text="${prodotto.nomeProdotto}"></td>
+            <td th:text="${prodotto.descrizione}"></td>
+            <td th:text="${prodotto.prezzo}"></td>
+            <td th:text="${prodotto.taglia}"></td>
+            <td th:text="${prodotto.quantitaTotale}"></td>
+            <td th:text="${prodotto.rivenditore?.nomeSocieta}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

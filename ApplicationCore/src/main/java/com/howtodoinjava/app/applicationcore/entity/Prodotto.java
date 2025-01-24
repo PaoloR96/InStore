@@ -19,6 +19,7 @@ public class Prodotto {
     private String pathImmagine;
     private Integer quantitaTotale;
     @ManyToOne
+    @JoinColumn(name = "rivenditore_username", nullable = false)
     private Rivenditore rivenditore;
     public Prodotto() {}
 

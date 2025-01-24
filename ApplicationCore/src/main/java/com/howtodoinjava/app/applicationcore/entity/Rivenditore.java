@@ -1,7 +1,10 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 //TODO CLASSE DTO E MAPPER
 
@@ -12,23 +15,14 @@ public class Rivenditore  extends  Utente{
     private String nomeSocieta;
     private String partitaIva;
     private String iban;
-    @OneToMany
-    private ArrayList <Prodotto> listaProdottiRivenditore;
+    @OneToMany(mappedBy = "rivenditore", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Prodotto> listaProdottiRivenditore;
     @Enumerated(EnumType.STRING)
     private StatoRivenditore statoRivenditore;
 
     public Rivenditore(){}
 
-    public Rivenditore(String nomeSocieta, String partitaIva, String iban, ArrayList<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
-        this.nomeSocieta = nomeSocieta;
-        this.partitaIva = partitaIva;
-        this.iban = iban;
-        this.listaProdottiRivenditore = listaProdottiRivenditore;
-        this.statoRivenditore = statoRivenditore;
-    }
-
-    public Rivenditore(String email, String username, String password, String numCell, String nomeSocieta, String partitaIva, String iban, ArrayList<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
-        super(email, username, password, numCell);
+    public Rivenditore(String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
         this.nomeSocieta = nomeSocieta;
         this.partitaIva = partitaIva;
         this.iban = iban;
@@ -60,11 +54,11 @@ public class Rivenditore  extends  Utente{
         this.iban = iban;
     }
 
-    public ArrayList<Prodotto> getListaProdottiRivenditore() {
+    public List<Prodotto> getListaProdottiRivenditore() {
         return listaProdottiRivenditore;
     }
 
-    public void setListaProdottiRivenditore(ArrayList<Prodotto> listaProdottiRivenditore) {
+    public void setListaProdottiRivenditore(List<Prodotto> listaProdottiRivenditore) {
         this.listaProdottiRivenditore = listaProdottiRivenditore;
     }
 
@@ -73,6 +67,15 @@ public class Rivenditore  extends  Utente{
     }
 
     public void setStatoRivenditore(StatoRivenditore statoRivenditore) {
+        this.statoRivenditore = statoRivenditore;
+    }
+
+    public Rivenditore(String email, String username, String password, String numCell, String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
+        super(email, username, password, numCell);
+        this.nomeSocieta = nomeSocieta;
+        this.partitaIva = partitaIva;
+        this.iban = iban;
+        this.listaProdottiRivenditore = listaProdottiRivenditore;
         this.statoRivenditore = statoRivenditore;
     }
 }
