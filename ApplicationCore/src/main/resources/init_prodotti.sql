@@ -8,7 +8,7 @@ INSERT INTO carta_di_credito(numero_carta, cognome_intestatario, cvc, data_sacde
                                                                                                             ('4087575738998','Pippo', 676, '2026-04-22','Franco');
 
 -- Inserisci il cliente e associa direttamente il carrello
-INSERT INTO cliente (email, username, password, num_cell, nome, cognome, stato_cliente, numero_carta_fedelta, sconto, tipo_cliente, numero_carta)
+INSERT INTO cliente (email, username, password, num_cell, nome, cognome, stato_cliente, numero_carta_fedelta, sconto, tipo_cliente, numero_carta_credito)
 VALUES ('mario.rossi@example.com', 'mrossi', 'password123', '1234567890', 'Mario', 'Rossi', 'ABILITATO', NULL, NULL, 'STANDARD', '4087575738998');
 
 

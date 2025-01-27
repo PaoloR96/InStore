@@ -12,7 +12,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "tipo_cliente", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("STANDARD")
 @Table(name = "CLIENTE")
-public class Cliente extends  Utente {
+public class Cliente extends Utente {
 
         @Column(nullable = false)
         private String nome;

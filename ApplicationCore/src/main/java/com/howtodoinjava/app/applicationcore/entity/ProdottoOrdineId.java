@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ProdottoOrdineId implements Serializable {
@@ -35,6 +36,18 @@ public class ProdottoOrdineId implements Serializable {
 
     public void setIdOrdine(Long idOrdine) {
         this.idOrdine = idOrdine;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ProdottoOrdineId that = (ProdottoOrdineId) o;
+        return Objects.equals(idProdotto, that.idProdotto) && Objects.equals(idOrdine, that.idOrdine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idProdotto, idOrdine);
     }
 }
 

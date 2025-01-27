@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ProdottoCarrelloId implements Serializable {
@@ -35,5 +36,17 @@ public class ProdottoCarrelloId implements Serializable {
 
     public void setIdProdotto(Long idProdotto) {
         this.idProdotto = idProdotto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ProdottoCarrelloId that = (ProdottoCarrelloId) o;
+        return Objects.equals(username, that.username) && Objects.equals(idProdotto, that.idProdotto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, idProdotto);
     }
 }

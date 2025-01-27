@@ -2,15 +2,13 @@ package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 //TODO CLASSE DTO E MAPPER
 
 @Entity
 @Table(name="RIVENDITORE")
-public class Rivenditore  extends  Utente{
+public class Rivenditore  extends Utente {
 
     @Column(name = "nome_societa", nullable = false)
     private String nomeSocieta;
