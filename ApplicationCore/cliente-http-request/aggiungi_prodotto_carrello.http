@@ -1,0 +1,2 @@
+POST http://localhost:8080/api/carrello/1/prodotti/2
+Content-Type: application/json

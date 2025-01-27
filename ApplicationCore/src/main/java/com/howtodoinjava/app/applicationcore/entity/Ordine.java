@@ -10,27 +10,34 @@ import java.util.List;
 @Entity
 @Table(name="ORDINE")
 public class Ordine {
-        //definizione variabili
+
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id_ordine")
         private Long idOrdine;
-        private Date dataProdotto;
+
+        @Column(name = "data_ordine", nullable = false)
+        @Temporal(TemporalType.TIMESTAMP)
+        private Date dataOrdine;
+
+        @Column(name = "prezzo_complessivo", nullable = false)
         private Float prezzoComplessivo;
-        //Relazione unidirezionale tra prodotto e ordine
-        @OneToMany(cascade = CascadeType.ALL)
-        @JoinColumn(name = "id_ordine")
-        private List<Prodotto> listaProdottiOrdine;
+
+        @OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<ProdottoOrdine> listaProdottiOrdine;
+
         @ManyToOne
         @JoinColumn(name = "cliente_username", nullable = false)
         private Cliente cliente;
 
         public Ordine() {}
 
-        public Ordine(Long idOrdine, Date dataProdotto, Float prezzoComplessivo, List<Prodotto> listaProdottiOrdine) {
+        public Ordine(Long idOrdine, Date dataOrdine, Float prezzoComplessivo, List<ProdottoOrdine> listaProdottiOrdine, Cliente cliente) {
                 this.idOrdine = idOrdine;
-                this.dataProdotto = dataProdotto;
+                this.dataOrdine = dataOrdine;
                 this.prezzoComplessivo = prezzoComplessivo;
                 this.listaProdottiOrdine = listaProdottiOrdine;
+                this.cliente = cliente;
         }
 
         public Long getIdOrdine() {
@@ -41,12 +48,12 @@ public class Ordine {
                 this.idOrdine = idOrdine;
         }
 
-        public Date getDataProdotto() {
-                return dataProdotto;
+        public Date getDataOrdine() {
+                return dataOrdine;
         }
 
-        public void setDataProdotto(Date dataProdotto) {
-                this.dataProdotto = dataProdotto;
+        public void setDataOrdine(Date dataOrdine) {
+                this.dataOrdine = dataOrdine;
         }
 
         public Float getPrezzoComplessivo() {
@@ -57,11 +64,19 @@ public class Ordine {
                 this.prezzoComplessivo = prezzoComplessivo;
         }
 
-        public List<Prodotto> getListaProdottiOrdine() {
+        public List<ProdottoOrdine> getListaProdottiOrdine() {
                 return listaProdottiOrdine;
         }
 
-        public void setListaProdottiOrdine(List<Prodotto> listaProdottiOrdine) {
+        public void setListaProdottiOrdine(List<ProdottoOrdine> listaProdottiOrdine) {
                 this.listaProdottiOrdine = listaProdottiOrdine;
+        }
+
+        public Cliente getCliente() {
+                return cliente;
+        }
+
+        public void setCliente(Cliente cliente) {
+                this.cliente = cliente;
         }
 }

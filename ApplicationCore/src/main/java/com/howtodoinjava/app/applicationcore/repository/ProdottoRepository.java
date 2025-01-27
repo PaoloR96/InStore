@@ -2,8 +2,19 @@ package com.howtodoinjava.app.applicationcore.repository;
 
 import com.howtodoinjava.app.applicationcore.entity.Prodotto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
+public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
+
+//    List<Prodotto> findByCarrelloId(Long idCarrello);
+
+//    @Modifying
+//    @Query("UPDATE Prodotto p SET p.carrello.idCarrello = :idCarrello WHERE p.idProdotto = :idProdotto")
+//    void updateIdCarrello(@Param("idProdotto") Long idProdotto, @Param("idCarrello") Long idCarrello);
 }

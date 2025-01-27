@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ApplicationCore/ApplicationCore.iml" filepath="$PROJECT_DIR$/ApplicationCore/ApplicationCore.iml" />
-      <module fileurl="file://$PROJECT_DIR$/InStore.iml" filepath="$PROJECT_DIR$/InStore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/InStore.iml" filepath="$PROJECT_DIR$/.idea/InStore.iml" />
     </modules>
   </component>
 </project>

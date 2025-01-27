@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 //TODO CLASSE DTO E MAPPER
@@ -8,7 +9,9 @@ import jakarta.persistence.Table;
 @Table(name="ADMIN")
 public class Admin extends  Utente {
 
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String cognome;
 
     public String getNome() {

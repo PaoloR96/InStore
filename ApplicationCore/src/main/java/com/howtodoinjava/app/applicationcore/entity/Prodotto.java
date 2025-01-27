@@ -1,6 +1,9 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 //TODO CLASSE DTO E MAPPER
 
@@ -10,29 +13,53 @@ public class Prodotto {
             //definizione variabili
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_prodotto")
     private Long idProdotto;
+
+    @Column(name = "nome_prodotto", nullable = false, length = 100)
     private String nomeProdotto;
+
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String descrizione;
+
+    @Column(nullable = false)
     private Float prezzo;
-    private String taglia;
-    private String immagine;
+
+
+    @Column(name = "path_immagine")
     private String pathImmagine;
+
+    @Column(name = "quantita_totale", nullable = false)
     private Integer quantitaTotale;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Taglia taglia;
+
     @ManyToOne
     @JoinColumn(name = "rivenditore_username", nullable = false)
+    @JsonIgnore
     private Rivenditore rivenditore;
+
+    @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProdottoCarrello> listaProdottiCarrello;
+
+    @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProdottoOrdine> listaProdottiOrdine;
+
     public Prodotto() {}
 
-    public Prodotto(Long idProdotto, String nomeProdotto, String descrizione, Float prezzo, String taglia, String immagine, String pathImmagine, Integer quantitaTotale, Rivenditore rivenditore) {
+    public Prodotto(Long idProdotto, String nomeProdotto, String descrizione, Float prezzo, String pathImmagine, Integer quantitaTotale, Taglia taglia, Rivenditore rivenditore, List<ProdottoCarrello> listaProdottiCarrello, List<ProdottoOrdine> listaProdottiOrdine) {
         this.idProdotto = idProdotto;
         this.nomeProdotto = nomeProdotto;
         this.descrizione = descrizione;
         this.prezzo = prezzo;
-        this.taglia = taglia;
-        this.immagine = immagine;
         this.pathImmagine = pathImmagine;
         this.quantitaTotale = quantitaTotale;
+        this.taglia = taglia;
         this.rivenditore = rivenditore;
+        this.listaProdottiCarrello = listaProdottiCarrello;
+        this.listaProdottiOrdine = listaProdottiOrdine;
     }
 
     public Long getIdProdotto() {
@@ -67,22 +94,6 @@ public class Prodotto {
         this.prezzo = prezzo;
     }
 
-    public String getTaglia() {
-        return taglia;
-    }
-
-    public void setTaglia(String taglia) {
-        this.taglia = taglia;
-    }
-
-    public String getImmagine() {
-        return immagine;
-    }
-
-    public void setImmagine(String immagine) {
-        this.immagine = immagine;
-    }
-
     public String getPathImmagine() {
         return pathImmagine;
     }
@@ -99,11 +110,35 @@ public class Prodotto {
         this.quantitaTotale = quantitaTotale;
     }
 
+    public Taglia getTaglia() {
+        return taglia;
+    }
+
+    public void setTaglia(Taglia taglia) {
+        this.taglia = taglia;
+    }
+
     public Rivenditore getRivenditore() {
         return rivenditore;
     }
 
     public void setRivenditore(Rivenditore rivenditore) {
         this.rivenditore = rivenditore;
+    }
+
+    public List<ProdottoCarrello> getListaProdottiCarrello() {
+        return listaProdottiCarrello;
+    }
+
+    public void setListaProdottiCarrello(List<ProdottoCarrello> listaProdottiCarrello) {
+        this.listaProdottiCarrello = listaProdottiCarrello;
+    }
+
+    public List<ProdottoOrdine> getListaProdottiOrdine() {
+        return listaProdottiOrdine;
+    }
+
+    public void setListaProdottiOrdine(List<ProdottoOrdine> listaProdottiOrdine) {
+        this.listaProdottiOrdine = listaProdottiOrdine;
     }
 }
