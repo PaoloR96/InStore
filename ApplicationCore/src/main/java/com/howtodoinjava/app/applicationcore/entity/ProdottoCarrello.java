@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 //TODO CLASSE DTO E MAPPER
 
@@ -14,11 +15,13 @@ public class ProdottoCarrello {
     @ManyToOne
     @MapsId("username") // Mappa il campo idCarrello nella chiave composta
     @JoinColumn(name = "username", nullable = false)
+    @JsonIgnore
     private Carrello carrello;
 
     @ManyToOne
     @MapsId("idProdotto") // Mappa il campo idProdotto nella chiave composta
     @JoinColumn(name = "id_Prodotto", nullable = false)
+    @JsonIgnore
     private Prodotto prodotto;
 
     @Column(nullable = false)

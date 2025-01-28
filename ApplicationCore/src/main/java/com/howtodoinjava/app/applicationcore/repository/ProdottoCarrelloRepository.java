@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PrdottoCarrelloRepository extends JpaRepository<ProdottoCarrello, ProdottoCarrelloId> {
-//    List<ProdottoCarrello> findByIdCarrello(String username);
-//    List<ProdottoCarrello> findByIdProdotto(Long idProdotto);
+public interface ProdottoCarrelloRepository extends JpaRepository<ProdottoCarrello, ProdottoCarrelloId> {
+    List<ProdottoCarrello> findByCarrelloClienteUsername(String username);
 }
