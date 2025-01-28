@@ -26,17 +26,25 @@ public class ClienteController {
     }
 
     @PostMapping("/carrello/{username}/aggiungi")
-    public ResponseEntity<Carrello> aggiungiProdottoAlCarrello(
+    public ResponseEntity<?> aggiungiProdottoAlCarrello(
             @PathVariable String username,
             @RequestParam Long idProdotto,
             @RequestParam Integer quantita) {
-        if (quantita <= 0) {
-            return ResponseEntity.badRequest().build();
-        }
+        try {
+            if (quantita <= 0) {
+                return ResponseEntity.badRequest().body("La quantità deve essere maggiore di zero.");
+            }
 
-        Carrello carrello = clienteService.aggiungiProdottoAlCarrello(username, idProdotto, quantita);
-        return ResponseEntity.ok(carrello);
+            Carrello carrello = clienteService.aggiungiProdottoAlCarrello(username, idProdotto, quantita);
+            return ResponseEntity.ok(carrello);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore interno del server.");
+        }
     }
+
 
     @GetMapping("/carrello/{username}/prodotti")
     public ResponseEntity<List<ProdottoCarrello>> visualizzaProdottiCarrello(@PathVariable String username) {
