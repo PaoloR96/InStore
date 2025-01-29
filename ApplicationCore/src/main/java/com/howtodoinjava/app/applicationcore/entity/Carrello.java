@@ -6,32 +6,46 @@ import java.util.List;
 @Entity
 @Table(name="CARRELLO")
 public class Carrello {
-        //definizione variabili
+
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private Long id;
-        private Float prezzoComplessivo;
-        @OneToMany(cascade = CascadeType.ALL)
-        @JoinColumn(name = "id_carrello")
-        private List<Prodotto> listaProdottiCarrello;
+        @Column(name = "username")
+        private String id;
+
         @OneToOne
+        @MapsId
+        @JoinColumn(name = "username", nullable = false)
         private Cliente cliente;
+
+        @Column(name = "prezzo_complessivo", nullable = false)
+        private Float prezzoComplessivo;
+
+        @OneToMany(mappedBy = "carrello", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<ProdottoCarrello> listaProdottiCarrello;
+
 
         public Carrello() {}
 
-        public Carrello(Long id, Float prezzoComplessivo, List<Prodotto> listaProdottiCarrello, Cliente cliente) {
+        public Carrello(String id, Cliente cliente, Float prezzoComplessivo, List<ProdottoCarrello> listaProdottiCarrello) {
                 this.id = id;
+                this.cliente = cliente;
                 this.prezzoComplessivo = prezzoComplessivo;
                 this.listaProdottiCarrello = listaProdottiCarrello;
-                this.cliente = cliente;
         }
 
-        public Long getId() {
+        public String getId() {
                 return id;
         }
 
-        public void setId(Long id) {
+        public void setId(String id) {
                 this.id = id;
+        }
+
+        public Cliente getCliente() {
+                return cliente;
+        }
+
+        public void setCliente(Cliente cliente) {
+                this.cliente = cliente;
         }
 
         public Float getPrezzoComplessivo() {
@@ -42,11 +56,11 @@ public class Carrello {
                 this.prezzoComplessivo = prezzoComplessivo;
         }
 
-        public List<Prodotto> getListaProdottiCarrello() {
+        public List<ProdottoCarrello> getListaProdottiCarrello() {
                 return listaProdottiCarrello;
         }
 
-        public void setListaProdottiCarrello(List<Prodotto> listaProdottiCarrello) {
+        public void setListaProdottiCarrello(List<ProdottoCarrello> listaProdottiCarrello) {
                 this.listaProdottiCarrello = listaProdottiCarrello;
         }
 }

@@ -8,7 +8,7 @@ RUN apk update && apk add --no-cache nginx
 RUN mkdir -p /etc/nginx/conf.d
 
 # Copia la configurazione personalizzata di NGINX nella directory appropriata
-COPY ./nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/nginx.conf
 
 # Esponi la porta 80 per consentire il traffico HTTP
 EXPOSE 80
