@@ -2,8 +2,8 @@ package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
-
 import java.util.Date;
+
 //TODO CLASSE DTO E MAPPER
 
 @Entity
@@ -13,7 +13,7 @@ public class CartaCredito {
         @Id
         @Column(name = "numero_carta")
         private String numeroCarta;
-        @Column(name = "data_sacdenza", nullable = false)
+        @Column(name = "data_scadenza", nullable = false)
         @Temporal(TemporalType.DATE)
         private Date dataScadenza;
         @Column(name = "nome_intestatario", nullable = false)
@@ -24,7 +24,7 @@ public class CartaCredito {
         @Digits(integer = 3, fraction = 0)
         private Integer cvc;
 
-        @OneToOne(mappedBy = "cartaCredito", orphanRemoval = true)
+        @OneToOne(mappedBy = "cartaCredito")
         private Cliente cliente;
 
         public CartaCredito() {

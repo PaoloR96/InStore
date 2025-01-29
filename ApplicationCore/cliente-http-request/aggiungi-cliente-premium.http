@@ -1,0 +1,15 @@
+POST http://localhost:8080/api/clienti/aggiungi_premium
+Content-Type: application/x-www-form-urlencoded
+
+username=clientePremium1 &
+email=clientePremium1@example.com &
+password=securePassword123 &
+numCell=333444555 &
+nome=Giulia &
+cognome=Verdi &
+sconto=15 &
+numeroCarta=9999888877776666 &
+dataScadenza=2027-10-15 &
+nomeIntestatario=Giulia &
+cognomeIntestatario=Verdi &
+cvc=789
