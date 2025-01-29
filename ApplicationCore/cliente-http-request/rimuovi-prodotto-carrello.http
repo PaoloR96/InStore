@@ -1,0 +1,1 @@
+DELETE http://localhost:8080/api/carrello/cliente1/rimuovi?idProdotto=2

@@ -1,14 +1,13 @@
 package com.howtodoinjava.app.applicationcore.service;
 
-import com.howtodoinjava.app.applicationcore.entity.Prodotto;
-import com.howtodoinjava.app.applicationcore.entity.Carrello;
-import com.howtodoinjava.app.applicationcore.entity.ProdottoCarrello;
-import com.howtodoinjava.app.applicationcore.entity.ProdottoCarrelloId;
-import com.howtodoinjava.app.applicationcore.repository.CarrelloRepository;
-import com.howtodoinjava.app.applicationcore.repository.ProdottoCarrelloRepository;
-import com.howtodoinjava.app.applicationcore.repository.ProdottoRepository;
+import com.howtodoinjava.app.applicationcore.entity.*;
+import com.howtodoinjava.app.applicationcore.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +21,11 @@ public class ClienteService {
     private CarrelloRepository carrelloRepository;
     @Autowired
     private ProdottoCarrelloRepository prodottoCarrelloRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private CartaCreditoRepository cartaCreditoRepository;
+
 
     public List<Prodotto> visualizzaProdotti(){
         return prodottoRepository.findAll();
@@ -65,6 +69,9 @@ public class ClienteService {
                 }
             }
 
+        carrelloRepository.updatePrezzoComplessivoByUsername(username);
+
+        carrello.setPrezzoComplessivo(carrelloRepository.findPrezzoComplessivoByUsername(username));
         return carrello;
     }
 
@@ -76,4 +83,148 @@ public class ClienteService {
         return prodottoCarrelloRepository.findByCarrelloClienteUsername(username);
     }
 
+    public void rimuoviProdottoCarrello(String username, Long idProdotto) {
+
+        Carrello carrello = carrelloRepository.findByClienteUsername(username)
+                .orElseThrow(() -> new RuntimeException("Carrello non trovato per l'utente: " + username));
+
+        // Recupera l'ID del prodotto nel carrello
+        ProdottoCarrelloId prodottoCarrelloId = new ProdottoCarrelloId(carrello.getCliente().getUsername(), idProdotto);
+
+        // Trova il prodotto nel carrello
+        ProdottoCarrello prodottoCarrello = prodottoCarrelloRepository.findById(prodottoCarrelloId)
+                .orElseThrow(() -> new RuntimeException("Prodotto non trovato nel carrello"));
+
+        // Rimuove il prodotto dal carrello
+        prodottoCarrelloRepository.delete(prodottoCarrello);
+
+        carrelloRepository.updatePrezzoComplessivoByUsername(username);
+    }
+
+    @Transactional
+    public Cliente upgradePremium(String username) {
+        // Verifica che il cliente esista
+        Cliente cliente = clienteRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("Cliente non trovato con username: " + username));
+
+        if (cliente instanceof ClientePremium) {
+            throw new IllegalStateException("Il cliente è già PREMIUM");
+        }
+
+        clienteRepository.upgradeClientePremium(username, 10);
+
+        return cliente;
+    }
+
+
+
+
+
+//    @Transactional
+//    public ClientePremium upgradePremium(String username) {
+//        Cliente cliente = clienteRepository.findById(username)
+//                .orElseThrow(() -> new RuntimeException("Cliente non trovato con username: " + username));
+//        System.out.println("Cliente trovato: " + cliente.getUsername());
+//
+//        if (cliente instanceof ClientePremium) {
+//            throw new IllegalStateException("Il cliente è già PREMIUM");
+//        }
+//
+//        clienteRepository.delete(cliente);
+//
+//        ClientePremium clientePremium = creareClientePremium(
+//                cliente.getUsername(),      // username del Cliente
+//                cliente.getEmail(),         // email del Cliente
+//                cliente.getPassword(),      // password del Cliente
+//                cliente.getNumCell(),       // numero di cellulare
+//                cliente.getNome(),          // nome del Cliente
+//                cliente.getCognome(),       // cognome del Cliente
+//                10,                         // sconto predefinito per il ClientePremium
+//                cliente.getCartaCredito().getNumeroCarta(),  // numero carta di credito
+//                cliente.getCartaCredito().getDataScadenza(), // data di scadenza della carta
+//                cliente.getCartaCredito().getNomeIntestatario(),  // nome intestatario carta
+//                cliente.getCartaCredito().getCognomeIntestatario(), // cognome intestatario carta
+//                cliente.getCartaCredito().getCvc(), // cvc della carta di credito
+//                cliente.getListaClienteOrdini()
+//        );
+//
+//        return clientePremium;
+//    }
+
+
+//    public ClientePremium creareClientePremium(String username, String email, String password, String numCell,
+//                                        String nome, String cognome, Integer sconto, String numeroCarta,
+//                                        Date dataScadenza, String nomeIntestatario, String cognomeIntestatario,
+//                                        Integer cvc, List<Ordine> listaClienteOrdini) {
+//        //Creare la Carta di Credito
+//        CartaCredito cartaCredito = new CartaCredito();
+//        cartaCredito.setNumeroCarta(numeroCarta);
+//        cartaCredito.setDataScadenza(dataScadenza);
+//        cartaCredito.setNomeIntestatario(nomeIntestatario);
+//        cartaCredito.setCognomeIntestatario(cognomeIntestatario);
+//        cartaCredito.setCvc(cvc);
+//        cartaCreditoRepository.save(cartaCredito); // Salviamo la carta di credito
+//
+//
+//        //Creare il Cliente Premium
+//        ClientePremium clientePremium = new ClientePremium();
+//        clientePremium.setUsername(username);
+//        clientePremium.setEmail(email);
+//        clientePremium.setPassword(password);
+//        clientePremium.setNumCell(numCell);
+//        clientePremium.setNome(nome);
+//        clientePremium.setCognome(cognome);
+//        clientePremium.setStatoCliente(StatoCliente.ABILITATO); // Stato iniziale
+//        clientePremium.setSconto(sconto); // Sconto per cliente premium
+//        clientePremium.setCartaCredito(cartaCredito); // Associare la Carta di Credito
+//        clientePremium.setListaClienteOrdini(listaClienteOrdini);
+//
+//        // Creare il Carrello
+//        Carrello carrello = new Carrello();
+//        carrello.setPrezzoComplessivo(0.0f); // Prezzo iniziale
+//        carrello.setCliente(clientePremium); // Associare il cliente al carrello
+//        clientePremium.setCarrello(carrello); // Associare il carrello al cliente
+//
+//        // Salvare il Cliente Premium (e il Carrello grazie alla cascata)
+//        clienteRepository.save(clientePremium); // Salva sia Cliente che Carrello grazie alla cascata
+//
+//        return clientePremium;
+//    }
+
+
+    public Cliente creareClienteStandard(String username, String email, String password, String numCell,
+                                         String nome, String cognome, String numeroCarta, Date dataScadenza,
+                                         String nomeIntestatario, String cognomeIntestatario, Integer cvc) {
+        //Creare la Carta di Credito
+        CartaCredito cartaCredito = new CartaCredito();
+        cartaCredito.setNumeroCarta(numeroCarta);
+        cartaCredito.setDataScadenza(dataScadenza);
+        cartaCredito.setNomeIntestatario(nomeIntestatario);
+        cartaCredito.setCognomeIntestatario(cognomeIntestatario);
+        cartaCredito.setCvc(cvc);
+        cartaCreditoRepository.save(cartaCredito); // Salviamo prima la carta di credito
+
+        //Creare il Cliente Standard
+        Cliente clienteStandard = new Cliente();
+        clienteStandard.setUsername(username);
+        clienteStandard.setEmail(email);
+        clienteStandard.setPassword(password);
+        clienteStandard.setNumCell(numCell);
+        clienteStandard.setNome(nome);
+        clienteStandard.setCognome(cognome);
+        clienteStandard.setStatoCliente(StatoCliente.ABILITATO); // Stato iniziale
+        clienteStandard.setCartaCredito(cartaCredito); // Associare la Carta di Credito
+
+        //Creare il Carrello
+        Carrello carrello = new Carrello();
+        carrello.setPrezzoComplessivo(0.0f); // Prezzo iniziale
+        carrello.setCliente(clienteStandard); // Associare il cliente al carrello
+        clienteStandard.setCarrello(carrello); // Associare il carrello al cliente
+
+        //Salvare il Cliente (e il Carrello grazie alla cascata)
+        clienteRepository.save(clienteStandard); // Salva sia Cliente che Carrello grazie alla cascata
+
+        return clienteStandard;
+    }
 }
+

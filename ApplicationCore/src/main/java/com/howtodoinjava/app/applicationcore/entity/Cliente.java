@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -21,10 +22,12 @@ public class Cliente extends Utente {
 
         @OneToOne
         @JoinColumn(name = "numero_carta_credito", nullable = false)
+        @JsonIgnore
         private CartaCredito cartaCredito;
 
         @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
         @PrimaryKeyJoinColumn
+        @JsonIgnore
         private Carrello carrello;
 
         @Column(name = "stato_cliente", nullable = false)
@@ -32,6 +35,7 @@ public class Cliente extends Utente {
         private StatoCliente statoCliente;
 
         @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+        @JsonIgnore
         private List<Ordine> listaClienteOrdini;
 
         public Cliente() {}
@@ -54,6 +58,9 @@ public class Cliente extends Utente {
                 this.statoCliente = statoCliente;
                 this.listaClienteOrdini = listaClienteOrdini;
         }
+
+
+
 
         public String getNome() {
                 return nome;
@@ -102,4 +109,5 @@ public class Cliente extends Utente {
         public void setListaClienteOrdini(List<Ordine> listaClienteOrdini) {
                 this.listaClienteOrdini = listaClienteOrdini;
         }
+
 }

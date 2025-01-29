@@ -1,2 +1,2 @@
-POST http://localhost:8080/api/carrello/mrossi/aggiungi?idProdotto=1&quantita=100
+POST http://localhost:8080/api/carrello/cliente1/aggiungi?idProdotto=3&quantita=2
 Content-Type: application/json
