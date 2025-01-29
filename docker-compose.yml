@@ -19,17 +19,12 @@ services:
 
   # Servizio Keycloak per la gestione dell'autenticazione
   keycloak:
-    build:
-      context: ./KeycloakService  # Percorso del Dockerfile per Keycloak
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: Keycloak_Manager  # Nome del contenitore di Keycloak
-    environment:
-      KEYCLOAK_ADMIN: admin  # Credenziali dell'amministratore di Keycloak
-      KEYCLOAK_ADMIN_PASSWORD: admin  # Password dell'amministratore di Keycloak
+    build: ./KeycloakService        # path of dockerfile
+    container_name: Keycloak_Manager
     ports:
-      - "8090:8080"  # Mappa la porta 8090 per l'accesso a Keycloak
+      - "0.0.0.0:8090:8080"  # Mappa la porta 8090 per l'accesso a Keycloak
     networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
+      - app-network
 
   # Servizio Nginx come reverse proxy
   nginx:
@@ -69,7 +64,7 @@ services:
 # Definizione delle reti utilizzate dai vari servizi
 networks:
   app-network:
-    external: true  # Rete esterna già esistente per i contenitori
+#   external: true  # Rete esterna già esistente per i contenitori
 
 # Definizione dei volumi per la persistenza dei dati
 volumes:
