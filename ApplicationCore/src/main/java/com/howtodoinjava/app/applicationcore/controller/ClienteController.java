@@ -35,7 +35,7 @@ public class ClienteController {
                 return ResponseEntity.badRequest().body("La quantità deve essere maggiore di zero.");
             }
 
-            Carrello carrello = clienteService.aggiungiProdottoAlCarrello(username, idProdotto, quantita);
+            Carrello carrello = clienteService.aggiungiProdottoCarrello(username, idProdotto, quantita);
             return ResponseEntity.ok(carrello);
 
         } catch (IllegalArgumentException e) {

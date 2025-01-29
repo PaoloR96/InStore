@@ -1,13 +1,13 @@
 ### Inserisci un nuovo prodotto
 ### Inserimento di un prodotto per un rivenditore
 ### Inserimento Prodotto per il Rivenditore 1
-POST http://localhost:8080/api/rivenditori/rivenditore1/insprodotti
+POST http://localhost:8080/api/rivenditori/rivenditore2/insprodotti
 Content-Type: application/json
 
 {
-  "nomeProdotto": "zaccagni",
-  "descrizione": "prova",
-  "prezzo": 70.99,
+  "nomeProdotto": "pippo",
+  "descrizione": "pluto",
+  "prezzo": 20.99,
   "taglia": "L",
   "immagine": "pantaloni.jpg",
   "pathImmagine": "/images/pantalonie.jpg",

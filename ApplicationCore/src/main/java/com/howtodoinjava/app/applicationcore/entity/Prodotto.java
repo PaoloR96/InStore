@@ -42,9 +42,11 @@ public class Prodotto {
     private Rivenditore rivenditore;
 
     @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<ProdottoCarrello> listaProdottiCarrello;
 
     @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<ProdottoOrdine> listaProdottiOrdine;
 
     public Prodotto() {}

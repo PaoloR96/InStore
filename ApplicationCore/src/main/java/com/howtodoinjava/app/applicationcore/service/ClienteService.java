@@ -2,8 +2,8 @@ package com.howtodoinjava.app.applicationcore.service;
 
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.repository.*;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +31,8 @@ public class ClienteService {
         return prodottoRepository.findAll();
     }
 
-    public Carrello aggiungiProdottoAlCarrello(String username, Long idProdotto, Integer quantita) {
+    @Transactional
+    public Carrello aggiungiProdottoCarrello(String username, Long idProdotto, Integer quantita) {
         // Recupera il carrello del cliente
         Carrello carrello = carrelloRepository.findByClienteUsername(username)
                 .orElseThrow(() -> new RuntimeException("Carrello non trovato per l'utente: " + username));
@@ -69,9 +70,11 @@ public class ClienteService {
                 }
             }
 
-        carrelloRepository.updatePrezzoComplessivoByUsername(username);
+            carrelloRepository.updatePrezzoComplessivoByUsername(username);
+            carrello.setPrezzoComplessivo(carrelloRepository.findPrezzoComplessivoByUsername(username));
 
-        carrello.setPrezzoComplessivo(carrelloRepository.findPrezzoComplessivoByUsername(username));
+            Hibernate.initialize(carrello.getListaProdottiCarrello());
+
         return carrello;
     }
 
@@ -83,6 +86,7 @@ public class ClienteService {
         return prodottoCarrelloRepository.findByCarrelloClienteUsername(username);
     }
 
+    @Transactional
     public void rimuoviProdottoCarrello(String username, Long idProdotto) {
 
         Carrello carrello = carrelloRepository.findByClienteUsername(username)
