@@ -3,70 +3,80 @@ version: '3.8'
 services:
   # Servizio MySQL per la gestione del database
   mysql-db:
-    image: mysql:latest  # Utilizza l'immagine più recente di MySQL
-    container_name: Mysql_Service  # Nome del contenitore MySQL
+    image: mysql:latest                             # Utilizza l'immagine più recente di MySQL
+    container_name: Mysql_Service                   # Nome del contenitore MySQL
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword  # Password per l'utente root di MySQL
-      MYSQL_DATABASE: InStore_db  # Nome del database da creare all'avvio
-      MYSQL_PASSWORD: secret  # Password dell'utente MySQL
-      MYSQL_ROOT_HOST: '%'  # Consenti la connessione da qualsiasi host
-    networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
+      MYSQL_ROOT_PASSWORD: rootpassword             # Password per l'utente root di MySQL
+      MYSQL_DATABASE: InStore_db                    # Nome del database da creare all'avvio
+      MYSQL_PASSWORD: secret                        # Password dell'utente MySQL
+      MYSQL_ROOT_HOST: '%'                          # Consenti la connessione da qualsiasi host
+#    networks:
+#      - app-network                                 # Aggiungi il contenitore alla rete app-network
     ports:
-      - "3306:3306"  # Mappa la porta 3306 per le connessioni MySQL
+      - "3306:3306"                                 # Mappa la porta 3306 per le connessioni MySQL
     volumes:
-      - mysql-data:/var/lib/mysql  # Volumes per persistenza dei dati del database
+      - mysql-data:/var/lib/mysql                   # Volumes per persistenza dei dati del database
 
   # Servizio Keycloak per la gestione dell'autenticazione
   keycloak:
-    build: ./KeycloakService        # path of dockerfile
+    build: ./KeycloakService                        # path of dockerfile
     container_name: Keycloak_Manager
     ports:
-      - "0.0.0.0:8090:8080"  # Mappa la porta 8090 per l'accesso a Keycloak
-    networks:
-      - app-network
+      - "8090:8080"                                 # Mappa la porta 8090 per l'accesso a Keycloak
+#    networks:
+#      - app-network
 
-  # Servizio Nginx come reverse proxy
-  nginx:
-    build:
-      context: ./NgnixService  # Percorso del Dockerfile per Nginx
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: Nginx_Manager  # Nome del contenitore Nginx
-    ports:
-      - "80:80"  # Mappa la porta 80 per il traffico HTTP
-    volumes:
-      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf  # Configurazione personalizzata di Nginx
-    networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
+#   #Servizio Nginx come reverse proxy
+#  nginx:
+#    build:
+#      context: ./NgnixService                             # Percorso del Dockerfile per Nginx
+#      dockerfile: Dockerfile                              # Nome del Dockerfile
+#    container_name: Nginx_Manager                         # Nome del contenitore Nginx
+#    ports:
+#      - "80:80"                                           # Mappa la porta 80 per il traffico HTTP
+#    volumes:
+#      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf   # Configurazione personalizzata di Nginx
+#    networks:
+#      - app-network                                       # Aggiungi il contenitore alla rete app-network
+#
+#   #Servizio Vault per la gestione dei segreti
+#  vault:
+#    build:
+#      context: ./VaultService                             # Percorso del Dockerfile per Vault
+#      dockerfile: Dockerfile                              # Nome del Dockerfile
+#    container_name: Vault_Manager                         # Nome del contenitore di Vault
+#    networks:
+#      - app-network                                       # Aggiungi il contenitore alla rete app-network
+#    ports:
+#      - "8200:8200"                                       # Mappa la porta 8200 per l'accesso a Vault
+#   # volumes:
+#  #    - ./VaultService/vault-config:/vault-config        # Configurazione di Vault
+#
+#    environment:
+#      VAULT_ADDR: http://127.0.0.1:8200                   # Indirizzo di Vault per la connessione
+#    healthcheck:
+#      test: ["CMD", "vault", "status"]                    # Comando di verifica della salute di Vault
+#      interval: 30s                                       # Intervallo tra i controlli
+#      timeout: 10s                                        # Tempo massimo per il controllo
+#      retries: 3                                          # Numero di tentativi prima di segnalarlo come fallito
+#    cap_add:
+#      - IPC_LOCK                                          # Aggiungi la capacità IPC_LOCK per Vault
+#
+#  app:
+#      build: ./ApplicationCore
+#      ports:
+#        - "8080:8080"
+#      depends_on:
+#        - mysql-db
+#        - keycloak
 
-  # Servizio Vault per la gestione dei segreti
-  vault:
-    build:
-      context: ./VaultService  # Percorso del Dockerfile per Vault
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: Vault_Manager  # Nome del contenitore di Vault
-    networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
-    ports:
-      - "8200:8200"  # Mappa la porta 8200 per l'accesso a Vault
-   # volumes:
-  #    - ./VaultService/vault-config:/vault-config  # Configurazione di Vault
-    environment:
-      VAULT_ADDR: http://127.0.0.1:8200  # Indirizzo di Vault per la connessione
-    healthcheck:
-      test: ["CMD", "vault", "status"]  # Comando di verifica della salute di Vault
-      interval: 30s  # Intervallo tra i controlli
-      timeout: 10s  # Tempo massimo per il controllo
-      retries: 3  # Numero di tentativi prima di segnalarlo come fallito
-    cap_add:
-      - IPC_LOCK  # Aggiungi la capacità IPC_LOCK per Vault
 
-# Definizione delle reti utilizzate dai vari servizi
-networks:
-  app-network:
-#   external: true  # Rete esterna già esistente per i contenitori
-
+## Definizione delle reti utilizzate dai vari servizi
+#networks:
+#  app-network:
+##   external: true  # Rete esterna già esistente per i contenitori
+#
 # Definizione dei volumi per la persistenza dei dati
 volumes:
-  mysql-data:  # Volume per i dati di MySQL
+  mysql-data:                                              # Volume per i dati di MySQL
 
