@@ -1,0 +1,2 @@
+POST http://localhost:8080/api/pagamento/cliente2
+Content-Type: application/json

@@ -11,7 +11,7 @@ public class Carrello {
         @Column(name = "username")
         private String id;
 
-        @OneToOne
+        @OneToOne(orphanRemoval = true)
         @MapsId
         @JoinColumn(name = "username", nullable = false)
         private Cliente cliente;
@@ -25,11 +25,9 @@ public class Carrello {
 
         public Carrello() {}
 
-        public Carrello(String id, Cliente cliente, Float prezzoComplessivo, List<ProdottoCarrello> listaProdottiCarrello) {
-                this.id = id;
+        public Carrello(Cliente cliente, Float prezzoComplessivo) {
                 this.cliente = cliente;
                 this.prezzoComplessivo = prezzoComplessivo;
-                this.listaProdottiCarrello = listaProdottiCarrello;
         }
 
         public String getId() {

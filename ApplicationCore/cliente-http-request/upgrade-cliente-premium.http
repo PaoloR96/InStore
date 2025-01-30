@@ -1,1 +1,1 @@
-PUT http://localhost:8080/api/clienti/mrossi/upgrade
+PUT http://localhost:8080/api/clienti/cliente2/upgrade

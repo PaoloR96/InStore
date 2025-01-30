@@ -87,6 +87,17 @@ public class ClienteController {
         }
     }
 
+    @PostMapping("/pagamento/{username}")
+    public ResponseEntity<String> effettuaPagamento(@PathVariable String username) {
+        try {
+            clienteService.effettuaPagamento(username);
+            return ResponseEntity.ok("Pagamento effettuato con successo");
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
     @PostMapping("/clienti/aggiungi_standard")
     public Cliente creareClienteStandard(@RequestParam String username,
                                          @RequestParam String email,

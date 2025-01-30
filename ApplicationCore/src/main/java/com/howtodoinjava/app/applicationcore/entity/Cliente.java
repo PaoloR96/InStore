@@ -49,14 +49,12 @@ public class Cliente extends Utente {
                 this.listaClienteOrdini = listaClienteOrdini;
         }
 
-        public Cliente(String email, String username, String password, String numCell, String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, StatoCliente statoCliente, List<Ordine> listaClienteOrdini) {
-                super(email, username, password, numCell);
+        public Cliente(String email, String username, String password, String numCell, String nome, String cognome, CartaCredito cartaCredito, StatoCliente statoCliente) {
+                super(username, email, password, numCell);
                 this.nome = nome;
                 this.cognome = cognome;
                 this.cartaCredito = cartaCredito;
-                this.carrello = carrello;
                 this.statoCliente = statoCliente;
-                this.listaClienteOrdini = listaClienteOrdini;
         }
 
 

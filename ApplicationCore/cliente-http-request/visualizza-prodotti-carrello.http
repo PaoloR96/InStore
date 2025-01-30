@@ -1,2 +1,2 @@
-GET http://localhost:8080/api/carrello/mrossi/prodotti
+GET http://localhost:8080/api/carrello/cliente1/prodotti
 Accept: application/json

@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class ClienteService {
@@ -25,6 +27,10 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
     @Autowired
     private CartaCreditoRepository cartaCreditoRepository;
+    @Autowired
+    private ProdottoOrdineRepository prodottoOrdineRepository;
+    @Autowired
+    private OrdineRepository ordineRepository;
 
 
     public List<Prodotto> visualizzaProdotti(){
@@ -59,11 +65,12 @@ public class ClienteService {
 
                 if(quantita<=prodotto.getQuantitaTotale()) {
                     // Aggiungi un nuovo prodotto al carrello
-                    ProdottoCarrello nuovoProdottoCarrello = new ProdottoCarrello();
-                    nuovoProdottoCarrello.setId(prodottoCarrelloId);
-                    nuovoProdottoCarrello.setCarrello(carrello);
-                    nuovoProdottoCarrello.setProdotto(prodotto);
-                    nuovoProdottoCarrello.setQuantita(quantita);
+                    ProdottoCarrello nuovoProdottoCarrello = new ProdottoCarrello(
+                            prodottoCarrelloId,
+                            carrello,
+                            prodotto,
+                            quantita);
+
                     prodottoCarrelloRepository.save(nuovoProdottoCarrello);
                 }else {
                     throw new IllegalArgumentException("Quantità richiesta (" + quantita + ") maggiore della quantità disponibile (" + prodotto.getQuantitaTotale() + ").");
@@ -71,6 +78,7 @@ public class ClienteService {
             }
 
             carrelloRepository.updatePrezzoComplessivoByUsername(username);
+            //Per restituire in carrello il prezzoComplessivo giusto e aggiornato
             carrello.setPrezzoComplessivo(carrelloRepository.findPrezzoComplessivoByUsername(username));
 
             Hibernate.initialize(carrello.getListaProdottiCarrello());
@@ -121,7 +129,94 @@ public class ClienteService {
     }
 
 
+    @Transactional
+    public void effettuaPagamento(String username) {
 
+        Cliente cliente = clienteRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("Cliente non trovato"));
+
+        Carrello carrello = carrelloRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("Carrello non trovato"));
+
+        List<ProdottoCarrello> prodottiCarrello = getProdottiCarrelloAndCheckQuantity(carrello);
+
+        // Creazione nuovo ordine
+        Ordine ordine = new Ordine(
+                new Date(),
+                applicaSconto(cliente,carrello),
+                cliente);
+
+        ordine = ordineRepository.save(ordine);
+
+        // Creazione prodotti ordine e aggiornamento quantità
+        List<ProdottoOrdine> prodottiOrdine = createProdottiOrdineAndUpdateQuantity(prodottiCarrello, ordine);
+
+        prodottoOrdineRepository.saveAll(prodottiOrdine);
+        prodottoRepository.saveAll(prodottiCarrello.stream().map(ProdottoCarrello::getProdotto).toList());
+
+        // Svuotamento e azzeramento prezzo complessivo del carrello
+        carrello.getListaProdottiCarrello().clear();
+        carrelloRepository.save(carrello);
+        prodottoCarrelloRepository.deleteAll(prodottiCarrello);
+        carrelloRepository.updatePrezzoComplessivoByUsername(username);
+
+        if(!eseguiPagamento(ordine)){
+            throw new RuntimeException("Errore di Pagamento");
+        }
+    }
+
+    private static List<ProdottoOrdine> createProdottiOrdineAndUpdateQuantity(List<ProdottoCarrello> prodottiCarrello, Ordine ordine) {
+        List<ProdottoOrdine> prodottiOrdine = new ArrayList<>();
+        for (ProdottoCarrello pc : prodottiCarrello) {
+            Prodotto prodotto = pc.getProdotto();
+            prodotto.setQuantitaTotale(prodotto.getQuantitaTotale() - pc.getQuantita());
+
+            ProdottoOrdine prodottoOrdine = new ProdottoOrdine(
+                    new ProdottoOrdineId(ordine.getIdOrdine(),
+                    prodotto.getIdProdotto()),
+                    ordine,
+                    prodotto,
+                    pc.getQuantita());
+
+            prodottiOrdine.add(prodottoOrdine);
+        }
+        return prodottiOrdine;
+    }
+
+    private static List<ProdottoCarrello> getProdottiCarrelloAndCheckQuantity(Carrello carrello) {
+        List<ProdottoCarrello> prodottiCarrello = carrello.getListaProdottiCarrello();
+        if (prodottiCarrello.isEmpty()) {
+            throw new RuntimeException("Il carrello è vuoto");
+        }
+
+        // Controllo disponibilità prodotti
+        for (ProdottoCarrello pc : prodottiCarrello) {
+            Prodotto prodotto = pc.getProdotto();
+            if (pc.getQuantita() > prodotto.getQuantitaTotale()) {
+                throw new RuntimeException("Quantità insufficiente per il prodotto: " + prodotto.getNomeProdotto());
+            }
+        }
+        return prodottiCarrello;
+    }
+
+    private Boolean eseguiPagamento(Ordine ordine) {
+            return true;
+    }
+
+    private Float applicaSconto(Cliente cliente, Carrello carrello) {
+        Float prezzoTotale;
+
+        if (cliente instanceof ClientePremium) {
+            prezzoTotale = carrello.getPrezzoComplessivo() -
+                    carrello.getPrezzoComplessivo() * ((ClientePremium) cliente).getSconto() / 100;
+        } else {
+            prezzoTotale = carrello.getPrezzoComplessivo();
+        }
+
+        // Arrotondamento a due cifre decimali
+        BigDecimal bd = new BigDecimal(prezzoTotale).setScale(2, RoundingMode.HALF_UP);
+        return bd.floatValue();
+    }
 
 
 //    @Transactional
@@ -200,29 +295,29 @@ public class ClienteService {
                                          String nome, String cognome, String numeroCarta, Date dataScadenza,
                                          String nomeIntestatario, String cognomeIntestatario, Integer cvc) {
         //Creare la Carta di Credito
-        CartaCredito cartaCredito = new CartaCredito();
-        cartaCredito.setNumeroCarta(numeroCarta);
-        cartaCredito.setDataScadenza(dataScadenza);
-        cartaCredito.setNomeIntestatario(nomeIntestatario);
-        cartaCredito.setCognomeIntestatario(cognomeIntestatario);
-        cartaCredito.setCvc(cvc);
+        CartaCredito cartaCredito = new CartaCredito(
+                numeroCarta,
+                dataScadenza,
+                nomeIntestatario,
+                cognomeIntestatario,
+                cvc);
+
         cartaCreditoRepository.save(cartaCredito); // Salviamo prima la carta di credito
 
         //Creare il Cliente Standard
-        Cliente clienteStandard = new Cliente();
-        clienteStandard.setUsername(username);
-        clienteStandard.setEmail(email);
-        clienteStandard.setPassword(password);
-        clienteStandard.setNumCell(numCell);
-        clienteStandard.setNome(nome);
-        clienteStandard.setCognome(cognome);
-        clienteStandard.setStatoCliente(StatoCliente.ABILITATO); // Stato iniziale
-        clienteStandard.setCartaCredito(cartaCredito); // Associare la Carta di Credito
+        Cliente clienteStandard = new Cliente(
+                email,
+                username,
+                password,
+                numCell,
+                nome,
+                cognome,
+                cartaCredito,
+                StatoCliente.ABILITATO);
 
         //Creare il Carrello
-        Carrello carrello = new Carrello();
-        carrello.setPrezzoComplessivo(0.0f); // Prezzo iniziale
-        carrello.setCliente(clienteStandard); // Associare il cliente al carrello
+        Carrello carrello = new Carrello(clienteStandard, 0.0f);
+
         clienteStandard.setCarrello(carrello); // Associare il carrello al cliente
 
         //Salvare il Cliente (e il Carrello grazie alla cascata)

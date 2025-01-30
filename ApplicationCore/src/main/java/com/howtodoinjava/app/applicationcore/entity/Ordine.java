@@ -31,11 +31,10 @@ public class Ordine {
 
         public Ordine() {}
 
-        public Ordine(Long idOrdine, Date dataOrdine, Float prezzoComplessivo, List<ProdottoOrdine> listaProdottiOrdine, Cliente cliente) {
-                this.idOrdine = idOrdine;
+        public Ordine(Date dataOrdine, Float prezzoComplessivo, Cliente cliente) {
+
                 this.dataOrdine = dataOrdine;
                 this.prezzoComplessivo = prezzoComplessivo;
-                this.listaProdottiOrdine = listaProdottiOrdine;
                 this.cliente = cliente;
         }
 

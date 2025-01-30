@@ -30,13 +30,13 @@ public class CartaCredito {
         public CartaCredito() {
         }
 
-        public CartaCredito(String numeroCarta, Date dataScadenza, String nomeIntestatario, String cognomeIntestatario, Integer cvc, Cliente cliente) {
+        public CartaCredito(String numeroCarta, Date dataScadenza, String nomeIntestatario, String cognomeIntestatario, Integer cvc) {
                 this.numeroCarta = numeroCarta;
                 this.dataScadenza = dataScadenza;
                 this.nomeIntestatario = nomeIntestatario;
                 this.cognomeIntestatario = cognomeIntestatario;
                 this.cvc = cvc;
-                this.cliente = cliente;
+
         }
 
         public String getNumeroCarta() {

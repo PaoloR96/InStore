@@ -14,7 +14,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="InStore_db@localhost" uuid="ce86260a-c756-47e9-b7d8-a197c4d964ed">
+    <data-source source="LOCAL" name="InStore_db@localhost" uuid="bbf252b9-deac-4d02-a8aa-27137b8c1c24">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>

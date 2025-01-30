@@ -25,19 +25,6 @@ public class ClientePremium extends Cliente {
                 this.sconto = sconto;
         }
 
-        public ClientePremium(Cliente cliente, Integer sconto) {
-                super(cliente.getEmail(), cliente.getUsername(), cliente.getPassword(), cliente.getNumCell(),
-                        cliente.getNome(), cliente.getCognome(), cliente.getCartaCredito(),
-                        cliente.getCarrello(), cliente.getStatoCliente(), cliente.getListaClienteOrdini());
-
-                this.sconto = sconto;
-        }
-
-        public ClientePremium(String email, String username, String password, String numCell, String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, StatoCliente statoCliente, List<Ordine> listaClienteOrdini, String numeroCartaFedelta, Integer sconto) {
-                super(email, username, password, numCell, nome, cognome, cartaCredito, carrello, statoCliente, listaClienteOrdini);
-                this.sconto = sconto;
-        }
-
         public Integer getSconto() {
                 return sconto;
         }
