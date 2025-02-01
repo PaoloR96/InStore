@@ -54,8 +54,6 @@ services:
       - app-network  # Aggiungi il contenitore alla rete app-network
     ports:
       - "8200:8200"  # Mappa la porta 8200 per l'accesso a Vault
-   # volumes:
-  #    - ./VaultService/vault-config:/vault-config  # Configurazione di Vault
     environment:
       VAULT_ADDR: http://127.0.0.1:8200  # Indirizzo di Vault per la connessione
     healthcheck:
@@ -66,6 +64,23 @@ services:
     cap_add:
       - IPC_LOCK  # Aggiungi la capacità IPC_LOCK per Vault
 
+  # Servizio per l'applicazione ApplicationCore
+  application-core:
+    build:
+      context: ./ApplicationCore  # Percorso del Dockerfile per ApplicationCore
+      dockerfile: Dockerfile  # Nome del Dockerfile
+    container_name: ApplicationCore_Service  # Nome del contenitore per ApplicationCore
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://Mysql_Service:3306/InStore_db?useSSL=false&allowPublicKeyRetrieval=true # URL per connettersi a MySQL
+      SPRING_DATASOURCE_USERNAME: root  # Username per il database
+      SPRING_DATASOURCE_PASSWORD: rootpassword  # Password per il database
+    networks:
+      - app-network  # Aggiungi il contenitore alla rete app-network
+    #// depends_on:
+    #  - Mysql_Service # Assicurati che il servizio MySQL sia avviato prima di ApplicationCore
+    ports:
+      - "8081:8080"  # Mappa la porta 8081 per l'accesso a ApplicationCore
+
 # Definizione delle reti utilizzate dai vari servizi
 networks:
   app-network:
@@ -74,4 +89,5 @@ networks:
 # Definizione dei volumi per la persistenza dei dati
 volumes:
   mysql-data:  # Volume per i dati di MySQL
+
 
