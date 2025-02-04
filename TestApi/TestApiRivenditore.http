@@ -35,3 +35,24 @@ Content-Type: application/json
 ### Ottieni la lista prodotti del rivenditore "rivenditore1"
 GET http://localhost/api/rivenditori/rivenditore1/listaprodotti
 Accept: application/json
+
+
+### TEST con rotta API http://instore.puntoitstore.it/
+
+### Inserisci un nuovo prodotto per il rivenditore "rivenditore2"
+POST http://instore.puntoitstore.it/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+
+{
+  "nomeProdotto": "pippo",
+  "descrizione": "pluto",
+  "prezzo": 20.99,
+  "taglia": "L",
+  "immagine": "pantaloni.jpg",
+  "pathImmagine": "/images/pantalonie.jpg",
+  "quantitaTotale": 30
+}
+
+### Ottieni la lista prodotti del rivenditore "rivenditore1"
+GET http://instore.puntoitstore.it/api/rivenditori/rivenditore1/listaprodotti
+Accept: application/json

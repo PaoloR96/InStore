@@ -4,16 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="">
+    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="aggiunta config ngnix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NgnixService/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NgnixService/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/nginx.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" beforeDir="false" afterPath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -48,37 +55,42 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.keycloak: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.nginx: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.vault: Compose Deployment.executor": "Run",
-    "HTTP Request.TestApiRivenditore | #3.executor": "Run",
-    "HTTP Request.TestApiRivenditore | Ottieni la lista prodotti del rivenditore \"rivenditore1\".executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "paolo",
-    "go.import.settings.migrated": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker-compose.yml.application-core: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.certbot: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.keycloak: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.mysql-db: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.nginx: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.vault: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.TestApiRivenditore | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.TestApiRivenditore | Ottieni la lista prodotti del rivenditore \&quot;rivenditore1\&quot;.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;paolo&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Utente\Desktop\Ssd\ProgettoSSD\InStore\CertbotService" />
       <recent name="C:\Users\Utente\Desktop\Ssd\ProgettoSSD\InStore\ApplicationCore" />
     </key>
   </component>
-  <component name="RunManager" selected="HTTP Request.TestApiRivenditore | Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;">
+  <component name="RunManager" selected="HTTP Request.TestApiRivenditore | Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;#2">
     <configuration name="TestApiRivenditore | Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" executionIdentifier="Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;" index="4" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="TestApiRivenditore | Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;#2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" executionIdentifier="Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;#2" index="6" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="TestApiRivenditore | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" executionIdentifier="#3" index="3" runType="Run single request">
@@ -90,12 +102,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yml.application-core: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="docker-compose.yml.certbot: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="application-core" />
+              <option value="certbot" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose.yml" />
@@ -116,26 +128,13 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yml.vault: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="vault" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.TestApiRivenditore | Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;" />
+        <item itemvalue="HTTP Request.TestApiRivenditore | Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;#2" />
         <item itemvalue="Docker.docker-compose.yml.nginx: Compose Deployment" />
+        <item itemvalue="HTTP Request.TestApiRivenditore | Ottieni la lista prodotti del rivenditore &quot;rivenditore1&quot;" />
+        <item itemvalue="Docker.docker-compose.yml.certbot: Compose Deployment" />
         <item itemvalue="HTTP Request.TestApiRivenditore | #3" />
-        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.vault: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -159,12 +158,29 @@
       <workItem from="1738421751503" duration="306000" />
       <workItem from="1738424978077" duration="51000" />
       <workItem from="1738425043861" duration="4280000" />
-      <workItem from="1738571529579" duration="5424000" />
+      <workItem from="1738571529579" duration="8950000" />
+      <workItem from="1738590365957" duration="7955000" />
+      <workItem from="1738655571557" duration="6411000" />
+      <workItem from="1738681585381" duration="341000" />
+      <workItem from="1738687341341" duration="648000" />
     </task>
+    <task id="LOCAL-00001" summary="aggiunta config ngnix">
+      <option name="closed" value="true" />
+      <created>1738579373955</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738579373955</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="aggiunta config ngnix" />
+    <option name="LAST_COMMIT_MESSAGE" value="aggiunta config ngnix" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
