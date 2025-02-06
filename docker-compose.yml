@@ -8,8 +8,8 @@ services:
       MYSQL_DATABASE: InStore_db                    # Nome del database da creare all'avvio
       MYSQL_PASSWORD: secret                        # Password dell'utente MySQL
       MYSQL_ROOT_HOST: '%'                          # Consenti la connessione da qualsiasi host
-#    networks:
-#      - app-network                                 # Aggiungi il contenitore alla rete app-network
+    networks:
+      - app-network                                 # Aggiungi il contenitore alla rete app-network
     ports:
       - "3306:3306"                                 # Mappa la porta 3306 per le connessioni MySQL
     volumes:
@@ -23,8 +23,8 @@ services:
       - "8090:8080"                                 # Mappa la porta 8090 per l'accesso a Keycloak
     volumes:
       - ./KeycloakService/data:/opt/keycloak/data
-#    networks:
-#      - app-network
+    networks:
+      - app-network
 
   # Servizio Vault per la gestione dei segreti
   vault:

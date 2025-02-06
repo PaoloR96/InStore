@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="">
+    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="Merged Gae into Master: added (partial) Keycloak integration">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +27,9 @@
     &quot;accountId&quot;: &quot;b348a174-90da-474c-864b-12a85c70bc67&quot;
   }
 }</component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -50,7 +48,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "gae",
     "go.import.settings.migrated": "true",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
@@ -64,7 +62,9 @@
   </component>
   <component name="RunManager" selected="Docker.docker-compose.yml.application-core: Compose Deployment">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="docker-compose.yml.application-core: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
@@ -93,6 +93,10 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
@@ -123,6 +127,21 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merged Gae into Master: added (partial) Keycloak integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merged Gae into Master: added (partial) Keycloak integration" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
