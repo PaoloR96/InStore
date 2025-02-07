@@ -4,15 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="Merged Gae into Master: added (partial) Keycloak integration">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="Merged Master in Gae">
+      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -43,14 +59,21 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.keycloak: Compose Deployment.executor": "Run",
     "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "Spring Boot.ApplicationCoreApplication.executor": "Run",
     "git-widget-placeholder": "gae",
     "go.import.settings.migrated": "true",
     "kotlin-language-version-configured": "true",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -60,7 +83,23 @@
       <recent name="C:\Users\Utente\Desktop\Ssd\ProgettoSSD\InStore\ApplicationCore" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.application-core: Compose Deployment">
+  <component name="RunManager" selected="Spring Boot.ApplicationCoreApplication">
+    <configuration name="clienteTest | GET request to example server" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/ApplicationCore/src/clienteTest.http" executionIdentifier="GET request to example server" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="ApplicationCoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="ApplicationCore" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.howtodoinjava.app.applicationcore.ApplicationCoreApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.howtodoinjava.app.applicationcore.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -73,6 +112,19 @@
           <option name="services">
             <list>
               <option value="application-core" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.keycloak: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="keycloak" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose.yml" />
@@ -96,11 +148,17 @@
     <list>
       <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
+      <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
+      <item itemvalue="HTTP Request.clienteTest | GET request to example server" />
+      <item itemvalue="Spring Boot.ApplicationCoreApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
+        <item itemvalue="Spring Boot.ApplicationCoreApplication" />
         <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
+        <item itemvalue="HTTP Request.clienteTest | GET request to example server" />
       </list>
     </recent_temporary>
   </component>
@@ -123,6 +181,23 @@
       <workItem from="1738421551984" duration="186000" />
       <workItem from="1738421751503" duration="306000" />
     </task>
+    <task id="LOCAL-00001" summary="De-commenting networks in docker-compose.yml">
+      <option name="closed" value="true" />
+      <created>1738859410844</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738859410844</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Merged Master in Gae">
+      <option name="closed" value="true" />
+      <created>1738859517322</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738859517322</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,7 +216,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merged Gae into Master: added (partial) Keycloak integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged Gae into Master: added (partial) Keycloak integration" />
+    <MESSAGE value="De-commenting networks in docker-compose.yml" />
+    <MESSAGE value="Merged Master in Gae" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merged Master in Gae" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
