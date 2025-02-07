@@ -15,7 +15,19 @@
     <description>ApplicationCore</description>
     <properties>
         <java.version>17</java.version>
+        <spring-cloud.version>2023.0.5</spring-cloud.version>
     </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <!-- Dipendenza per Spring Data JPA, utile per la gestione dei dati tramite JPA (Java Persistence API) -->
         <dependency>
@@ -68,6 +80,16 @@
             <version>1.5.5.Final</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-vault-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-vault-config-databases</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

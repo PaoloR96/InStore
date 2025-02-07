@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+//TODO eliminare funzionalità di creazione cliente standard
 @Service
 public class ClienteService {
 
@@ -39,11 +40,10 @@ public class ClienteService {
 
     @Transactional
     public Carrello aggiungiProdottoCarrello(String username, Long idProdotto, Integer quantita) {
-        // Recupera il carrello del cliente
+
         Carrello carrello = carrelloRepository.findByClienteUsername(username)
                 .orElseThrow(() -> new RuntimeException("Carrello non trovato per l'utente: " + username));
 
-        // Recupera il prodotto
         Prodotto prodotto = prodottoRepository.findById(idProdotto)
                 .orElseThrow(() -> new RuntimeException("Prodotto non trovato con id: " + idProdotto));
 
@@ -87,7 +87,7 @@ public class ClienteService {
     }
 
     public List<ProdottoCarrello> visualizzaProdottiCarrello(String username) {
-        // Verifica se il carrello esiste per l'utente
+
         carrelloRepository.findByClienteUsername(username).orElseThrow(() -> new RuntimeException("Carrello non trovato per l'utente: " + username));
 
         // Recupera i prodotti associati al carrello
@@ -100,14 +100,11 @@ public class ClienteService {
         Carrello carrello = carrelloRepository.findByClienteUsername(username)
                 .orElseThrow(() -> new RuntimeException("Carrello non trovato per l'utente: " + username));
 
-        // Recupera l'ID del prodotto nel carrello
         ProdottoCarrelloId prodottoCarrelloId = new ProdottoCarrelloId(carrello.getCliente().getUsername(), idProdotto);
 
-        // Trova il prodotto nel carrello
         ProdottoCarrello prodottoCarrello = prodottoCarrelloRepository.findById(prodottoCarrelloId)
                 .orElseThrow(() -> new RuntimeException("Prodotto non trovato nel carrello"));
 
-        // Rimuove il prodotto dal carrello
         prodottoCarrelloRepository.delete(prodottoCarrello);
 
         carrelloRepository.updatePrezzoComplessivoByUsername(username);
@@ -115,7 +112,7 @@ public class ClienteService {
 
     @Transactional
     public Cliente upgradePremium(String username) {
-        // Verifica che il cliente esista
+
         Cliente cliente = clienteRepository.findById(username)
                 .orElseThrow(() -> new RuntimeException("Cliente non trovato con username: " + username));
 
@@ -140,7 +137,6 @@ public class ClienteService {
 
         List<ProdottoCarrello> prodottiCarrello = getProdottiCarrelloAndCheckQuantity(carrello);
 
-        // Creazione nuovo ordine
         Ordine ordine = new Ordine(
                 new Date(),
                 applicaSconto(cliente,carrello),
@@ -218,6 +214,7 @@ public class ClienteService {
         return bd.floatValue();
     }
 
+//TODO eliminare queste funzioni commentate
 
 //    @Transactional
 //    public ClientePremium upgradePremium(String username) {
@@ -294,7 +291,7 @@ public class ClienteService {
     public Cliente creareClienteStandard(String username, String email, String password, String numCell,
                                          String nome, String cognome, String numeroCarta, Date dataScadenza,
                                          String nomeIntestatario, String cognomeIntestatario, Integer cvc) {
-        //Creare la Carta di Credito
+
         CartaCredito cartaCredito = new CartaCredito(
                 numeroCarta,
                 dataScadenza,
@@ -304,7 +301,6 @@ public class ClienteService {
 
         cartaCreditoRepository.save(cartaCredito); // Salviamo prima la carta di credito
 
-        //Creare il Cliente Standard
         Cliente clienteStandard = new Cliente(
                 email,
                 username,
@@ -315,13 +311,12 @@ public class ClienteService {
                 cartaCredito,
                 StatoCliente.ABILITATO);
 
-        //Creare il Carrello
         Carrello carrello = new Carrello(clienteStandard, 0.0f);
 
-        clienteStandard.setCarrello(carrello); // Associare il carrello al cliente
+        clienteStandard.setCarrello(carrello);
 
-        //Salvare il Cliente (e il Carrello grazie alla cascata)
-        clienteRepository.save(clienteStandard); // Salva sia Cliente che Carrello grazie alla cascata
+        //Salvare il Cliente (e il Carrello grazie a cascade.all)
+        clienteRepository.save(clienteStandard);
 
         return clienteStandard;
     }

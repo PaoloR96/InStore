@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/vault/config/config.hcl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vault/unseal-vault.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-premium.http" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-premium.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/ClienteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/service/ClienteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/service/ClienteService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,15 +33,18 @@
     &quot;assignee&quot;: &quot;PaoloR96&quot;
   }
 }</component>
+  <component name="GitRewordedCommitMessages">
+    <option name="onto" value="13401775791a68e29fbd67aa860caeabe8a0633a" />
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/PaoloR96/InStore.git&quot;,
-    &quot;accountId&quot;: &quot;b348a174-90da-474c-864b-12a85c70bc67&quot;
+    &quot;accountId&quot;: &quot;8bbcec9e-d917-464a-bf4e-971d38a261bd&quot;
   }
 }</component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -46,25 +59,50 @@
   "keyToString": {
     "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
     "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.vault-init: Compose Deployment.executor": "Run",
+    "HTTP Request.aggiungi-cliente-standard | #1.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "biagio",
     "go.import.settings.migrated": "true",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/biagi/Documents/InyelliJ/InStore/vault/config",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\vault\config" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Utente\Desktop\Ssd\ProgettoSSD\InStore\ApplicationCore" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.application-core: Compose Deployment">
+  <component name="RunManager" selected="HTTP Request.aggiungi-cliente-standard | #1">
+    <configuration name="TestApiRivenditore | Inserisci un nuovo prodotto" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" executionIdentifier="Inserisci un nuovo prodotto" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="aggiungi-cliente-standard | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" executionIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="ApplicationCoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ApplicationCore" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.howtodoinjava.app.applicationcore.ApplicationCoreApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="docker-compose.yml.application-core: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
@@ -93,18 +131,34 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="docker-compose.yml.vault-init: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="vault-init" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.aggiungi-cliente-standard | #1" />
         <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.vault-init: Compose Deployment" />
+        <item itemvalue="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.153" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.153" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
       </set>
     </attachedChunks>
   </component>
@@ -118,6 +172,8 @@
       <updated>1738421550801</updated>
       <workItem from="1738421551984" duration="186000" />
       <workItem from="1738421751503" duration="306000" />
+      <workItem from="1738873676448" duration="241000" />
+      <workItem from="1738873938281" duration="5182000" />
     </task>
     <servers />
   </component>

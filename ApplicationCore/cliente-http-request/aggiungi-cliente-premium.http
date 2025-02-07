@@ -1,3 +1,4 @@
+#TODO eliminare tale file
 POST http://localhost:8080/api/clienti/aggiungi_premium
 Content-Type: application/x-www-form-urlencoded
 

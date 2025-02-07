@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+//TODO eliminare funzionalità di creazione cliente standard
+
 @RestController
 @RequestMapping("/api")
 public class ClienteController {
@@ -63,9 +65,8 @@ public class ClienteController {
             @RequestParam Long idProdotto) {
         try {
             clienteService.rimuoviProdottoCarrello(username, idProdotto);
-            return ResponseEntity.noContent().build(); // Restituisci 204 No Content in caso di successo
+            return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
-            // Gestisci errori come carrello o prodotto non trovati
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

@@ -1,86 +1,115 @@
 version: '3.8'
-
+#TODO eliminare i commenti
 services:
-  # Servizio MySQL per la gestione del database
   mysql-db:
-    image: mysql:latest  # Utilizza l'immagine più recente di MySQL
-    container_name: Mysql_Service  # Nome del contenitore MySQL
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword  # Password per l'utente root di MySQL
-      MYSQL_DATABASE: InStore_db  # Nome del database da creare all'avvio
-      MYSQL_PASSWORD: secret  # Password dell'utente MySQL
-      MYSQL_ROOT_HOST: '%'  # Consenti la connessione da qualsiasi host
+    image: mysql:9.2.0
+    container_name: Mysql_Service
+    restart: unless-stopped
     networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
+      - app-network
     ports:
-      - "3306:3306"  # Mappa la porta 3306 per le connessioni MySQL
+      - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql  # Volumes per persistenza dei dati del database
+      - mysql-data:/var/lib/mysql  # Persistenza dei dati del database
 
-  # Servizio Keycloak per la gestione dell'autenticazione
-  keycloak:
-    build:
-      context: ./KeycloakService  # Percorso del Dockerfile per Keycloak
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: Keycloak_Manager  # Nome del contenitore di Keycloak
-    environment:
-      KEYCLOAK_ADMIN: admin  # Credenziali dell'amministratore di Keycloak
-      KEYCLOAK_ADMIN_PASSWORD: admin  # Password dell'amministratore di Keycloak
-    ports:
-      - "8090:8080"  # Mappa la porta 8090 per l'accesso a Keycloak
-    networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
-
-  # Servizio Nginx come reverse proxy
-  nginx:
-    build:
-      context: ./NgnixService  # Percorso del Dockerfile per Nginx
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: Nginx_Manager  # Nome del contenitore Nginx
-    ports:
-      - "80:80"  # Mappa la porta 80 per il traffico HTTP
-    volumes:
-      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf  # Configurazione personalizzata di Nginx
-    networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
-
-  # Servizio Vault per la gestione dei segreti
   vault:
-    build:
-      context: ./VaultService  # Percorso del Dockerfile per Vault
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: Vault_Manager  # Nome del contenitore di Vault
-    networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
+    image: hashicorp/vault:1.18.4
+    container_name: vault-service
+    restart: unless-stopped
     ports:
-      - "8200:8200"  # Mappa la porta 8200 per l'accesso a Vault
+      - '8200:8200'
+    volumes:
+      - ./vault/config:/vault/config
+      - ./vault/policies:/vault/policies
+      - ./vault/data:/vault/data
+      - ./vault/logs:/vault/logs
     environment:
-      VAULT_ADDR: http://127.0.0.1:8200  # Indirizzo di Vault per la connessione
-    healthcheck:
-      test: ["CMD", "vault", "status"]  # Comando di verifica della salute di Vault
-      interval: 30s  # Intervallo tra i controlli
-      timeout: 10s  # Tempo massimo per il controllo
-      retries: 3  # Numero di tentativi prima di segnalarlo come fallito
+      VAULT_ADDR: "http://0.0.0.0:8200"
+      VAULT_API_ADDR: "http://0.0.0.0:8200"
+    entrypoint: vault server -config=/vault/config/config.hcl
+    networks:
+      - app-network
     cap_add:
-      - IPC_LOCK  # Aggiungi la capacità IPC_LOCK per Vault
+      - IPC_LOCK
 
-  # Servizio per l'applicazione ApplicationCore
+  vault-init:
+    container_name: vault-init
+    image: hashicorp/vault:1.18.4
+    restart: "no"
+    environment:
+      VAULT_ADDR: "http://vault-service:8200"
+    volumes:
+      - ./vault/unseal-vault.sh:/vault/unseal-vault.sh
+    entrypoint: sh -c "sleep 3 && /vault/unseal-vault.sh"
+    networks:
+      - app-network
+    cap_add:
+      - IPC_LOCK
+    depends_on:
+      - vault
+
   application-core:
     build:
-      context: ./ApplicationCore  # Percorso del Dockerfile per ApplicationCore
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: ApplicationCore_Service  # Nome del contenitore per ApplicationCore
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://Mysql_Service:3306/InStore_db?useSSL=false&allowPublicKeyRetrieval=true # URL per connettersi a MySQL
-      SPRING_DATASOURCE_USERNAME: root  # Username per il database
-      SPRING_DATASOURCE_PASSWORD: rootpassword  # Password per il database
+      context: ./ApplicationCore
+      dockerfile: Dockerfile
+    container_name: ApplicationCore_Service
+    restart: unless-stopped
     networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
-    #// depends_on:
-    #  - Mysql_Service # Assicurati che il servizio MySQL sia avviato prima di ApplicationCore
+      - app-network
+    depends_on:
+      - mysql-db
+      - vault-init
     ports:
-      - "8081:8080"  # Mappa la porta 8081 per l'accesso a ApplicationCore
+      - "8081:8080"
 
+  # Servizio Vault per la gestione dei segreti
+#  vault:
+#    build:
+#      context: ./VaultService  # Percorso del Dockerfile per Vault
+#      dockerfile: Dockerfile  # Nome del Dockerfile
+#    container_name: Vault_Manager  # Nome del contenitore di Vault
+#    networks:
+#      - app-network  # Aggiungi il contenitore alla rete app-network
+#    ports:
+#      - "8200:8200"  # Mappa la porta 8200 per l'accesso a Vault
+#    environment:
+#      VAULT_ADDR: http://127.0.0.1:8200  # Indirizzo di Vault per la connessione
+#    healthcheck:
+#      test: ["CMD", "vault", "status"]  # Comando di verifica della salute di Vault
+#      interval: 30s  # Intervallo tra i controlli
+#      timeout: 10s  # Tempo massimo per il controllo
+#      retries: 3  # Numero di tentativi prima di segnalarlo come fallito
+#    cap_add:
+#      - IPC_LOCK  # Aggiungi la capacità IPC_LOCK per Vault
+
+  # Servizio per l'applicazione ApplicationCore
+
+  # Servizio Keycloak per la gestione dell'autenticazione
+  #  keycloak:
+  #    build:
+  #      context: ./KeycloakService  # Percorso del Dockerfile per Keycloak
+  #      dockerfile: Dockerfile  # Nome del Dockerfile
+  #    container_name: Keycloak_Manager  # Nome del contenitore di Keycloak
+  #    environment:
+  #      KEYCLOAK_ADMIN: admin  # Credenziali dell'amministratore di Keycloak
+  #      KEYCLOAK_ADMIN_PASSWORD: admin  # Password dell'amministratore di Keycloak
+  #    ports:
+  #      - "8090:8080"  # Mappa la porta 8090 per l'accesso a Keycloak
+  #    networks:
+  #      - app-network  # Aggiungi il contenitore alla rete app-network
+  #
+  #  # Servizio Nginx come reverse proxy
+  #  nginx:
+  #    build:
+  #      context: ./NgnixService  # Percorso del Dockerfile per Nginx
+  #      dockerfile: Dockerfile  # Nome del Dockerfile
+  #    container_name: Nginx_Manager  # Nome del contenitore Nginx
+  #    ports:
+  #      - "80:80"  # Mappa la porta 80 per il traffico HTTP
+  #    volumes:
+  #      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf  # Configurazione personalizzata di Nginx
+  #    networks:
+  #      - app-network  # Aggiungi il contenitore alla rete app-network
 # Definizione delle reti utilizzate dai vari servizi
 networks:
   app-network:
