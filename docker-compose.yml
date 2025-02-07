@@ -12,13 +12,28 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql  # Persistenza dei dati del database
 
+  # Servizio Keycloak per la gestione dell'autenticazione
+  keycloak:
+    build: ./KeycloakService                        # path of dockerfile
+    container_name: Keycloak_Manager
   vault:
     image: hashicorp/vault:1.18.4
     container_name: vault-service
     restart: unless-stopped
     ports:
+      - "8090:8080"                                 # Mappa la porta 8090 per l'accesso a Keycloak
       - '8200:8200'
     volumes:
+      - ./KeycloakService/data:/opt/keycloak/data
+    networks:
+      - app-network
+
+  # Servizio Vault per la gestione dei segreti
+  vault:
+    build:
+      context: ./VaultService  # Percorso del Dockerfile per Vault
+      dockerfile: Dockerfile  # Nome del Dockerfile
+    container_name: Vault_Manager  # Nome del contenitore di Vault
       - ./vault/config:/vault/config
       - ./vault/policies:/vault/policies
       - ./vault/data:/vault/data
@@ -82,34 +97,6 @@ services:
 #    cap_add:
 #      - IPC_LOCK  # Aggiungi la capacità IPC_LOCK per Vault
 
-  # Servizio per l'applicazione ApplicationCore
-
-  # Servizio Keycloak per la gestione dell'autenticazione
-  #  keycloak:
-  #    build:
-  #      context: ./KeycloakService  # Percorso del Dockerfile per Keycloak
-  #      dockerfile: Dockerfile  # Nome del Dockerfile
-  #    container_name: Keycloak_Manager  # Nome del contenitore di Keycloak
-  #    environment:
-  #      KEYCLOAK_ADMIN: admin  # Credenziali dell'amministratore di Keycloak
-  #      KEYCLOAK_ADMIN_PASSWORD: admin  # Password dell'amministratore di Keycloak
-  #    ports:
-  #      - "8090:8080"  # Mappa la porta 8090 per l'accesso a Keycloak
-  #    networks:
-  #      - app-network  # Aggiungi il contenitore alla rete app-network
-  #
-  #  # Servizio Nginx come reverse proxy
-  #  nginx:
-  #    build:
-  #      context: ./NgnixService  # Percorso del Dockerfile per Nginx
-  #      dockerfile: Dockerfile  # Nome del Dockerfile
-  #    container_name: Nginx_Manager  # Nome del contenitore Nginx
-  #    ports:
-  #      - "80:80"  # Mappa la porta 80 per il traffico HTTP
-  #    volumes:
-  #      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf  # Configurazione personalizzata di Nginx
-  #    networks:
-  #      - app-network  # Aggiungi il contenitore alla rete app-network
 # Definizione delle reti utilizzate dai vari servizi
 networks:
   app-network:
@@ -118,5 +105,4 @@ networks:
 # Definizione dei volumi per la persistenza dei dati
 volumes:
   mysql-data:  # Volume per i dati di MySQL
-
 
