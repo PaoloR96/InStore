@@ -1,3 +1,23 @@
+POST http://localhost:8081/api/clienti/aggiungi_standard
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 213
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=90559BD68F309D0658029E14CDBDD1DA
+
+username=cliente2&email=cliente2%40example.com&password=password000&numCell=76848683&nome=Mario&cognome=Rossi&numeroCarta=34524325456&dataScadenza=2027-12-31&nomeIntestatario=Gino&cognomeIntestatario=Verdi&cvc=333
+
+###
+
+GET http://localhost:8081/api/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Cookie: JSESSIONID=90559BD68F309D0658029E14CDBDD1DA
+
+###
+
 GET http://localhost:8080/prodotti
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.2
 Accept-Encoding: br, deflate, gzip, x-gzip
