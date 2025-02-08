@@ -79,7 +79,7 @@ services:
 # Definizione delle reti utilizzate dai vari servizi
 networks:
   app-network:
-    external: true  # Rete esterna già esistente per i contenitori
+#    external: true  # Rete esterna già esistente per i contenitori
 
 # Definizione dei volumi per la persistenza dei dati
 volumes:
