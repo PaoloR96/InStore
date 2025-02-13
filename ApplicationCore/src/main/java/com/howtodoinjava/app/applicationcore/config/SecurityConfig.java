@@ -1,16 +1,16 @@
 package com.howtodoinjava.app.applicationcore.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
+//import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+//import org.springframework.security.web.SecurityFilterChain;
+//import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+//
+//import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * SecurityConfig class configures security settings for the application,
@@ -53,34 +53,34 @@ import static org.springframework.security.config.Customizer.withDefaults;
 //    }
 //}
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-
-    @Autowired
-    private ClientRegistrationRepository clientRegistrationRepository;
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated()
-                )
-                .oauth2Login(withDefaults())
-                .logout(logout -> logout
-                        .logoutSuccessHandler(oidcLogoutSuccessHandler())
-                );
-        return http.build();
-    }
-
-    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
-        OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
-                new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
-
-        // Sets the location that the End-User's User Agent will be redirected to
-        // after the logout has been performed at the Provider
-//        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("http://localhost:8080/");
-
-        return oidcLogoutSuccessHandler;
-    }
-}
+//@Configuration
+//@EnableWebSecurity
+//public class SecurityConfig {
+//
+//    @Autowired
+//    private ClientRegistrationRepository clientRegistrationRepository;
+//
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .anyRequest().authenticated()
+//                )
+//                .oauth2Login(withDefaults())
+//                .logout(logout -> logout
+//                        .logoutSuccessHandler(oidcLogoutSuccessHandler())
+//                );
+//        return http.build();
+//    }
+//
+//    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
+//        OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
+//                new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
+//
+//        // Sets the location that the End-User's User Agent will be redirected to
+//        // after the logout has been performed at the Provider
+////        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("http://localhost:8080/");
+//
+//        return oidcLogoutSuccessHandler;
+//    }
+//}

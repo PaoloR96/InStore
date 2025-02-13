@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.service;
 
+import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.repository.*;
 import org.hibernate.Hibernate;
@@ -86,12 +87,45 @@ public class ClienteService {
         return carrello;
     }
 
-    public List<ProdottoCarrello> visualizzaProdottiCarrello(String username) {
+//    public List<ProdottoCarrello> visualizzaProdottiCarrello(String username) {
+//
+//        carrelloRepository.findByClienteUsername(username).orElseThrow(() -> new RuntimeException("Carrello non trovato per l'utente: " + username));
+//
+//        // Recupera i prodotti associati al carrello
+//        return prodottoCarrelloRepository.findByCarrelloClienteUsername(username);
+//    }
 
-        carrelloRepository.findByClienteUsername(username).orElseThrow(() -> new RuntimeException("Carrello non trovato per l'utente: " + username));
+    public CarrelloResponse visualizzaProdottiCarrello(String username) {
+        // Recupera il carrello associato all'utente (username)
+        Carrello carrello = carrelloRepository.findByClienteUsername(username)
+                .orElseThrow(() -> new RuntimeException("Carrello non trovato per l'utente: " + username));
 
-        // Recupera i prodotti associati al carrello
-        return prodottoCarrelloRepository.findByCarrelloClienteUsername(username);
+        Cliente cliente = clienteRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("Utente non trovato: " + username));
+
+        // Recupera i prodotti presenti nel carrello
+        List<ProdottoCarrello> prodottiCarrello = prodottoCarrelloRepository.findByCarrello(carrello);
+
+        // Estrai i prodotti dalla lista di ProdottoCarrello
+        List<Prodotto> prodotti = new ArrayList<>();
+        for (ProdottoCarrello prodottoCarrello : prodottiCarrello) {
+            prodotti.add(prodottoCarrello.getProdotto());
+        }
+
+        for (Prodotto prodotto : prodotti) {
+            prodotto.setQuantitaTotale(prodottoCarrelloRepository.findQuantitaByProdottoAndCarrello(prodotto,carrello));
+        }
+
+
+        CarrelloResponse response = new CarrelloResponse();
+        response.setProdotti(prodotti);
+        response.setPrezzoTotale(applicaSconto(cliente,carrello));
+
+        if (cliente instanceof ClientePremium) {
+            response.setScontoApplicato(((ClientePremium) cliente).getSconto());
+        }
+
+        return response;
     }
 
     @Transactional
@@ -111,7 +145,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public Cliente upgradePremium(String username) {
+    public void upgradePremium(String username) {
 
         Cliente cliente = clienteRepository.findById(username)
                 .orElseThrow(() -> new RuntimeException("Cliente non trovato con username: " + username));
@@ -122,7 +156,6 @@ public class ClienteService {
 
         clienteRepository.upgradeClientePremium(username, 10);
 
-        return cliente;
     }
 
 
@@ -212,6 +245,11 @@ public class ClienteService {
         // Arrotondamento a due cifre decimali
         BigDecimal bd = new BigDecimal(prezzoTotale).setScale(2, RoundingMode.HALF_UP);
         return bd.floatValue();
+    }
+
+    public Cliente getCliente(String username) {
+        return clienteRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("Cliente non trovato con username: " + username));
     }
 
 //TODO eliminare queste funzioni commentate
@@ -320,5 +358,6 @@ public class ClienteService {
 
         return clienteStandard;
     }
+
 }
 

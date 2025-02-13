@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
+import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +49,23 @@ public class ClienteController {
     }
 
 
+//    @GetMapping("/carrello/{username}/prodotti")
+//    public ResponseEntity<List<ProdottoCarrello>> visualizzaProdottiCarrello(@PathVariable String username) {
+//        try {
+//            List<ProdottoCarrello> prodottiCarrello = clienteService.visualizzaProdottiCarrello(username);
+//            return ResponseEntity.ok(prodottiCarrello);
+//        } catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        }
+//    }
+
     @GetMapping("/carrello/{username}/prodotti")
-    public ResponseEntity<List<ProdottoCarrello>> visualizzaProdottiCarrello(@PathVariable String username) {
+    public ResponseEntity<CarrelloResponse> visualizzaProdottiCarrello(@PathVariable String username) {
+        // Recupera la lista dei prodotti nel carrello per il cliente specificato
         try {
-            List<ProdottoCarrello> prodottiCarrello = clienteService.visualizzaProdottiCarrello(username);
-            return ResponseEntity.ok(prodottiCarrello);
+            CarrelloResponse prodottiAndPrezzo = clienteService.visualizzaProdottiCarrello(username);
+            return ResponseEntity.ok(prodottiAndPrezzo);
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -73,10 +86,10 @@ public class ClienteController {
     }
 
     @PutMapping("/clienti/{username}/upgrade")
-    public ResponseEntity<Cliente> upgradePremium(@PathVariable String username) {
+    public ResponseEntity<String> upgradePremium(@PathVariable String username) {
         try {
-            Cliente cliente = clienteService.upgradePremium(username);
-            return ResponseEntity.ok(cliente);
+            clienteService.upgradePremium(username);
+            return ResponseEntity.ok("Adesso sei un cliente PREMIUM");
         } catch (IllegalStateException e) {
             // Cliente già premium
             System.out.println(e.getMessage());
@@ -96,6 +109,16 @@ public class ClienteController {
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/clienti/{username}")
+    public ResponseEntity<Cliente> getClienteInfo(@PathVariable String username) {
+        try {
+            Cliente cliente = clienteService.getCliente(username);
+            return ResponseEntity.ok(cliente);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 

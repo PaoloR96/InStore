@@ -1,12 +1,267 @@
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 203
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "T-Shirt basic",
+  "descrizione": "T-Shirt semplice 100% cotone, colore bianco.",
+  "prezzo": 10.99,
+  "taglia": "M",
+  "pathImmagine": "/images/t-shirt.jpg",
+  "quantitaTotale": 25
+}
+
+<> 2025-02-13T130155.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 228
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Canotta Sportiva",
+  "descrizione": "Canotta in tessuto traspirante, ideale per lo sport, colore nero.",
+  "prezzo": 14.99,
+  "taglia": "XL",
+  "pathImmagine": "/images/canotta.jpg",
+  "quantitaTotale": 50
+}
+
+<> 2025-02-13T125947.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 246
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Giubbotto Bomber",
+  "descrizione": "Giubbotto bomber leggero, colore nero, con chiusura a zip e polsini elasticizzati.",
+  "prezzo": 79.99,
+  "taglia": "L",
+  "pathImmagine": "/images/giubbotto.jpg",
+  "quantitaTotale": 20
+}
+
+<> 2025-02-13T125917.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 254
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Cappotto Lungo Elegante",
+  "descrizione": "Cappotto lungo in lana, colore blu notte, con chiusura a bottoni e tasche laterali.",
+  "prezzo": 129.99,
+  "taglia": "M",
+  "pathImmagine": "/images/cappotto.jpg",
+  "quantitaTotale": 20
+}
+
+<> 2025-02-13T125848.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 239
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Jeans Slim Fit",
+  "descrizione": "Pantaloni di jeans slim fit, colore blu scuro, con effetto leggermente scolorito.",
+  "prezzo": 49.99,
+  "taglia": "S",
+  "pathImmagine": "/images/jeans.jpg",
+  "quantitaTotale": 30
+}
+
+<> 2025-02-13T125809.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 255
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Maglioncino a Collo Alto",
+  "descrizione": "Maglioncino in lana, collo alto, colore beige, perfetto per l'inverno.",
+  "prezzo": 59.99,
+  "taglia": "M",
+  "pathImmagine": "/images/maglioncino-collo-alto.jpg",
+  "quantitaTotale": 30
+}
+
+<> 2025-02-13T125748.200.txt
+
+###
+
 POST http://localhost:8081/api/clienti/aggiungi_standard
 Content-Type: application/x-www-form-urlencoded
+Content-Length: 210
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+username=cliente1&email=cliente1%40example.com&password=password000&numCell=3465433&nome=Mario&cognome=Rossi&numeroCarta=58768989&dataScadenza=2027-12-31&nomeIntestatario=Mario&cognomeIntestatario=Rossi&cvc=333
+
+<> 2025-02-13T125527.200.json
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 299
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Maglioncino a Collo Alto",
+  "descrizione": "Maglioncino in lana, collo alto, colore beige, perfetto per l'inverno.",
+  "prezzo": 59.99,
+  "taglia": "M",
+  "immagine": "maglioncino-collo-alto.jpg",
+  "pathImmagine": "/images/maglioncino-collo-alto.jpg",
+  "quantitaTotale": 30
+}
+
+<> 2025-02-13T120227.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 256
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Canotta Sportiva",
+  "descrizione": "Canotta in tessuto traspirante, ideale per lo sport, colore nero.",
+  "prezzo": 14.99,
+  "taglia": "S",
+  "immagine": "canotta.jpg",
+  "pathImmagine": "/images/canotta.jpg",
+  "quantitaTotale": 30
+}
+
+<> 2025-02-13T115507.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 277
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Giubbotto Bomber",
+  "descrizione": "Giubbotto bomber leggero, colore nero, con chiusura a zip e polsini elasticizzati.",
+  "prezzo": 79.99,
+  "taglia": "L",
+  "immagine": "giubbotto.jpg",
+  "pathImmagine": "/images/giubbotto.jpg",
+  "quantitaTotale": 30
+}
+
+<> 2025-02-13T114705.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 281
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Cappotto Lungo Elegante",
+  "descrizione": "Cappotto lungo in lana, colore grigio, con chiusura a bottoni e tasche laterali.",
+  "prezzo": 129.99,
+  "taglia": "M",
+  "immagine": "cappotto.jpg",
+  "pathImmagine": "/images/cappotto.jpg",
+  "quantitaTotale": 30
+}
+
+<> 2025-02-13T114516.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 266
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Jeans Slim Fit",
+  "descrizione": "Pantaloni di jeans slim fit, colore blu scuro, con effetto leggermente scolorito.",
+  "prezzo": 49.99,
+  "taglia": "S",
+  "immagine": "jeans.jpg",
+  "pathImmagine": "/images/jeans.jpg",
+  "quantitaTotale": 20
+}
+
+<> 2025-02-13T114420.200.txt
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
 Content-Length: 213
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
 Accept-Encoding: br, deflate, gzip, x-gzip
 Accept: */*
-Cookie: JSESSIONID=90559BD68F309D0658029E14CDBDD1DA
 
-username=cliente2&email=cliente2%40example.com&password=password000&numCell=76848683&nome=Mario&cognome=Rossi&numeroCarta=34524325456&dataScadenza=2027-12-31&nomeIntestatario=Gino&cognomeIntestatario=Verdi&cvc=333
+{
+  "nomeProdotto": "T-Shirt",
+  "descrizione": "Bellissima meglietta 100% cotone",
+  "prezzo": 7.99,
+  "taglia": "M",
+  "immagine": "t-shirt.jpg",
+  "pathImmagine": "/images/t-shirt.jpg",
+  "quantitaTotale": 20
+}
+
+<> 2025-02-13T113015.200.txt
+
+###
+
+PUT http://localhost:8081/api/clienti/cliente2/upgrade
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+content-length: 0
 
 ###
 
@@ -14,41 +269,164 @@ GET http://localhost:8081/api/prodotti
 Accept: application/json
 User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
 Accept-Encoding: br, deflate, gzip, x-gzip
-Cookie: JSESSIONID=90559BD68F309D0658029E14CDBDD1DA
+
+<> 2025-02-12T195411.200.json
 
 ###
 
-GET http://localhost:8080/prodotti
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.2
+POST http://localhost:8081/api/clienti/aggiungi_standard
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 211
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
 Accept-Encoding: br, deflate, gzip, x-gzip
 Accept: */*
+
+username=cliente1&email=cliente1%40example.com&password=password000&numCell=3465433&nome=Paolo&cognome=Martedi&numeroCarta=58768989&dataScadenza=2027-12-31&nomeIntestatario=Gino&cognomeIntestatario=Verdi&cvc=333
+
+<> 2025-02-12T193714.200.json
 
 ###
 
-GET http://localhost:8080/prodotti
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.2
+GET http://localhost:8081/api/carrello/cliente2/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
 Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
 
-<> 2025-01-30T121008.200.html
+<> 2025-02-12T193056.200.json
 
 ###
 
-GET http://localhost:8080/prodotti
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.2
+GET http://localhost:8081/api/carrello/cliente2/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
 Accept-Encoding: br, deflate, gzip, x-gzip
-Accept: */*
 
-<> 2025-01-25T172128.200.html
+<> 2025-02-12T193031.200.json
 
 ###
 
-GET http://localhost:8080/prodotti
-User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.2
+GET http://localhost:8081/api/carrello/cliente2/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-02-12T191403.200.json
+
+###
+
+GET http://localhost:8081/api/carrello/cliente2/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-02-12T180037.200.json
+
+###
+
+GET http://localhost:8081/api/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-02-12T123835.200.json
+
+###
+
+GET http://localhost:8081/api/carrello/cliente2/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8081/api/carrello/cliente2/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8081/api/carrello/cliente2/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-02-12T121637.200.json
+
+###
+
+GET http://localhost:8081/api/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-02-12T120308.200.json
+
+###
+
+POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 199
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
 Accept-Encoding: br, deflate, gzip, x-gzip
 Accept: */*
 
-<> 2025-01-25T171756.200.html
+{
+  "nomeProdotto": "ciao",
+  "descrizione": "è un pantalone",
+  "prezzo": 15.99,
+  "taglia": "S",
+  "immagine": "pantaloni.jpg",
+  "pathImmagine": "/images/pantalonie.jpg",
+  "quantitaTotale": 20
+}
+
+<> 2025-02-12T120304.200.txt
+
+###
+
+GET http://localhost:8081/api/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-02-12T120245.200.json
+
+###
+
+POST http://localhost:8081/api/clienti/aggiungi_standard
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 213
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+username=cliente2&email=cliente2%40example.com&password=password000&numCell=76848683&nome=Mario&cognome=Rossi&numeroCarta=34524325456&dataScadenza=2027-12-31&nomeIntestatario=Gino&cognomeIntestatario=Verdi&cvc=333
+
+<> 2025-02-12T114923.500.json
+
+###
+
+GET http://localhost:8081/api/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+<> 2025-02-12T114413.200.json
+
+###
+
+GET http://localhost:8081/api/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+###
+
+GET http://localhost:8081/api/prodotti
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
 
 ###
 

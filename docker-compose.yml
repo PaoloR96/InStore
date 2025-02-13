@@ -1,6 +1,9 @@
 version: '3.8'
 #TODO eliminare i commenti
 #TODO eliminare directory VaultService
+#TODO eliminare dockerfile in mysqlserivce
+#TODO variabili d'ambiente per mysl-password e token-vault
+
 services:
   mysql-db:
     image: mysql:9.2.0
@@ -10,19 +13,23 @@ services:
       - app-network
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "InStore_db"
+      MYSQL_ROOT_PASSWORD: "rootpassword"
     volumes:
-      - mysql-data:/var/lib/mysql  # Persistenza dei dati del database
+      #- mysql-data:/var/lib/mysql
+      - ./MySqlService/persistence:/var/lib/mysql
 
   # Servizio Keycloak per la gestione dell'autenticazione
-  keycloak:
-    build: ./KeycloakService                        # path of dockerfile
-    container_name: Keycloak_Manager
-    ports:
-      - "8090:8080"                                 # Mappa la porta 8090 per l'accesso a Keycloak
-    volumes:
-      - ./KeycloakService/data:/opt/keycloak/data
-    networks:
-      - app-network
+#  keycloak:
+#    build: ./KeycloakService                        # path of dockerfile
+#    container_name: Keycloak_Manager
+#    ports:
+#      - "8090:8090"                                 # Mappa la porta 8090 per l'accesso a Keycloak
+#    volumes:
+#      - ./KeycloakService/data:/opt/keycloak/data
+#    networks:
+#      - app-network
 
   vault:
     image: hashicorp/vault:1.18.4
@@ -38,11 +45,12 @@ services:
     environment:
       VAULT_ADDR: "http://0.0.0.0:8200"
       VAULT_API_ADDR: "http://0.0.0.0:8200"
-    entrypoint: vault server -config=/vault/config/config.hcl
     networks:
       - app-network
     cap_add:
       - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/config.hcl
+
 
   vault-init:
     container_name: vault-init
@@ -52,7 +60,7 @@ services:
       VAULT_ADDR: "http://vault-service:8200"
     volumes:
       - ./vault/unseal-vault.sh:/vault/unseal-vault.sh
-    entrypoint: sh -c "sleep 3 && /vault/unseal-vault.sh"
+    entrypoint: sh -c "sleep 5 && /vault/unseal-vault.sh"
     networks:
       - app-network
     cap_add:
@@ -65,21 +73,23 @@ services:
       context: ./ApplicationCore
       dockerfile: Dockerfile
     container_name: ApplicationCore_Service
-    restart: unless-stopped
+#    restart: unless-stopped
     environment:
-      VAULT_TOKEN: "hvs.ovqk2D2xYfFxycE8wx9H0hOl"
+      VAULT_TOKEN: "hvs.6cW8zKkrzeQA17xZAQvu0GeS"
     networks:
       - app-network
     depends_on:
       - mysql-db
       - vault-init
+#      - keycloak
     ports:
       - "8081:8080"
+#    entrypoint: ["/bin/bash", "-c", "while true; do sleep 30; done"]
 
 # Definizione delle reti utilizzate dai vari servizi
 networks:
   app-network:
-#    external: true  # Rete esterna già esistente per i contenitori
+    external: true  # Rete esterna già esistente per i contenitori
 
 # Definizione dei volumi per la persistenza dei dati
 volumes:
