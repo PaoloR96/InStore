@@ -4,51 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/utility/CarrelloResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/canotta.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/cappotto.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/giubbotto.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/jeans.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/maglioncino-collo-alto.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/t-shirt.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/cart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/products.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2025-01-25T171756.200.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2025-01-25T172128.200.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2025-01-30T121008.200.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/upgrade-cliente-premium.http" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/upgrade-cliente-premium.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/visualizza-prodotti-carrello.http" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/visualizza-prodotti-carrello.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/ApplicationCoreApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/ApplicationCoreApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/ClienteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/dto/ProdottoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/dto/ProdottoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/repository/ProdottoCarrelloRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/repository/ProdottoCarrelloRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/service/ClienteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/service/ClienteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/templates/prodotti.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" beforeDir="false" afterPath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/unseal-vault.sh" beforeDir="false" afterPath="$PROJECT_DIR$/vault/unseal-vault.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +69,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;aws&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -211,11 +170,41 @@
       <workItem from="1739356886349" duration="14996000" />
       <workItem from="1739387700477" duration="5285000" />
       <workItem from="1739441840933" duration="7080000" />
-      <workItem from="1739453236010" duration="523000" />
+      <workItem from="1739453236010" duration="4968000" />
+      <workItem from="1739547077563" duration="209000" />
+      <workItem from="1739547327194" duration="42000" />
     </task>
+    <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
+      <option name="closed" value="true" />
+      <created>1739454436372</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739454436372</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)" />
+    <option name="LAST_COMMIT_MESSAGE" value="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

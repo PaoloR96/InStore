@@ -8,7 +8,7 @@ services:
   mysql-db:
     image: mysql:9.2.0
     container_name: Mysql_Service
-    restart: unless-stopped
+#    restart: unless-stopped
     networks:
       - app-network
     ports:
@@ -34,7 +34,7 @@ services:
   vault:
     image: hashicorp/vault:1.18.4
     container_name: vault-service
-    restart: unless-stopped
+#    restart: unless-stopped
     ports:
       - '8200:8200'
     volumes:
