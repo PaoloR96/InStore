@@ -1,0 +1,20 @@
+[
+  {
+    "idProdotto": 1,
+    "nomeProdotto": "pippo",
+    "descrizione": "pluto",
+    "prezzo": 20.99,
+    "pathImmagine": "/images/pantalonie.jpg",
+    "quantitaTotale": 30,
+    "taglia": "L"
+  },
+  {
+    "idProdotto": 2,
+    "nomeProdotto": "ciao",
+    "descrizione": "è un pantalone",
+    "prezzo": 15.99,
+    "pathImmagine": "/images/pantalonie.jpg",
+    "quantitaTotale": 20,
+    "taglia": "S"
+  }
+]
