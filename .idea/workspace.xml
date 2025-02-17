@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="aggiunto frontend rivenditore" />
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +174,7 @@
       <workItem from="1739547077563" duration="209000" />
       <workItem from="1739547327194" duration="42000" />
       <workItem from="1739723416722" duration="1324000" />
-      <workItem from="1739806451737" duration="1974000" />
+      <workItem from="1739806451737" duration="2269000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -200,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739807532745</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="aggiunta persistenza db e vault (da cancellare la cartella .idea)">
+      <option name="closed" value="true" />
+      <created>1739808745766</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1739808745766</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,7 +229,8 @@
     <MESSAGE value="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)" />
     <MESSAGE value="modifica docker-compose.yml (commento parametro restart)" />
     <MESSAGE value="aggiunto frontend rivenditore" />
-    <option name="LAST_COMMIT_MESSAGE" value="aggiunto frontend rivenditore" />
+    <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
+    <option name="LAST_COMMIT_MESSAGE" value="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
