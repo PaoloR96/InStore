@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carta_di_credito.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carta_di_credito.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/undo_001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/undo_002" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,36 +61,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto.executor": "Run",
-    "HTTP Request.aggiungi-cliente-standard | #1.executor": "Run",
-    "HTTP Request.upgrade-cliente-premium | #1.executor": "Run",
-    "HTTP Request.visualizza-prodotti | #1.executor": "Run",
-    "HTTP Request.visualizza-prodotti-carrello | #1.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "biagio",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/biagi/Documents/InyelliJ/InStore/ApplicationCore/src/main/resources/static",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "aws",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker-compose.yml.application-core: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.mysql-db: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.aggiungi-cliente-standard | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.upgrade-cliente-premium | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.visualizza-prodotti | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.visualizza-prodotti-carrello | #1.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;biagio&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/biagi/Documents/InyelliJ/InStore/ApplicationCore/src/main/resources/static&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;aws&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static" />
@@ -174,7 +190,8 @@
       <workItem from="1739547077563" duration="209000" />
       <workItem from="1739547327194" duration="42000" />
       <workItem from="1739723416722" duration="1324000" />
-      <workItem from="1739806451737" duration="2269000" />
+      <workItem from="1739806451737" duration="5501000" />
+      <workItem from="1739873140634" duration="310000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -208,7 +225,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739808745766</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="aggiunta persistenza db e vault (da cancellare la cartella .idea)">
+      <option name="closed" value="true" />
+      <created>1739809248220</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1739809248220</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,7 +255,9 @@
     <MESSAGE value="modifica docker-compose.yml (commento parametro restart)" />
     <MESSAGE value="aggiunto frontend rivenditore" />
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
-    <option name="LAST_COMMIT_MESSAGE" value="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
+    <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) x3" />
+    <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3" />
+    <option name="LAST_COMMIT_MESSAGE" value="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
