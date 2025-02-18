@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/.gitignore" afterDir="false" />
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment=".gitignore exclude directory target">
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carta_di_credito.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carta_di_credito.ibd" afterDir="false" />
@@ -191,7 +189,7 @@
       <workItem from="1739547327194" duration="42000" />
       <workItem from="1739723416722" duration="1324000" />
       <workItem from="1739806451737" duration="5501000" />
-      <workItem from="1739873140634" duration="310000" />
+      <workItem from="1739873140634" duration="481000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -233,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739809248220</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary=".gitignore exclude directory target">
+      <option name="closed" value="true" />
+      <created>1739873553185</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739873553185</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,7 +263,8 @@
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) x3" />
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3" />
+    <MESSAGE value=".gitignore exclude directory target" />
+    <option name="LAST_COMMIT_MESSAGE" value=".gitignore exclude directory target" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
