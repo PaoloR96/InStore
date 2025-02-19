@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="modify docker compose">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo10_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carta_di_credito.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carta_di_credito.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/auto.cnf" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/auto.cnf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ib_buffer_pool" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/undo_001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/undo_002" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NgnixService/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NgnixService/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/public_keys/_b941a283-b88c-936b-fa2a-5b87c807a70f" beforeDir="false" />
-    </list>
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="aggiunto nginx in ascolto sulla porta 80" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -212,7 +190,7 @@
       <workItem from="1739873677725" duration="4724000" />
       <workItem from="1739895186175" duration="5648000" />
       <workItem from="1739901889836" duration="112000" />
-      <workItem from="1739902143438" duration="8267000" />
+      <workItem from="1739902143438" duration="9079000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -294,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739898004816</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="aggiunto nginx in ascolto sulla porta 80">
+      <option name="closed" value="true" />
+      <created>1739964773817</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1739964773817</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,7 +307,8 @@
     <MESSAGE value=".gitignore exclude directory target" />
     <MESSAGE value="add target directory" />
     <MESSAGE value="modify docker compose" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify docker compose" />
+    <MESSAGE value="aggiunto nginx in ascolto sulla porta 80" />
+    <option name="LAST_COMMIT_MESSAGE" value="aggiunto nginx in ascolto sulla porta 80" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
