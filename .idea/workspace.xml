@@ -4,20 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment=".gitignore exclude directory target">
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="modify docker compose">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo10_tmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carta_di_credito.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carta_di_credito.ibd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/auto.cnf" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/auto.cnf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.index" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ib_buffer_pool" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/undo_001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/undo_002" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NgnixService/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NgnixService/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/public_keys/_b941a283-b88c-936b-fa2a-5b87c807a70f" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,36 +67,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.docker-compose.yml.application-core: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.mysql-db: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.aggiungi-cliente-standard | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.upgrade-cliente-premium | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.visualizza-prodotti | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.visualizza-prodotti-carrello | #1.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;biagio&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/biagi/Documents/InyelliJ/InStore/ApplicationCore/src/main/resources/static&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;aws&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.nginx: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto.executor": "Run",
+    "HTTP Request.aggiungi-cliente-standard | #1.executor": "Run",
+    "HTTP Request.upgrade-cliente-premium | #1.executor": "Run",
+    "HTTP Request.visualizza-prodotti | #1.executor": "Run",
+    "HTTP Request.visualizza-prodotti-carrello | #1.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "biagio",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/biagi/Documents/InyelliJ/InStore/ApplicationCore/src/main/resources/static",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "aws",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static" />
@@ -100,11 +109,8 @@
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.application-core: Compose Deployment">
+  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration name="TestApiRivenditore | Inserisci un nuovo prodotto" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" executionIdentifier="Inserisci un nuovo prodotto" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="aggiungi-cliente-standard | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" executionIdentifier="#1" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="ApplicationCoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -154,13 +160,26 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="docker-compose.yml.nginx: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="nginx" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
-        <item itemvalue="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto" />
-        <item itemvalue="HTTP Request.aggiungi-cliente-standard | #1" />
+        <item itemvalue="Docker.docker-compose.yml.nginx: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
+        <item itemvalue="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto" />
       </list>
     </recent_temporary>
   </component>
@@ -190,6 +209,10 @@
       <workItem from="1739723416722" duration="1324000" />
       <workItem from="1739806451737" duration="5501000" />
       <workItem from="1739873140634" duration="481000" />
+      <workItem from="1739873677725" duration="4724000" />
+      <workItem from="1739895186175" duration="5648000" />
+      <workItem from="1739901889836" duration="112000" />
+      <workItem from="1739902143438" duration="8267000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -239,7 +262,39 @@
       <option name="project" value="LOCAL" />
       <updated>1739873553185</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add target directory">
+      <option name="closed" value="true" />
+      <created>1739873841818</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739873841818</updated>
+    </task>
+    <task id="LOCAL-00008" summary="modify docker compose">
+      <option name="closed" value="true" />
+      <created>1739895568248</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1739895568248</updated>
+    </task>
+    <task id="LOCAL-00009" summary="modify docker compose">
+      <option name="closed" value="true" />
+      <created>1739897366904</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1739897366904</updated>
+    </task>
+    <task id="LOCAL-00010" summary="modify docker compose">
+      <option name="closed" value="true" />
+      <created>1739898004816</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1739898004816</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -264,7 +319,9 @@
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) x3" />
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3" />
     <MESSAGE value=".gitignore exclude directory target" />
-    <option name="LAST_COMMIT_MESSAGE" value=".gitignore exclude directory target" />
+    <MESSAGE value="add target directory" />
+    <MESSAGE value="modify docker compose" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify docker compose" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

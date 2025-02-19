@@ -8,7 +8,7 @@ services:
   mysql-db:
     image: mysql:9.2.0
     container_name: Mysql_Service
-#    restart: unless-stopped
+    restart: "no"
     networks:
       - app-network
     ports:
@@ -16,7 +16,6 @@ services:
     environment:
       MYSQL_DATABASE: "InStore_db"
       MYSQL_ROOT_PASSWORD: "rootpassword"
-    #command: --lower_case_table_names=2
     volumes:
       #- mysql-data:/var/lib/mysql
       - ./MySqlService/persistence:/var/lib/mysql
@@ -36,7 +35,7 @@ services:
   vault:
     image: hashicorp/vault:1.18.4
     container_name: vault-service
-#    restart: unless-stopped
+    restart: "no"
     ports:
       - '8200:8200'
     volumes:
@@ -75,7 +74,7 @@ services:
       context: ./ApplicationCore
       dockerfile: Dockerfile
     container_name: ApplicationCore_Service
-#    restart: unless-stopped
+    restart: "no"
     environment:
       VAULT_TOKEN: "hvs.6cW8zKkrzeQA17xZAQvu0GeS"
     networks:
@@ -86,8 +85,21 @@ services:
 #      - keycloak
     ports:
       - "8081:8080"
-#    entrypoint: ["/bin/bash", "-c", "while true; do sleep 30; done"]
 
+  nginx:
+    build:
+      context: ./NgnixService  # Percorso del Dockerfile per Nginx
+      dockerfile: Dockerfile  # Nome del Dockerfile
+    container_name: Nginx_Manager  # Nome del contenitore Nginx
+    restart: "no"
+    ports:
+      - "80:80"  # Mappa la porta 80 per il traffico HTTP
+    volumes:
+      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf  # Configurazione personalizzata di Nginx
+    networks:
+      - app-network
+    depends_on:
+      - application-core
 # Definizione delle reti utilizzate dai vari servizi
 networks:
   app-network:
