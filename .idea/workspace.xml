@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="Merged Master in Gae">
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig3.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/IndexController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.trace.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +28,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
@@ -26,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="a82a44bc382f42f24801f526082e0a6b4403773f" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -37,12 +47,12 @@
     &quot;assignee&quot;: &quot;PaoloR96&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/PaoloR96/InStore.git&quot;,
-    &quot;accountId&quot;: &quot;b348a174-90da-474c-864b-12a85c70bc67&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/PaoloR96/InStore.git",
+    "accountId": "3d8e3b8d-87ad-4bce-ac80-4a59a1346531"
   }
-}</component>
+}]]></component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
@@ -58,9 +68,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.debug: Compose Deployment.executor": "Run",
     "Docker.docker-compose.yml.keycloak: Compose Deployment.executor": "Run",
     "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
+    "Maven.ApplicationCore [package].executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Database detector": "Database detector",
+    "Notification.DoNotAsk-Database detector": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -73,6 +88,8 @@
     "git-widget-placeholder": "gae",
     "go.import.settings.migrated": "true",
     "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
@@ -83,8 +100,36 @@
       <recent name="C:\Users\Utente\Desktop\Ssd\ProgettoSSD\InStore\ApplicationCore" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ApplicationCoreApplication">
-    <configuration name="clienteTest | GET request to example server" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/ApplicationCore/src/clienteTest.http" executionIdentifier="GET request to example server" runType="Run single request">
+  <component name="RunManager" selected="Docker.docker-compose.yml.keycloak: Compose Deployment">
+    <configuration name="ApplicationCore [package]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="package" />
+                <option value="-Dmaven.test.skip" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/ApplicationCore" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
       <method v="2" />
     </configuration>
     <configuration name="ApplicationCoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
@@ -119,6 +164,19 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="docker-compose.yml.debug: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="debug" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration name="docker-compose.yml.keycloak: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -146,27 +204,28 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Docker.docker-compose.yml.debug: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
-      <item itemvalue="HTTP Request.clienteTest | GET request to example server" />
+      <item itemvalue="Maven.ApplicationCore [package]" />
       <item itemvalue="Spring Boot.ApplicationCoreApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ApplicationCoreApplication" />
-        <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
-        <item itemvalue="HTTP Request.clienteTest | GET request to example server" />
+        <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
+        <item itemvalue="Spring Boot.ApplicationCoreApplication" />
+        <item itemvalue="Docker.docker-compose.yml.debug: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.153" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.153" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
       </set>
     </attachedChunks>
   </component>
@@ -180,6 +239,7 @@
       <updated>1738421550801</updated>
       <workItem from="1738421551984" duration="186000" />
       <workItem from="1738421751503" duration="306000" />
+      <workItem from="1740049884123" duration="11159000" />
     </task>
     <task id="LOCAL-00001" summary="De-commenting networks in docker-compose.yml">
       <option name="closed" value="true" />
@@ -218,7 +278,8 @@
     <MESSAGE value="Merged Gae into Master: added (partial) Keycloak integration" />
     <MESSAGE value="De-commenting networks in docker-compose.yml" />
     <MESSAGE value="Merged Master in Gae" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged Master in Gae" />
+    <MESSAGE value="Setting up login and logout with Keycloak" />
+    <option name="LAST_COMMIT_MESSAGE" value="Setting up login and logout with Keycloak" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

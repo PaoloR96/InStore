@@ -15,6 +15,7 @@
     <description>ApplicationCore</description>
     <properties>
         <java.version>17</java.version>
+        <spring-security.version>6.4.3</spring-security.version>
     </properties>
     <dependencies>
         <!-- Dipendenza per Spring Data JPA, utile per la gestione dei dati tramite JPA (Java Persistence API) -->
@@ -83,11 +84,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
     </dependencies>
 

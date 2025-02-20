@@ -8,8 +8,8 @@ services:
       MYSQL_DATABASE: InStore_db                    # Nome del database da creare all'avvio
       MYSQL_PASSWORD: secret                        # Password dell'utente MySQL
       MYSQL_ROOT_HOST: '%'                          # Consenti la connessione da qualsiasi host
-    networks:
-      - app-network                                 # Aggiungi il contenitore alla rete app-network
+#    networks:
+#      - app-network                                 # Aggiungi il contenitore alla rete app-network
     ports:
       - "3306:3306"                                 # Mappa la porta 3306 per le connessioni MySQL
     volumes:
@@ -17,55 +17,70 @@ services:
 
   # Servizio Keycloak per la gestione dell'autenticazione
   keycloak:
-    build: ./KeycloakService                        # path of dockerfile
-    container_name: Keycloak_Manager
+    build: ./KeycloakService
+    container_name: keycloak_manager
+    environment:
+      KC_HOSTNAME: http://keycloak_manager:8080
+      KC_HOSTNAME_DEBUG: true
+      KC_HTTP_ENABLED: true
+      KC_HTTP_HOST: keycloak_manager
     ports:
-      - "8090:8080"                                 # Mappa la porta 8090 per l'accesso a Keycloak
+      - "8090:8080"
     volumes:
       - ./KeycloakService/data:/opt/keycloak/data
-    networks:
-      - app-network
+#    networks:
+#      - host
+#      - app-network
 
   # Servizio Vault per la gestione dei segreti
-  vault:
-    build:
-      context: ./VaultService  # Percorso del Dockerfile per Vault
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: Vault_Manager  # Nome del contenitore di Vault
-    networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
-    ports:
-      - "8200:8200"  # Mappa la porta 8200 per l'accesso a Vault
-    environment:
-      VAULT_ADDR: http://127.0.0.1:8200  # Indirizzo di Vault per la connessione
-    healthcheck:
-      test: ["CMD", "vault", "status"]  # Comando di verifica della salute di Vault
-      interval: 30s  # Intervallo tra i controlli
-      timeout: 10s  # Tempo massimo per il controllo
-      retries: 3  # Numero di tentativi prima di segnalarlo come fallito
-    cap_add:
-      - IPC_LOCK  # Aggiungi la capacità IPC_LOCK per Vault
+#  vault:
+#    build:
+#      context: ./VaultService  # Percorso del Dockerfile per Vault
+#      dockerfile: Dockerfile  # Nome del Dockerfile
+#    container_name: Vault_Manager  # Nome del contenitore di Vault
+#    networks:
+#      - app-network  # Aggiungi il contenitore alla rete app-network
+#    ports:
+#      - "8200:8200"  # Mappa la porta 8200 per l'accesso a Vault
+#    environment:
+#      VAULT_ADDR: http://127.0.0.1:8200  # Indirizzo di Vault per la connessione
+#    healthcheck:
+#      test: ["CMD", "vault", "status"]  # Comando di verifica della salute di Vault
+#      interval: 30s  # Intervallo tra i controlli
+#      timeout: 10s  # Tempo massimo per il controllo
+#      retries: 3  # Numero di tentativi prima di segnalarlo come fallito
+#    cap_add:
+#      - IPC_LOCK  # Aggiungi la capacità IPC_LOCK per Vault
 
   # Servizio per l'applicazione ApplicationCore
   application-core:
-    build:
-      context: ./ApplicationCore  # Percorso del Dockerfile per ApplicationCore
-      dockerfile: Dockerfile  # Nome del Dockerfile
-    container_name: ApplicationCore_Service  # Nome del contenitore per ApplicationCore
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://Mysql_Service:3306/InStore_db?useSSL=false&allowPublicKeyRetrieval=true # URL per connettersi a MySQL
-      SPRING_DATASOURCE_USERNAME: root  # Username per il database
-      SPRING_DATASOURCE_PASSWORD: rootpassword  # Password per il database
-    networks:
-      - app-network  # Aggiungi il contenitore alla rete app-network
-    #// depends_on:
-    #  - Mysql_Service # Assicurati che il servizio MySQL sia avviato prima di ApplicationCore
+    build: ./ApplicationCore
+    container_name: ApplicationCore
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://Mysql_Service:3306/InStore_db?useSSL=false&allowPublicKeyRetrieval=true
+#      SPRING_DATASOURCE_USERNAME: root  # Username per il database
+#      SPRING_DATASOURCE_PASSWORD: rootpassword  # Password per il database
+#    networks:
+#      - host
+#      - app-network
+    depends_on:
+      - keycloak
+      - mysql-db
     ports:
-      - "8081:8080"  # Mappa la porta 8081 per l'accesso a ApplicationCore
+      - "8081:8080"
+
+  debug:
+    image: weibeld/ubuntu-networking
+    stdin_open: true
+    tty: true
+#    networks:
+#      - host
+#     - app-network
 
 # Definizione delle reti utilizzate dai vari servizi
-networks:
-  app-network:
+#networks:
+#  app-network:
+#    driver: host
 #    external: true  # Rete esterna già esistente per i contenitori
 
 # Definizione dei volumi per la persistenza dei dati

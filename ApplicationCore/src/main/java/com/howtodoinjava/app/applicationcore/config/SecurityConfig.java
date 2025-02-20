@@ -1,12 +1,17 @@
 package com.howtodoinjava.app.applicationcore.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -57,25 +62,47 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private ClientRegistrationRepository clientRegistrationRepository;
+    @Value("${spring.security.oauth2.client.provider.instore.issuer-uri}")
+    private String issuerUri;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public ClientRegistrationRepository clientRegistrationRepository() {
+        return new InMemoryClientRegistrationRepository(this.keycloakClientRegistration());
+    }
+
+    private ClientRegistration keycloakClientRegistration() {
+        return ClientRegistration.withRegistrationId("google")
+                .clientId("instore-client")
+                .clientSecret("W1Kf5xedBWHaVgWrg3T85BjMyxttTXhR")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUri("http://applicationcore:8080/login/oauth2/code/instore")
+                .scope("openid", "profile", "email")
+                .authorizationUri("http://keycloak_manager:8080/realms/instore/protocol/openid-connect/auth")
+                .tokenUri("http://keycloak_manager:8080/realms/instore/protocol/openid-connect/token")
+                .userInfoUri("http://keycloak_manager:8080/realms/instore/protocol/openid-connect/userinfo")
+                .userNameAttributeName(IdTokenClaimNames.SUB)
+                .jwkSetUri("http://keycloak_manager:8080/realms/instore/protocol/openid-connect/certs")
+                .clientName("instore-client")
+                .build();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, ClientRegistrationRepository clientRegistrationRepository) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(withDefaults())
                 .logout(logout -> logout
-                        .logoutSuccessHandler(oidcLogoutSuccessHandler())
+                        .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository))
                 );
         return http.build();
     }
 
-    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
+    private LogoutSuccessHandler oidcLogoutSuccessHandler(ClientRegistrationRepository clientRegistrationRepository) {
         OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
-                new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
+                new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
 
         // Sets the location that the End-User's User Agent will be redirected to
         // after the logout has been performed at the Provider
