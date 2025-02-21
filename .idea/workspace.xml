@@ -4,7 +4,104 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="aggiunto nginx in ascolto sulla porta 80" />
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add file persistence mysql">
+      <change afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000022" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000023" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MySqlService/persistence/mysql.sock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/classes/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/css/styleRivenditore.css" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/classes/static/css/styleRivenditore.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/generated-sources/annotations/com/howtodoinjava/app/applicationcore/mapper/ProdottoMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/generated-sources/annotations/com/howtodoinjava/app/applicationcore/mapper/ProdottoMapperImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_1.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_1.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo10" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo10" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo11_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo11_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo12_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo12_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo13_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo13_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo14_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo14_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo15_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo15_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo16_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo16_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo17_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo17_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo18_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo18_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo19_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo19_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo20_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo20_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo21_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo21_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo22_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo22_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo23_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo23_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo24_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo24_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo25_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo25_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo26_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo26_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo27_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo27_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo28_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo28_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo29_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo29_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo30_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo30_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo31_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo31_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo32_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo32_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo33_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo33_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo34_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo34_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo35_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo35_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo36_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo36_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo37_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo37_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo38_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo38_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo39_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo39_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo40_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo40_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo41_tmp" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo41_tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/admin.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/admin.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carrello.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/carrello.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/cliente.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/cliente.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/ordine.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/ordine.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto_carrello.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto_carrello.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto_ordine.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/prodotto_ordine.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/rivenditore.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/InStore_db/rivenditore.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000001" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000002" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000002" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000003" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000003" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000004" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000004" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000005" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000005" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000006" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000006" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000007" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000007" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000008" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000008" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000009" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000009" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000010" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000010" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000011" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000011" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000012" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000012" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000013" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000013" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000014" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000014" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000015" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000015" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000016" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000016" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000017" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000017" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000018" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000018" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000019" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000019" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000020" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000020" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/binlog.000021" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/binlog.000021" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ca-key.pem" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ca-key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ca.pem" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ca.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/client-key.pem" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/client-key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql/general_log.CSM" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/mysql/general_log.CSM" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql/slow_log.CSM" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/mysql/slow_log.CSM" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/private_key.pem" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/private_key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/public_key.pem" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/public_key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/server-cert.pem" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/server-cert.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/server-key.pem" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/server-key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_001" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/undo_001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/MySqlService/persistence/undo_002" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" beforeDir="false" afterPath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/public_keys/_4b48205c-57c6-3769-3d92-f6e28824ce17" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,7 +164,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "aws",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -91,6 +188,9 @@
     <configuration name="TestApiRivenditore | Inserisci un nuovo prodotto" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" executionIdentifier="Inserisci un nuovo prodotto" runType="Run single request">
       <method v="2" />
     </configuration>
+    <configuration name="aggiungi-cliente-standard | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" executionIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="ApplicationCoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ApplicationCore" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.howtodoinjava.app.applicationcore.ApplicationCoreApplication" />
@@ -107,19 +207,6 @@
     <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
-          <option name="sourceFilePath" value="docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <configuration name="docker-compose.yml.application-core: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="application-core" />
-            </list>
-          </option>
           <option name="sourceFilePath" value="docker-compose.yml" />
         </settings>
       </deployment>
@@ -154,10 +241,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="HTTP Request.aggiungi-cliente-standard | #1" />
+        <item itemvalue="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto" />
         <item itemvalue="Docker.docker-compose.yml.nginx: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
-        <item itemvalue="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +277,10 @@
       <workItem from="1739873677725" duration="4724000" />
       <workItem from="1739895186175" duration="5648000" />
       <workItem from="1739901889836" duration="112000" />
-      <workItem from="1739902143438" duration="9079000" />
+      <workItem from="1739902143438" duration="11066000" />
+      <workItem from="1739981590758" duration="4184000" />
+      <workItem from="1740072966880" duration="1911000" />
+      <workItem from="1740129078048" duration="5429000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -280,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739964773817</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add file persistence mysql">
+      <option name="closed" value="true" />
+      <created>1739965652376</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1739965652376</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,7 +406,8 @@
     <MESSAGE value="add target directory" />
     <MESSAGE value="modify docker compose" />
     <MESSAGE value="aggiunto nginx in ascolto sulla porta 80" />
-    <option name="LAST_COMMIT_MESSAGE" value="aggiunto nginx in ascolto sulla porta 80" />
+    <MESSAGE value="add file persistence mysql" />
+    <option name="LAST_COMMIT_MESSAGE" value="add file persistence mysql" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

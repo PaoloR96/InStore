@@ -61,7 +61,7 @@ services:
       VAULT_ADDR: "http://vault-service:8200"
     volumes:
       - ./vault/unseal-vault.sh:/vault/unseal-vault.sh
-    entrypoint: sh -c "sleep 5 && /vault/unseal-vault.sh"
+    entrypoint: sh -c "sleep 3 && /vault/unseal-vault.sh"
     networks:
       - app-network
     cap_add:

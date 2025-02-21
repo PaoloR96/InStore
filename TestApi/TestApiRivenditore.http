@@ -1,7 +1,7 @@
 ### Inserisci un nuovo prodotto
 ### Inserimento di un prodotto per un rivenditore
 ### Inserimento Prodotto per il Rivenditore 1
-POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+POST http://instore.puntoitstore.it:80/api/rivenditori/rivenditore2/insprodotti
 Content-Type: application/json
 
 {
