@@ -38,8 +38,11 @@ jobs:
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             rm -r InStore/
             git clone https://github.com/PaoloR96/InStore.git -b biagio
-            cd ~/InStore
+            cd ~/InStore/vault
+            chmod +x unseal-vault.sh
+            cd ..
             docker-compose pull
             docker-compose down
+            docker-compose up -d
             docker-compose up -d
           EOF
