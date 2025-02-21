@@ -74,6 +74,7 @@ services:
       context: ./ApplicationCore
       dockerfile: Dockerfile
     container_name: ApplicationCore_Service
+    image: bise97/application-core
     restart: "no"
     environment:
       VAULT_TOKEN: "hvs.6cW8zKkrzeQA17xZAQvu0GeS"
@@ -91,6 +92,7 @@ services:
       context: ./NgnixService  # Percorso del Dockerfile per Nginx
       dockerfile: Dockerfile  # Nome del Dockerfile
     container_name: Nginx_Manager  # Nome del contenitore Nginx
+    image: bise97/instore-nginx
     restart: "no"
     ports:
       - "80:80"  # Mappa la porta 80 per il traffico HTTP
