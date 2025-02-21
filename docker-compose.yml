@@ -16,10 +16,11 @@ services:
     environment:
       MYSQL_DATABASE: "InStore_db"
       MYSQL_ROOT_PASSWORD: "rootpassword"
+      MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
       #- mysql-data:/var/lib/mysql
       - ./MySqlService/persistence:/var/lib/mysql
-
+    command: --lower_case_table_names=1
 
   # Servizio Keycloak per la gestione dell'autenticazione
 #  keycloak:
