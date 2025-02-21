@@ -41,6 +41,10 @@ jobs:
             cd ~/InStore/vault
             chmod +x unseal-vault.sh
             cd ..
+            cd ApplicationCore
+            chmod +x mvnw
+            ./mvnw clean package -DskipTests
+            cd ..
             docker-compose down
             docker rm bise97/application-core
             docker rm bise97/instore-nginx

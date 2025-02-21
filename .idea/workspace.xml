@@ -4,12 +4,73 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="test CI/CD v6">
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="test CI/CD + delete old image">
       <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/sys/expire/id/ssd-mysql-db/creds/ssd-role/_tUcTOZWt6qj4YTdXbw5eMgyx" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/sys/expire/id/ssd-mysql-db/creds/ssd-role/_tUcTOZWt6qj4YTdXbw5eMgyx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/ApplicationCoreApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/config/CorsConfig$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/config/CorsConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/controller/AdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/controller/ClienteController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/controller/RivenditoreController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/dto/ProdottoDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/Admin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/Carrello.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/CartaCredito.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/Cliente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/ClientePremium.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/Ordine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/Prodotto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/ProdottoCarrello.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/ProdottoCarrelloId.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/ProdottoOrdine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/ProdottoOrdineId.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/Rivenditore.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/StatoCliente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/StatoRivenditore.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/Taglia.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/entity/Utente.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/mapper/ProdottoMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/mapper/ProdottoMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/repository/CarrelloRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/repository/CartaCreditoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/repository/ClienteRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/repository/OrdineRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/repository/ProdottoCarrelloRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/repository/ProdottoOrdineRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/repository/ProdottoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/repository/RivenditoreRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/service/AdminService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/service/ClienteService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/service/RivenditoreService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/com/howtodoinjava/app/applicationcore/utility/CarrelloResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/init_prodotti.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/css/styleRivenditore.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/images/canotta.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/images/cappotto.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/images/giubbotto.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/images/jeans.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/images/maglioncino-collo-alto.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/images/t-shirt.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/indexRivenditore.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/scripts/cart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/scripts/config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/scripts/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/scripts/products.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/scripts/productsRivenditore.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/classes/static/scripts/user.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/generated-sources/annotations/com/howtodoinjava/app/applicationcore/mapper/ProdottoMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/test-classes/com/howtodoinjava/app/applicationcore/ApplicationCoreApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +252,7 @@
       <workItem from="1739902143438" duration="11066000" />
       <workItem from="1739981590758" duration="4184000" />
       <workItem from="1740072966880" duration="1911000" />
-      <workItem from="1740129078048" duration="16516000" />
+      <workItem from="1740129078048" duration="17212000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -377,7 +438,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740158587413</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="test CI/CD + delete old image">
+      <option name="closed" value="true" />
+      <created>1740159763267</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1740159763267</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -414,7 +483,8 @@
     <MESSAGE value="remove unseal-vault.sh" />
     <MESSAGE value="add unseal-vault.sh with permission" />
     <MESSAGE value="test CI/CD v6" />
-    <option name="LAST_COMMIT_MESSAGE" value="test CI/CD v6" />
+    <MESSAGE value="test CI/CD + delete old image" />
+    <option name="LAST_COMMIT_MESSAGE" value="test CI/CD + delete old image" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
