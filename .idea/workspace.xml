@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="delete directory target and add command to build app on server">
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add only file .jar in directory target">
       <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/public_keys/_07e66548-4690-aeb5-3671-a6229a40c897" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/productsRivenditore.js" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/productsRivenditore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NgnixService/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +68,7 @@
     "git-widget-placeholder": "biagio",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/biagi/Documents/InyelliJ/InStore/vault",
+    "last_opened_file_path": "C:/Users/biagi/Documents/InyelliJ/InStore/ApplicationCore/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -84,11 +85,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources" />
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\vault" />
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static" />
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static\css" />
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static\scripts" />
-      <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\MySqlService" />
@@ -191,7 +192,7 @@
       <workItem from="1739902143438" duration="11066000" />
       <workItem from="1739981590758" duration="4184000" />
       <workItem from="1740072966880" duration="1911000" />
-      <workItem from="1740129078048" duration="17677000" />
+      <workItem from="1740129078048" duration="18402000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -393,7 +394,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740160490504</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="add only file .jar in directory target">
+      <option name="closed" value="true" />
+      <created>1740161087229</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1740161087230</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,7 +441,8 @@
     <MESSAGE value="test CI/CD v6" />
     <MESSAGE value="test CI/CD + delete old image" />
     <MESSAGE value="delete directory target and add command to build app on server" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete directory target and add command to build app on server" />
+    <MESSAGE value="add only file .jar in directory target" />
+    <option name="LAST_COMMIT_MESSAGE" value="add only file .jar in directory target" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

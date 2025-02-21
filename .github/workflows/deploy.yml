@@ -42,8 +42,8 @@ jobs:
             chmod +x unseal-vault.sh
             cd ..
             docker-compose down
-            docker rm bise97/application-core
-            docker rm bise97/instore-nginx
+            docker rmi bise97/application-core
+            docker rmi bise97/instore-nginx
             docker-compose pull
             docker-compose up -d
             docker-compose up -d

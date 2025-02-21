@@ -4,18 +4,33 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("productForm").addEventListener("submit", addProduct);
 });
 
+// Funzione per provare più porte
+async function tryFetchFromMultiplePorts(paths) {
+    const ports = [80, 8081];
+    for (let port of ports) {
+        try {
+            const response = await fetch(`http://localhost:${port}${paths}`);
+            if (response.ok) {
+                return await response.json();
+            }
+        } catch (error) {
+            console.warn(`Errore su porta ${port}:`, error);
+        }
+    }
+    throw new Error("Nessuna connessione disponibile");
+}
+
 // Funzione per estrarre e visualizzare il nome del rivenditore
 function loadRetailerName() {
-    const apiUrl = "http://localhost:8081/api/rivenditori/rivenditore2/listaprodotti";
-    const retailerId = apiUrl.split('/')[4]; // Estrae "rivenditore2"
-    const formattedName = retailerId.charAt(0).toUpperCase() + retailerId.slice(1); // Capitalizza la prima lettera
+    const apiUrl = "/api/rivenditori/rivenditore2/listaprodotti";
+    const retailerId = "rivenditore2";
+    const formattedName = retailerId.charAt(0).toUpperCase() + retailerId.slice(1);
 
-    const retailerNameElement = document.getElementById("retailerName");
-    retailerNameElement.textContent = formattedName;
+    document.getElementById("retailerName").textContent = formattedName;
 }
 
 // Funzione per caricare i prodotti
-function loadProducts() {
+async function loadProducts() {
     const productsGrid = document.getElementById("productsGrid");
     productsGrid.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
@@ -24,40 +39,34 @@ function loadProducts() {
         </div>
     `;
 
-    fetch("http://localhost:8081/api/rivenditori/rivenditore2/listaprodotti")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Errore nel caricamento dei prodotti");
-            }
-            return response.json();
-        })
-        .then(data => {
-            productsGrid.innerHTML = "";
-            if (data.length === 0) {
-                productsGrid.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                        <i class="fas fa-box-open fa-2x"></i>
-                        <p>Nessun prodotto disponibile</p>
-                    </div>
-                `;
-                return;
-            }
+    try {
+        const data = await tryFetchFromMultiplePorts("/api/rivenditori/rivenditore2/listaprodotti");
+        productsGrid.innerHTML = "";
 
-            data.sort((a, b) => b.id - a.id);
-            data.forEach(product => {
-                const productCard = createProductCard(product);
-                productsGrid.appendChild(productCard);
-            });
-        })
-        .catch(error => {
-            console.error("Errore nel caricamento prodotti:", error);
+        if (data.length === 0) {
             productsGrid.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--accent-color);">
-                    <i class="fas fa-exclamation-circle fa-2x"></i>
-                    <p>Errore nel caricamento dei prodotti</p>
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <i class="fas fa-box-open fa-2x"></i>
+                    <p>Nessun prodotto disponibile</p>
                 </div>
             `;
+            return;
+        }
+
+        data.sort((a, b) => b.id - a.id);
+        data.forEach(product => {
+            productsGrid.appendChild(createProductCard(product));
         });
+
+    } catch (error) {
+        console.error("Errore nel caricamento prodotti:", error);
+        productsGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--accent-color);">
+                <i class="fas fa-exclamation-circle fa-2x"></i>
+                <p>Errore nel caricamento dei prodotti</p>
+            </div>
+        `;
+    }
 }
 
 // Funzione per aggiungere un prodotto
@@ -78,31 +87,39 @@ async function addProduct(event) {
         quantitaTotale: parseInt(document.getElementById("quantitaTotale").value),
     };
 
-    try {
-        const response = await fetch("http://localhost:8081/api/rivenditori/rivenditore2/insprodotti", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(nuovoProdotto)
-        });
+    const endpoints = [
+        "http://localhost:80/api/rivenditori/rivenditore2/insprodotti",
+        "http://localhost:8081/api/rivenditori/rivenditore2/insprodotti"
+    ];
 
-        if (!response.ok) {
-            throw new Error(`Errore nell'inserimento: ${response.status}`);
+    let success = false;
+    for (let url of endpoints) {
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(nuovoProdotto)
+            });
+
+            if (response.ok) {
+                success = true;
+                break;
+            }
+        } catch (error) {
+            console.warn(`Errore su ${url}:`, error);
         }
+    }
 
+    if (success) {
         showSuccessAnimation();
         document.getElementById("productForm").reset();
-        // Aggiorna automaticamente la lista dei prodotti dopo l'inserimento
         loadProducts();
-
-    } catch (error) {
-        console.error("Errore:", error);
-        showErrorMessage("Errore nell'aggiunta del prodotto: " + error.message);
-    } finally {
-        submitButton.disabled = false;
-        submitButton.innerHTML = originalButtonText;
+    } else {
+        showErrorMessage("Errore nell'aggiunta del prodotto");
     }
+
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalButtonText;
 }
 
 function createProductCard(product) {
