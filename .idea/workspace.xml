@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="test CI/CD on github action v4">
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="test CI/CD on github action + db persistence">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +187,7 @@
       <workItem from="1739902143438" duration="11066000" />
       <workItem from="1739981590758" duration="4184000" />
       <workItem from="1740072966880" duration="1911000" />
-      <workItem from="1740129078048" duration="13722000" />
+      <workItem from="1740129078048" duration="14360000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -334,7 +333,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740155480057</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="test CI/CD on github action + db persistence">
+      <option name="closed" value="true" />
+      <created>1740157057768</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1740157057768</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +374,8 @@
     <MESSAGE value="test CI/CD on github action + change persistence db" />
     <MESSAGE value="test CI/CD on github action v3" />
     <MESSAGE value="test CI/CD on github action v4" />
-    <option name="LAST_COMMIT_MESSAGE" value="test CI/CD on github action v4" />
+    <MESSAGE value="test CI/CD on github action + db persistence" />
+    <option name="LAST_COMMIT_MESSAGE" value="test CI/CD on github action + db persistence" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
