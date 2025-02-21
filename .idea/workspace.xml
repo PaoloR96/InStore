@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="Merged Master in Gae">
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/IndexController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="Keycloak finally works on docker network">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/templates/test-kc.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.trace.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,12 +39,12 @@
     &quot;assignee&quot;: &quot;PaoloR96&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/PaoloR96/InStore.git",
-    "accountId": "3d8e3b8d-87ad-4bce-ac80-4a59a1346531"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/PaoloR96/InStore.git&quot;,
+    &quot;accountId&quot;: &quot;3d8e3b8d-87ad-4bce-ac80-4a59a1346531&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
@@ -66,41 +58,41 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.debug: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.keycloak: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
-    "Maven.ApplicationCore [package].executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Database detector": "Database detector",
-    "Notification.DoNotAsk-Database detector": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "Spring Boot.ApplicationCoreApplication.executor": "Run",
-    "git-widget-placeholder": "gae",
-    "go.import.settings.migrated": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Docker.docker-compose.yml.application-core: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.debug: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.keycloak: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.mysql-db: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ApplicationCore [package].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
+    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApplicationCoreApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gae&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Utente\Desktop\Ssd\ProgettoSSD\InStore\ApplicationCore" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.keycloak: Compose Deployment">
+  <component name="RunManager" selected="Docker.docker-compose.yml.application-core: Compose Deployment">
     <configuration name="ApplicationCore [package]" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -213,8 +205,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
         <item itemvalue="Spring Boot.ApplicationCoreApplication" />
         <item itemvalue="Docker.docker-compose.yml.debug: Compose Deployment" />
@@ -239,7 +231,8 @@
       <updated>1738421550801</updated>
       <workItem from="1738421551984" duration="186000" />
       <workItem from="1738421751503" duration="306000" />
-      <workItem from="1740049884123" duration="11159000" />
+      <workItem from="1740049884123" duration="16773000" />
+      <workItem from="1740128256419" duration="11907000" />
     </task>
     <task id="LOCAL-00001" summary="De-commenting networks in docker-compose.yml">
       <option name="closed" value="true" />
@@ -257,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738859517322</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Keycloak finally works on docker network">
+      <option name="closed" value="true" />
+      <created>1740066772539</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1740066772539</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +280,8 @@
     <MESSAGE value="De-commenting networks in docker-compose.yml" />
     <MESSAGE value="Merged Master in Gae" />
     <MESSAGE value="Setting up login and logout with Keycloak" />
-    <option name="LAST_COMMIT_MESSAGE" value="Setting up login and logout with Keycloak" />
+    <MESSAGE value="Keycloak finally works on docker network" />
+    <option name="LAST_COMMIT_MESSAGE" value="Keycloak finally works on docker network" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

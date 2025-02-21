@@ -18,18 +18,17 @@ services:
   # Servizio Keycloak per la gestione dell'autenticazione
   keycloak:
     build: ./KeycloakService
-    container_name: keycloak_manager
+    container_name: keycloak-manager
     environment:
-      KC_HOSTNAME: http://keycloak_manager:8080
+      KC_HOSTNAME: http://keycloak-manager:8080
+      KC_HTTP_HOST: keycloak-manager
       KC_HOSTNAME_DEBUG: true
       KC_HTTP_ENABLED: true
-      KC_HTTP_HOST: keycloak_manager
     ports:
       - "8090:8080"
     volumes:
       - ./KeycloakService/data:/opt/keycloak/data
 #    networks:
-#      - host
 #      - app-network
 
   # Servizio Vault per la gestione dei segreti
@@ -61,26 +60,23 @@ services:
 #      SPRING_DATASOURCE_USERNAME: root  # Username per il database
 #      SPRING_DATASOURCE_PASSWORD: rootpassword  # Password per il database
 #    networks:
-#      - host
 #      - app-network
     depends_on:
       - keycloak
       - mysql-db
     ports:
-      - "8081:8080"
+      - "8080:8080"
 
-  debug:
-    image: weibeld/ubuntu-networking
-    stdin_open: true
-    tty: true
+#  debug:
+#    image: weibeld/ubuntu-networking
+#    stdin_open: true
+#    tty: true
 #    networks:
-#      - host
 #     - app-network
 
 # Definizione delle reti utilizzate dai vari servizi
 #networks:
 #  app-network:
-#    driver: host
 #    external: true  # Rete esterna già esistente per i contenitori
 
 # Definizione dei volumi per la persistenza dei dati

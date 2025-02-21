@@ -3,17 +3,24 @@ package com.howtodoinjava.app.applicationcore.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.RequestEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.ClientRegistrations;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -22,6 +29,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
  * enabling security filters and setting up OAuth2 login and logout behavior.
  */
 
+//TODO remove this class
 //@Configuration
 //@EnableWebSecurity
 //public class SecurityConfig {
@@ -62,30 +70,58 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${spring.security.oauth2.client.provider.instore.issuer-uri}")
-    private String issuerUri;
+    //local hosts (only for testing)
+//    final private String kcHost = "localhost:8090";
+//    final private String appHost = "localhost:8080";
+
+    //remote hosts
+    final private String kcHost = "keycloak-manager:8080";
+    final private String appHost = "applicationcore:8080";
+
+    @Value("${spring.security.oauth2.client.registration.instore.client-id}")
+    private String clientId;
+    @Value("${spring.security.oauth2.client.registration.instore.client-secret}")
+    private String clientSecret;
 
     @Bean
-    public ClientRegistrationRepository clientRegistrationRepository() {
-        return new InMemoryClientRegistrationRepository(this.keycloakClientRegistration());
-    }
-
-    private ClientRegistration keycloakClientRegistration() {
-        return ClientRegistration.withRegistrationId("google")
-                .clientId("instore-client")
-                .clientSecret("W1Kf5xedBWHaVgWrg3T85BjMyxttTXhR")
+    public ClientRegistrationRepository clientRegistrationRepository() throws URISyntaxException {
+//        return new InMemoryClientRegistrationRepository(this.keycloakClientRegistration());
+        URI metadataEndpoint = new URI("http://"+kcHost+"/realms/instore/.well-known/openid-configuration");
+        RequestEntity<Void> request = RequestEntity.get(metadataEndpoint).build();
+        ParameterizedTypeReference<Map<String, Object>> typeReference = new ParameterizedTypeReference<>() {};
+        Map<String, Object> configuration = new RestTemplate().exchange(request, typeReference).getBody();
+        if(configuration == null) throw new RuntimeException("Configuration is null - Cazzo");
+        System.out.println(configuration);
+        ClientRegistration clientRegistration = ClientRegistrations.fromOidcConfiguration(configuration)
+                .clientId(clientId)
+                .clientSecret(clientSecret)
+                .registrationId("instore")
+                .redirectUri("http://"+appHost+"/login/oauth2/code/instore")
+                .scope("openid", "profile", "email")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("http://applicationcore:8080/login/oauth2/code/instore")
-                .scope("openid", "profile", "email")
-                .authorizationUri("http://keycloak_manager:8080/realms/instore/protocol/openid-connect/auth")
-                .tokenUri("http://keycloak_manager:8080/realms/instore/protocol/openid-connect/token")
-                .userInfoUri("http://keycloak_manager:8080/realms/instore/protocol/openid-connect/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
-                .jwkSetUri("http://keycloak_manager:8080/realms/instore/protocol/openid-connect/certs")
-                .clientName("instore-client")
                 .build();
+        return new InMemoryClientRegistrationRepository(clientRegistration);
     }
+
+    //TODO remove this method
+//    private ClientRegistration keycloakClientRegistration() {
+//        return ClientRegistration.withRegistrationId("instore")
+//                .clientId(clientId)
+//                .clientSecret(clientSecret)
+//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//                .redirectUri("http://"+appHost+"/login/oauth2/code/instore")
+//                .scope("openid", "profile", "email")
+//                .authorizationUri("http://"+kcHost+"/realms/instore/protocol/openid-connect/auth")
+//                .tokenUri("http://"+kcHost+"/realms/instore/protocol/openid-connect/token")
+//                .userInfoUri("http://"+kcHost+"/realms/instore/protocol/openid-connect/userinfo")
+//                .userNameAttributeName(IdTokenClaimNames.SUB)
+//                .jwkSetUri("http://"+kcHost+"/realms/instore/protocol/openid-connect/certs")
+//                .clientName("instore-client")
+//                .issuerUri("http://"+kcHost+"/realms/instore")
+//                .build();
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, ClientRegistrationRepository clientRegistrationRepository) throws Exception {
@@ -95,18 +131,21 @@ public class SecurityConfig {
                 )
                 .oauth2Login(withDefaults())
                 .logout(logout -> logout
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
                         .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository))
                 );
         return http.build();
     }
 
+
     private LogoutSuccessHandler oidcLogoutSuccessHandler(ClientRegistrationRepository clientRegistrationRepository) {
         OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
                 new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
 
-        // Sets the location that the End-User's User Agent will be redirected to
-        // after the logout has been performed at the Provider
-//        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("http://localhost:8080/");
+//         Sets the location that the End-User's User Agent will be redirected to
+//         after the logout has been performed at the Provider
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("http://"+appHost+":8080/");
 
         return oidcLogoutSuccessHandler;
     }
