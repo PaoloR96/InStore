@@ -41,8 +41,10 @@ jobs:
             cd ~/InStore/vault
             chmod +x unseal-vault.sh
             cd ..
-            docker-compose pull
             docker-compose down
+            docker rm bise97/application-core
+            docker rm bise97/instore-nginx
+            docker-compose pull
             docker-compose up -d
             docker-compose up -d
           EOF

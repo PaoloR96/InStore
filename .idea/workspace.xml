@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add unseal-vault.sh with permission">
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="test CI/CD v6">
       <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/sys/expire/id/ssd-mysql-db/creds/ssd-role/_tUcTOZWt6qj4YTdXbw5eMgyx" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/sys/expire/id/ssd-mysql-db/creds/ssd-role/_tUcTOZWt6qj4YTdXbw5eMgyx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +191,7 @@
       <workItem from="1739902143438" duration="11066000" />
       <workItem from="1739981590758" duration="4184000" />
       <workItem from="1740072966880" duration="1911000" />
-      <workItem from="1740129078048" duration="15505000" />
+      <workItem from="1740129078048" duration="16516000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -365,7 +369,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740158334344</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="test CI/CD v6">
+      <option name="closed" value="true" />
+      <created>1740158587413</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1740158587413</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,7 +413,8 @@
     <MESSAGE value="test CI/CD on github action + db persistence" />
     <MESSAGE value="remove unseal-vault.sh" />
     <MESSAGE value="add unseal-vault.sh with permission" />
-    <option name="LAST_COMMIT_MESSAGE" value="add unseal-vault.sh with permission" />
+    <MESSAGE value="test CI/CD v6" />
+    <option name="LAST_COMMIT_MESSAGE" value="test CI/CD v6" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
