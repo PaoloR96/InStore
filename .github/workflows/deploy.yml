@@ -38,7 +38,7 @@ jobs:
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             cd ~/InStore
             git pull origin biagio
-            docker compose pull
-            docker compose down
-            docker compose up -d
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
           EOF
