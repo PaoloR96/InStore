@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add only file .jar in directory target">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/productsRivenditore.js" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/productsRivenditore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NgnixService/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/nginx.conf" afterDir="false" />
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="change frontend by paolo">
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +188,7 @@
       <workItem from="1739902143438" duration="11066000" />
       <workItem from="1739981590758" duration="4184000" />
       <workItem from="1740072966880" duration="1911000" />
-      <workItem from="1740129078048" duration="18402000" />
+      <workItem from="1740129078048" duration="18722000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -402,7 +398,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740161087230</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="change frontend by paolo">
+      <option name="closed" value="true" />
+      <created>1740161741500</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1740161741500</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,7 +446,8 @@
     <MESSAGE value="test CI/CD + delete old image" />
     <MESSAGE value="delete directory target and add command to build app on server" />
     <MESSAGE value="add only file .jar in directory target" />
-    <option name="LAST_COMMIT_MESSAGE" value="add only file .jar in directory target" />
+    <MESSAGE value="change frontend by paolo" />
+    <option name="LAST_COMMIT_MESSAGE" value="change frontend by paolo" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
