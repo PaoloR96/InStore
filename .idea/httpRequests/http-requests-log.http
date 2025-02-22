@@ -1,3 +1,56 @@
+POST http://instore.puntoitstore.it/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 256
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "Maglioncino Collo Alto",
+  "descrizione": "Maglioncino collo alto 100% lana di colore beige, perfetto per l'inverno.",
+  "prezzo": 21.99,
+  "taglia": "S",
+  "pathImmagine": "/images/maglioncino-collo-alto.jpg",
+  "quantitaTotale": 30
+}
+
+<> 2025-02-22T182726.200.txt
+
+###
+
+POST http://instore.puntoitstore.it/api/rivenditori/rivenditore2/insprodotti
+Content-Type: application/json
+Content-Length: 203
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "nomeProdotto": "T-Shirt basic",
+  "descrizione": "T-Shirt semplice 100% cotone, colore bianco.",
+  "prezzo": 10.99,
+  "taglia": "M",
+  "pathImmagine": "/images/t-shirt.jpg",
+  "quantitaTotale": 25
+}
+
+<> 2025-02-22T182311.200.txt
+
+###
+
+POST http://instore.puntoitstore.it/api/clienti/aggiungi_standard
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 210
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.3.1.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+username=cliente1&email=cliente1%40example.com&password=password000&numCell=3465433&nome=Mario&cognome=Rossi&numeroCarta=58768989&dataScadenza=2027-12-31&nomeIntestatario=Mario&cognomeIntestatario=Rossi&cvc=333
+
+<> 2025-02-22T182221.200.json
+
+###
+
 POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
 Content-Type: application/json
 Content-Length: 203

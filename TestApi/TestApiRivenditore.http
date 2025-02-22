@@ -1,16 +1,16 @@
 ### Inserisci un nuovo prodotto
 ### Inserimento di un prodotto per un rivenditore
 ### Inserimento Prodotto per il Rivenditore 1
-POST http://localhost:8081/api/rivenditori/rivenditore2/insprodotti
+POST http://instore.puntoitstore.it/api/rivenditori/rivenditore2/insprodotti
 Content-Type: application/json
 
 {
-  "nomeProdotto": "T-Shirt basic",
-  "descrizione": "T-Shirt semplice 100% cotone, colore bianco.",
-  "prezzo": 10.99,
-  "taglia": "M",
-  "pathImmagine": "/images/t-shirt.jpg",
-  "quantitaTotale": 25
+  "nomeProdotto": "Maglioncino Collo Alto",
+  "descrizione": "Maglioncino collo alto 100% lana di colore beige, perfetto per l'inverno.",
+  "prezzo": 21.99,
+  "taglia": "S",
+  "pathImmagine": "/images/maglioncino-collo-alto.jpg",
+  "quantitaTotale": 30
 }
 ### ListaProdotti inseriti
 ####

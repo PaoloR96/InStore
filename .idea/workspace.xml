@@ -4,203 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="change frontend by paolo + jar">
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="change mysql persistence">
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_0.dblwr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#ib_16384_1.dblwr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo10_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo11_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo12_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo13_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo14_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo15_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo16_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo17_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo18_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo19_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo20_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo21_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo22_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo23_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo24_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo25_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo26_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo27_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo28_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo29_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo30_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo31_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo32_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo33_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo34_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo35_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo36_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo37_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo38_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo39_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo40_tmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_redo/#ib_redo9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_1.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_10.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_2.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_3.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_4.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_5.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_6.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_7.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_8.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/#innodb_temp/temp_9.ibt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/auto.cnf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ca-key.pem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ca.pem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/client-cert.pem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/client-key.pem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ib_buffer_pool" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ibdata1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/ibtmp1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/admin.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/carrello.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/carta_di_credito.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/cliente.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/ordine.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/prodotto.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/prodotto_carrello.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/prodotto_ordine.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/instore_db/rivenditore.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql/general_log.CSM" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql/general_log.CSV" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql/general_log_219.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql/slow_log.CSM" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql/slow_log.CSV" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql/slow_log_220.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/mysql_upgrade_history" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/accounts_149.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/binary_log_trans_195.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/cond_instances_83.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/data_lock_waits_165.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/data_locks_164.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/error_log_84.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_errors_su_143.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_errors_su_144.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_errors_su_145.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_errors_su_146.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_errors_su_147.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_stages_cu_115.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_stages_hi_116.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_stages_hi_117.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_stages_su_118.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_stages_su_119.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_stages_su_120.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_stages_su_121.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_stages_su_122.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_123.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_124.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_125.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_126.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_127.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_128.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_129.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_130.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_131.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_132.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_133.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_statement_134.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_transacti_135.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_transacti_136.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_transacti_137.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_transacti_138.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_transacti_139.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_transacti_140.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_transacti_141.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_transacti_142.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_cur_85.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_his_86.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_his_87.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_sum_88.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_sum_89.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_sum_90.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_sum_91.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_sum_92.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/events_waits_sum_93.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/file_instances_94.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/file_summary_by__95.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/file_summary_by__96.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/global_status_185.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/global_variable__192.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/global_variables_188.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/host_cache_97.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/hosts_150.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/keyring_componen_197.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/keyring_keys_156.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/log_status_178.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/memory_summary_b_158.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/memory_summary_b_159.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/memory_summary_b_160.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/memory_summary_b_161.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/memory_summary_g_157.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/metadata_locks_163.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/mutex_instances_98.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/objects_summary__99.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/performance_time_100.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/persisted_variab_193.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/prepared_stateme_179.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/processlist_101.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_appl_169.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_appl_170.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_appl_171.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_appl_172.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_appl_174.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_appl_175.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_asyn_176.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_asyn_177.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_conn_166.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_conn_168.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_grou_167.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/replication_grou_173.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/rwlock_instances_102.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/session_account__155.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/session_connect__154.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/session_status_186.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/session_variable_189.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/setup_actors_103.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/setup_consumers_104.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/setup_instrument_105.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/setup_loggers_106.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/setup_meters_107.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/setup_metrics_108.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/setup_objects_109.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/setup_threads_110.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/socket_instances_151.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/socket_summary_b_152.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/socket_summary_b_153.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/status_by_accoun_181.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/status_by_host_182.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/status_by_thread_183.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/status_by_user_184.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/table_handles_162.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/table_io_waits_s_111.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/table_io_waits_s_112.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/table_lock_waits_113.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/threads_114.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/tls_channel_stat_196.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/user_defined_fun_194.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/user_variables_b_180.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/users_148.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/variables_by_thr_187.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/variables_info_190.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/performance_schema/variables_metada_191.sdi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/private_key.pem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/public_key.pem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/server-cert.pem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/server-key.pem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/sys/sys_config.ibd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/persistence/undo_002" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" beforeDir="false" afterPath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vault/data/sys/expire/id/ssd-mysql-db/creds/ssd-role/_tUcTOZWt6qj4YTdXbw5eMgyx" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/sys/expire/id/ssd-mysql-db/creds/ssd-role/_tUcTOZWt6qj4YTdXbw5eMgyx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -287,7 +97,7 @@
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
+  <component name="RunManager" selected="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto">
     <configuration name="TestApiRivenditore | Inserisci un nuovo prodotto" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" executionIdentifier="Inserisci un nuovo prodotto" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -343,10 +153,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
         <item itemvalue="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto" />
         <item itemvalue="HTTP Request.aggiungi-cliente-standard | #1" />
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.nginx: Compose Deployment" />
       </list>
     </recent_temporary>
@@ -384,7 +194,7 @@
       <workItem from="1739981590758" duration="4184000" />
       <workItem from="1740072966880" duration="1911000" />
       <workItem from="1740129078048" duration="21406000" />
-      <workItem from="1740243363571" duration="923000" />
+      <workItem from="1740243363571" duration="1862000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -610,7 +420,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740162010317</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="change mysql persistence">
+      <option name="closed" value="true" />
+      <created>1740244351961</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1740244351961</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -652,7 +470,8 @@
     <MESSAGE value="add only file .jar in directory target" />
     <MESSAGE value="change frontend by paolo" />
     <MESSAGE value="change frontend by paolo + jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="change frontend by paolo + jar" />
+    <MESSAGE value="change mysql persistence" />
+    <option name="LAST_COMMIT_MESSAGE" value="change mysql persistence" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
