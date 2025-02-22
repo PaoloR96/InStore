@@ -18,8 +18,8 @@ services:
       MYSQL_ROOT_PASSWORD: "rootpassword"
       MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
-      #- mysql-data:/var/lib/mysql
-      - ./MySqlService/persistence:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+#      - ./MySqlService/persistence:/var/lib/mysql
     command: --lower_case_table_names=1
 
   # Servizio Keycloak per la gestione dell'autenticazione
@@ -110,5 +110,6 @@ networks:
 
 # Definizione dei volumi per la persistenza dei dati
 volumes:
-  mysql-data:  # Volume per i dati di MySQL
+  mysql-data:
+    name: instore-mysql
 
