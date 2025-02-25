@@ -19,19 +19,19 @@ services:
       MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
       - mysql-data:/var/lib/mysql
-#      - ./MySqlService/persistence:/var/lib/mysql
+    #      - ./MySqlService/persistence:/var/lib/mysql
     command: --lower_case_table_names=1
 
   # Servizio Keycloak per la gestione dell'autenticazione
-#  keycloak:
-#    build: ./KeycloakService                        # path of dockerfile
-#    container_name: Keycloak_Manager
-#    ports:
-#      - "8090:8090"                                 # Mappa la porta 8090 per l'accesso a Keycloak
-#    volumes:
-#      - ./KeycloakService/data:/opt/keycloak/data
-#    networks:
-#      - app-network
+  #  keycloak:
+  #    build: ./KeycloakService                        # path of dockerfile
+  #    container_name: Keycloak_Manager
+  #    ports:
+  #      - "8090:8090"                                 # Mappa la porta 8090 per l'accesso a Keycloak
+  #    volumes:
+  #      - ./KeycloakService/data:/opt/keycloak/data
+  #    networks:
+  #      - app-network
 
   vault:
     image: hashicorp/vault:1.18.4
@@ -84,7 +84,7 @@ services:
     depends_on:
       - mysql-db
       - vault-init
-#      - keycloak
+    #      - keycloak
     ports:
       - "8081:8080"
 
@@ -100,8 +100,8 @@ services:
       - "443:443"
     volumes:
       - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf
-      - ./certbot/conf:/etc/letsencrypt  # Volume per i certificati
-      - ./certbot/www:/var/www/certbot   # Volume per la sfida ACME
+      - letsencrypt:/etc/letsencrypt  # Volume per i certificati
+      - certbot-data:/var/www/certbot   # Volume per la sfida ACME
     networks:
       - app-network
     depends_on:
@@ -112,24 +112,25 @@ services:
     container_name: certbot
     restart: "no"
     volumes:
-      - ./certbot/conf:/etc/letsencrypt:rw
-      - ./certbot/www:/var/www/certbot:rw
+      #- ./certbot/conf:/etc/letsencrypt:rw
+      #- ./certbot/www:/var/www/certbot:rw
+      - certbot-data:/var/www/certbot
+      - letsencrypt:/etc/letsencrypt
     networks:
       - app-network
     depends_on:
       - nginx
     command:
-      #- renew
-      - certonly
-      - --webroot
-      - -w
-      - /var/www/certbot
-      - --email=paolorusso3196@gmail.com
-      - --agree-tos
-      - --no-eff-email
-      - -d
-      - instore.puntoitstore.it
-#      - --force-renewal
+      - renew
+      #- certonly
+      #- --webroot
+      #- -w
+      #- /var/www/certbot
+      #- --email=paolorusso3196@gmail.com
+      #- --agree-tos
+      #- --no-eff-email
+      #- -d
+      #- instore.puntoitstore.it
 
 # Definizione delle reti utilizzate dai vari servizi
 networks:
@@ -140,4 +141,5 @@ networks:
 volumes:
   mysql-data:
     name: instore-mysql
-
+  certbot-data:
+  letsencrypt:

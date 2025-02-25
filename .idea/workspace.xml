@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add certbot v3">
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add certbot v4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NgnixService/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +191,7 @@
       <workItem from="1740072966880" duration="1911000" />
       <workItem from="1740129078048" duration="21406000" />
       <workItem from="1740243363571" duration="2783000" />
-      <workItem from="1740498038597" duration="7256000" />
+      <workItem from="1740498038597" duration="12192000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -488,7 +489,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740503985852</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="add certbot v4">
+      <option name="closed" value="true" />
+      <created>1740505523201</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1740505523201</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,7 +515,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="modify docker compose" />
     <MESSAGE value="aggiunto nginx in ascolto sulla porta 80" />
     <MESSAGE value="add file persistence mysql" />
     <MESSAGE value="test CI/CD on github action" />
@@ -531,7 +539,8 @@
     <MESSAGE value="add certbot" />
     <MESSAGE value="add certbot v2" />
     <MESSAGE value="add certbot v3" />
-    <option name="LAST_COMMIT_MESSAGE" value="add certbot v3" />
+    <MESSAGE value="add certbot v4" />
+    <option name="LAST_COMMIT_MESSAGE" value="add certbot v4" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
