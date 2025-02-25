@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="change nginx.conf server_name with domain instore.puntoitstore.it" />
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="change nginx.conf server_name with domain instore.puntoitstore.it with static page" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -187,7 +187,7 @@
       <workItem from="1740072966880" duration="1911000" />
       <workItem from="1740129078048" duration="21406000" />
       <workItem from="1740243363571" duration="2783000" />
-      <workItem from="1740498038597" duration="934000" />
+      <workItem from="1740498038597" duration="1265000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -437,7 +437,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740498961618</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="change nginx.conf server_name with domain instore.puntoitstore.it with static page">
+      <option name="closed" value="true" />
+      <created>1740499156628</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1740499156628</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -455,7 +463,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="aggiunto frontend rivenditore" />
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) x3" />
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3" />
@@ -480,7 +487,8 @@
     <MESSAGE value="change mysql persistence" />
     <MESSAGE value="test ci/cd" />
     <MESSAGE value="change nginx.conf server_name with domain instore.puntoitstore.it" />
-    <option name="LAST_COMMIT_MESSAGE" value="change nginx.conf server_name with domain instore.puntoitstore.it" />
+    <MESSAGE value="change nginx.conf server_name with domain instore.puntoitstore.it with static page" />
+    <option name="LAST_COMMIT_MESSAGE" value="change nginx.conf server_name with domain instore.puntoitstore.it with static page" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
