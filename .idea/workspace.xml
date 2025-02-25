@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add server_name to nginx.conf">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NgnixService/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-    </list>
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add certbot" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -191,7 +187,7 @@
       <workItem from="1740072966880" duration="1911000" />
       <workItem from="1740129078048" duration="21406000" />
       <workItem from="1740243363571" duration="2783000" />
-      <workItem from="1740498038597" duration="4456000" />
+      <workItem from="1740498038597" duration="4770000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -465,7 +461,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740501762445</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="add certbot">
+      <option name="closed" value="true" />
+      <created>1740502642470</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1740502642470</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,7 +487,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea) v3" />
     <MESSAGE value=".gitignore exclude directory target" />
     <MESSAGE value="add target directory" />
     <MESSAGE value="modify docker compose" />
@@ -508,7 +511,8 @@
     <MESSAGE value="change nginx.conf server_name with domain instore.puntoitstore.it with static page" />
     <MESSAGE value="refactor nginx.conf" />
     <MESSAGE value="add server_name to nginx.conf" />
-    <option name="LAST_COMMIT_MESSAGE" value="add server_name to nginx.conf" />
+    <MESSAGE value="add certbot" />
+    <option name="LAST_COMMIT_MESSAGE" value="add certbot" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

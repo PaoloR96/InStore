@@ -122,11 +122,11 @@ services:
       #- renew
       - certonly
       - --webroot
-      - w
+      - -w
       - /var/www/certbot
       - --email=paolorusso3196@gmail.com
-      - -agree-tos
-      - -no-eff-email
+      - --agree-tos
+      - --no-eff-email
       - -d
       - instore.puntoitstore.it
 
