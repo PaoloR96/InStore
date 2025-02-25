@@ -93,7 +93,7 @@ services:
       context: ./NgnixService  # Percorso del Dockerfile per Nginx
       dockerfile: Dockerfile  # Nome del Dockerfile
     container_name: Nginx_Manager  # Nome del contenitore Nginx
-    image: bise97/instore-nginx
+    #image: bise97/instore-nginx
     restart: "no"
     ports:
       - "80:80"  # Mappa la porta 80 per il traffico HTTP
@@ -103,6 +103,19 @@ services:
       - app-network
     depends_on:
       - application-core
+
+#  certbot:
+#    image: certbot/certbot:latest
+#    container_name: certbot
+#    restart: "no"
+#    volumes:
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    networks:
+#      - app-network
+#    depends_on:
+#      - nginx
+
 # Definizione delle reti utilizzate dai vari servizi
 networks:
   app-network:

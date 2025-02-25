@@ -7,8 +7,8 @@ RUN apk update && apk add --no-cache nginx
 # Crea la directory per la configurazione personalizzata di NGINX
 RUN mkdir -p /etc/nginx/conf.d
 
-# Crea la directory per le pagine di errore
-RUN mkdir -p /usr/share/nginx/html
+## Crea la directory per le pagine di errore
+#RUN mkdir -p /usr/share/nginx/html
 
 # Copia la configurazione personalizzata di NGINX nella directory appropriata
 COPY nginx.conf /etc/nginx/conf.d/nginx.conf
