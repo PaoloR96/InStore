@@ -75,7 +75,7 @@ services:
       context: ./ApplicationCore
       dockerfile: Dockerfile
     container_name: ApplicationCore_Service
-    image: bise97/application-core
+  #  image: bise97/application-core
     restart: "no"
     environment:
       VAULT_TOKEN: "hvs.6cW8zKkrzeQA17xZAQvu0GeS"
@@ -93,44 +93,44 @@ services:
       context: ./NgnixService
       dockerfile: Dockerfile
     container_name: Nginx_Manager
-    image: bise97/instore-nginx
+    #image: bise97/instore-nginx
     restart: "no"
     ports:
       - "80:80"
-      - "443:443"
+  #    - "443:443"
     volumes:
       - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf
-      - letsencrypt:/etc/letsencrypt  # Volume per i certificati
-      - certbot-data:/var/www/certbot   # Volume per la sfida ACME
+   #   - letsencrypt:/etc/letsencrypt  # Volume per i certificati
+   #   - certbot-data:/var/www/certbot   # Volume per la sfida ACME
     networks:
       - app-network
     depends_on:
       - application-core
 
-  certbot:
-    image: certbot/certbot:v1.23.0
-    container_name: certbot
-    restart: "no"
-    volumes:
-      #- ./certbot/conf:/etc/letsencrypt:rw
-      #- ./certbot/www:/var/www/certbot:rw
-      - certbot-data:/var/www/certbot
-      - letsencrypt:/etc/letsencrypt
-    networks:
-      - app-network
-    depends_on:
-      - nginx
-    command:
-      - renew
-      #- certonly
-      #- --webroot
-      #- -w
-      #- /var/www/certbot
-      #- --email=paolorusso3196@gmail.com
-      #- --agree-tos
-      #- --no-eff-email
-      #- -d
-      #- instore.puntoitstore.it
+#  certbot:
+#    image: certbot/certbot:v1.23.0
+#    container_name: certbot
+#    restart: "no"
+#    volumes:
+#      #- ./certbot/conf:/etc/letsencrypt:rw
+#      #- ./certbot/www:/var/www/certbot:rw
+#      - certbot-data:/var/www/certbot
+#      - letsencrypt:/etc/letsencrypt
+#    networks:
+#      - app-network
+#    depends_on:
+#      - nginx
+#    command:
+#      - renew
+#      #- certonly
+#      #- --webroot
+#      #- -w
+#      #- /var/www/certbot
+#      #- --email=paolorusso3196@gmail.com
+#      #- --agree-tos
+#      #- --no-eff-email
+#      #- -d
+#      #- instore.puntoitstore.it
 
 # Definizione delle reti utilizzate dai vari servizi
 networks:
@@ -141,5 +141,5 @@ networks:
 volumes:
   mysql-data:
     name: instore-mysql
-  certbot-data:
-  letsencrypt:
+  #certbot-data:
+  #letsencrypt:

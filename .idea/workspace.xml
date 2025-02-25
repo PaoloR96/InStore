@@ -5,9 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add certbot v4">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/css/styleRivenditore.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/canotta.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/cappotto.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/giubbotto.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/jeans.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/maglioncino-collo-alto.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/images/t-shirt.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/indexRivenditore.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/cart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/products.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/productsRivenditore.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/static/scripts/user.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NgnixService/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/NgnixService/nginx.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/cluster/_feature-flags" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/named_keys/_default" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vault/data/logical/8fdf6a50-1dc2-9455-df90-b9874e061a84/oidc_tokens/public_keys/_428e59cd-1345-af7d-62ae-b67cc5f3ef03" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +44,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -49,37 +76,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.docker-compose.yml.application-core: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.mysql-db: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.nginx: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.aggiungi-cliente-standard | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.upgrade-cliente-premium | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.visualizza-prodotti | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.visualizza-prodotti-carrello | #1.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;biagio&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/biagi/Documents/InyelliJ/InStore/ApplicationCore/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.nginx: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto.executor": "Run",
+    "HTTP Request.aggiungi-cliente-standard | #1.executor": "Run",
+    "HTTP Request.upgrade-cliente-premium | #1.executor": "Run",
+    "HTTP Request.visualizza-prodotti | #1.executor": "Run",
+    "HTTP Request.visualizza-prodotti-carrello | #1.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "branch__tmp",
+    "go.import.settings.migrated": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/biagi/Documents/InyelliJ/InStore/ApplicationCore/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources" />
@@ -89,11 +117,12 @@
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static\scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Utente\Desktop\Ssd\ProgettoSSD\InStore\ApplicationCore\src\main\resources" />
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\MySqlService" />
       <recent name="C:\Users\biagi\Documents\InyelliJ\InStore\ApplicationCore\src\main\resources\static\images" />
     </key>
   </component>
-  <component name="RunManager" selected="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto">
+  <component name="RunManager" selected="Docker.docker-compose.yml.nginx: Compose Deployment">
     <configuration name="TestApiRivenditore | Inserisci un nuovo prodotto" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" executionIdentifier="Inserisci un nuovo prodotto" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -149,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.docker-compose.yml.nginx: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
         <item itemvalue="HTTP Request.TestApiRivenditore | Inserisci un nuovo prodotto" />
         <item itemvalue="HTTP Request.aggiungi-cliente-standard | #1" />
-        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.nginx: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
