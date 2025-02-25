@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="change mysql persistence">
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="test ci/cd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/cliente-http-request/aggiungi-cliente-standard.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" beforeDir="false" afterPath="$PROJECT_DIR$/TestApi/TestApiRivenditore.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/sys/expire/id/ssd-mysql-db/creds/ssd-role/_tUcTOZWt6qj4YTdXbw5eMgyx" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/sys/expire/id/ssd-mysql-db/creds/ssd-role/_tUcTOZWt6qj4YTdXbw5eMgyx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +188,8 @@
       <workItem from="1739981590758" duration="4184000" />
       <workItem from="1740072966880" duration="1911000" />
       <workItem from="1740129078048" duration="21406000" />
-      <workItem from="1740243363571" duration="1862000" />
+      <workItem from="1740243363571" duration="2783000" />
+      <workItem from="1740498038597" duration="626000" />
     </task>
     <task id="LOCAL-00001" summary="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)">
       <option name="closed" value="true" />
@@ -428,7 +423,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740244351961</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="test ci/cd">
+      <option name="closed" value="true" />
+      <created>1740245379361</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1740245379361</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -446,7 +449,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="aggiunto client-secret keycloak con vault + frontend dei clienti (KEYCLOAK è stato commentato per il momento)" />
     <MESSAGE value="modifica docker-compose.yml (commento parametro restart)" />
     <MESSAGE value="aggiunto frontend rivenditore" />
     <MESSAGE value="aggiunta persistenza db e vault (da cancellare la cartella .idea)" />
@@ -471,7 +473,8 @@
     <MESSAGE value="change frontend by paolo" />
     <MESSAGE value="change frontend by paolo + jar" />
     <MESSAGE value="change mysql persistence" />
-    <option name="LAST_COMMIT_MESSAGE" value="change mysql persistence" />
+    <MESSAGE value="test ci/cd" />
+    <option name="LAST_COMMIT_MESSAGE" value="test ci/cd" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
