@@ -20,8 +20,8 @@ services:
     build: ./KeycloakService
     container_name: keycloak-manager
     environment:
-      KC_HOSTNAME: http://keycloak-manager:8080
-      KC_HTTP_HOST: keycloak-manager
+#      KC_HOSTNAME: http://keycloak-manager:8080
+#      KC_HTTP_HOST: keycloak-manager
       KC_HOSTNAME_DEBUG: true
       KC_HTTP_ENABLED: true
     ports:

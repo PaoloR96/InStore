@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="Keycloak finally works on docker network">
+    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="- Configured logout&#10;- Resolved &quot;host null&quot; bug: it was the underscore in the URI of the keycloak container">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/ClienteController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/templates/test-kc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,41 +58,45 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Docker.docker-compose.yml.application-core: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.debug: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.keycloak: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml.mysql-db: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ApplicationCore [package].executor&quot;: &quot;Run&quot;,
-    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
-    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ApplicationCoreApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;gae&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Docker.docker-compose.yml.application-core: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.debug: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.keycloak: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.mysql-db: Compose Deployment.executor": "Run",
+    "Maven.ApplicationCore [package].executor": "Run",
+    "Notification.DisplayName-DoNotAsk-Database detector": "Database detector",
+    "Notification.DoNotAsk-Database detector": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "Spring Boot.ApplicationCoreApplication.executor": "Run",
+    "git-widget-placeholder": "gae",
+    "go.import.settings.migrated": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Utente\Desktop\Ssd\ProgettoSSD\InStore\ApplicationCore" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yml.application-core: Compose Deployment">
+  <component name="RunManager" selected="Spring Boot.ApplicationCoreApplication">
     <configuration name="ApplicationCore [package]" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -205,10 +209,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
-        <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
         <item itemvalue="Spring Boot.ApplicationCoreApplication" />
+        <item itemvalue="Docker.docker-compose.yml.mysql-db: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.keycloak: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.application-core: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yml.debug: Compose Deployment" />
       </list>
     </recent_temporary>
@@ -232,7 +236,8 @@
       <workItem from="1738421551984" duration="186000" />
       <workItem from="1738421751503" duration="306000" />
       <workItem from="1740049884123" duration="16773000" />
-      <workItem from="1740128256419" duration="11907000" />
+      <workItem from="1740128256419" duration="12073000" />
+      <workItem from="1740414889190" duration="22293000" />
     </task>
     <task id="LOCAL-00001" summary="De-commenting networks in docker-compose.yml">
       <option name="closed" value="true" />
@@ -258,7 +263,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740066772539</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="- Configured logout&#10;- Resolved &quot;host null&quot; bug: it was the underscore in the URI of the keycloak container">
+      <option name="closed" value="true" />
+      <created>1740148107493</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1740148107493</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,7 +294,8 @@
     <MESSAGE value="Merged Master in Gae" />
     <MESSAGE value="Setting up login and logout with Keycloak" />
     <MESSAGE value="Keycloak finally works on docker network" />
-    <option name="LAST_COMMIT_MESSAGE" value="Keycloak finally works on docker network" />
+    <MESSAGE value="- Configured logout&#10;- Resolved &quot;host null&quot; bug: it was the underscore in the URI of the keycloak container" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Configured logout&#10;- Resolved &quot;host null&quot; bug: it was the underscore in the URI of the keycloak container" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

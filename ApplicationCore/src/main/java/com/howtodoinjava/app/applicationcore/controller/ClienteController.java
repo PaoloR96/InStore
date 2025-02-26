@@ -18,8 +18,8 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-
-    @GetMapping("/prodotti")
+    //TODO changed this URI
+    @GetMapping("/clienti/prodotti")
     public ResponseEntity<List<Prodotto>> visualizzaProdotti() {
         List<Prodotto> prodotti = clienteService.visualizzaProdotti();
         return ResponseEntity.ok(prodotti);
