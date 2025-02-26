@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="add certbot v4">
+    <list default="true" id="9ffed9d3-85b4-4fb2-a119-70410178ec6b" name="Changes" comment="protect mysql-pswd and token-vault + change github action">
       <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MySqlService/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VaultService/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VaultService/vault-config/config.hcl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VaultService/vault-config/policies/vault-policy.hcl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VaultService/vault-config/scripts/init-vault.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VaultService/vault-config/secrets/secrets.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_keyring" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_keyring" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vault/data/core/_master" beforeDir="false" afterPath="$PROJECT_DIR$/vault/data/core/_master" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/target/ApplicationCore-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -506,7 +499,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740505523201</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="protect mysql-pswd and token-vault + change github action">
+      <option name="closed" value="true" />
+      <created>1740588555915</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1740588555915</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,7 +525,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="aggiunto nginx in ascolto sulla porta 80" />
     <MESSAGE value="add file persistence mysql" />
     <MESSAGE value="test CI/CD on github action" />
     <MESSAGE value="test CI/CD on github action + change persistence db" />
@@ -549,7 +549,8 @@
     <MESSAGE value="add certbot v2" />
     <MESSAGE value="add certbot v3" />
     <MESSAGE value="add certbot v4" />
-    <option name="LAST_COMMIT_MESSAGE" value="add certbot v4" />
+    <MESSAGE value="protect mysql-pswd and token-vault + change github action" />
+    <option name="LAST_COMMIT_MESSAGE" value="protect mysql-pswd and token-vault + change github action" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
