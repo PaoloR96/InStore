@@ -1,6 +1,5 @@
 version: '3.8'
 #TODO eliminare i commenti
-#TODO eliminare directory VaultService
 #TODO eliminare dockerfile in mysqlserivce
 #TODO variabili d'ambiente per mysl-password e token-vault
 
@@ -11,11 +10,11 @@ services:
     restart: "no"
     networks:
       - app-network
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
     environment:
       MYSQL_DATABASE: "InStore_db"
-      MYSQL_ROOT_PASSWORD: "rootpassword"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
       - mysql-data:/var/lib/mysql
@@ -37,8 +36,8 @@ services:
     image: hashicorp/vault:1.18.4
     container_name: vault-service
     restart: "no"
-    ports:
-      - '8200:8200'
+#    ports:
+#      - '8200:8200'
     volumes:
       - ./vault/config:/vault/config
       - ./vault/policies:/vault/policies
@@ -78,15 +77,15 @@ services:
     image: bise97/application-core
     restart: "no"
     environment:
-      VAULT_TOKEN: "hvs.6cW8zKkrzeQA17xZAQvu0GeS"
+      VAULT_TOKEN: ${VAULT_TOKEN}
     networks:
       - app-network
     depends_on:
       - mysql-db
       - vault-init
     #      - keycloak
-    ports:
-      - "8081:8080"
+#    ports:
+#      - "8081:8080"
 
   nginx:
     build:
@@ -112,8 +111,6 @@ services:
     container_name: certbot
     restart: "no"
     volumes:
-      #- ./certbot/conf:/etc/letsencrypt:rw
-      #- ./certbot/www:/var/www/certbot:rw
       - certbot-data:/var/www/certbot
       - letsencrypt:/etc/letsencrypt
     networks:
