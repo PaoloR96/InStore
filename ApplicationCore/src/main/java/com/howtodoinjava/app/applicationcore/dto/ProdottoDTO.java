@@ -8,7 +8,6 @@ public class ProdottoDTO implements Serializable {
     private String descrizione;
     private Float prezzo;
     private String taglia;
-    private String immagine;
     private String pathImmagine;
     private Integer quantitaTotale;
 
@@ -22,7 +21,6 @@ public class ProdottoDTO implements Serializable {
         this.descrizione = descrizione;
         this.prezzo = prezzo;
         this.taglia = taglia;
-        this.immagine = immagine;
         this.pathImmagine = pathImmagine;
         this.quantitaTotale = quantitaTotale;
     }
@@ -68,13 +66,6 @@ public class ProdottoDTO implements Serializable {
         this.taglia = taglia;
     }
 
-    public String getImmagine() {
-        return immagine;
-    }
-
-    public void setImmagine(String immagine) {
-        this.immagine = immagine;
-    }
 
     public String getPathImmagine() {
         return pathImmagine;

@@ -1,0 +1,16 @@
+[
+  {
+    "id": {
+      "username": "cliente2",
+      "idProdotto": 1
+    },
+    "quantita": 2
+  },
+  {
+    "id": {
+      "username": "cliente2",
+      "idProdotto": 2
+    },
+    "quantita": 1
+  }
+]

@@ -1,14 +1,14 @@
-POST http://localhost:8080/api/clienti/aggiungi_standard
+POST http://instore.puntoitstore.it/api/clienti/aggiungi_standard
 Content-Type: application/x-www-form-urlencoded
 
-username = cliente2 &
-email = cliente2@example.com &
+username = cliente1 &
+email = cliente1@example.com &
 password = password000 &
-numCell = 76848683 &
+numCell = 3465433 &
 nome = Mario &
 cognome = Rossi &
-numeroCarta = 34524325456 &
+numeroCarta = 58768989 &
 dataScadenza = 2027-12-31 &
-nomeIntestatario = Gino &
-cognomeIntestatario = Verdi &
+nomeIntestatario = Mario &
+cognomeIntestatario = Rossi &
 cvc = 333

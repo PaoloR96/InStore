@@ -1,4 +1,4 @@
-GET http://localhost:8080/api/prodotti
+GET http://localhost:8081/api/prodotti
 Accept: application/json
 
 

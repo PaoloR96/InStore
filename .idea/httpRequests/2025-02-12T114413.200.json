@@ -1,0 +1,11 @@
+[
+  {
+    "idProdotto": 1,
+    "nomeProdotto": "pippo",
+    "descrizione": "pluto",
+    "prezzo": 20.99,
+    "pathImmagine": "/images/pantalonie.jpg",
+    "quantitaTotale": 30,
+    "taglia": "L"
+  }
+]

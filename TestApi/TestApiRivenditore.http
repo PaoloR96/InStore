@@ -1,21 +1,20 @@
 ### Inserisci un nuovo prodotto
 ### Inserimento di un prodotto per un rivenditore
 ### Inserimento Prodotto per il Rivenditore 1
-POST http://localhost:8080/api/rivenditori/rivenditore2/insprodotti
+POST http://instore.puntoitstore.it/api/rivenditori/rivenditore2/insprodotti
 Content-Type: application/json
 
 {
-  "nomeProdotto": "pippo",
-  "descrizione": "pluto",
-  "prezzo": 20.99,
-  "taglia": "L",
-  "immagine": "pantaloni.jpg",
-  "pathImmagine": "/images/pantalonie.jpg",
+  "nomeProdotto": "Maglioncino Collo Alto",
+  "descrizione": "Maglioncino collo alto 100% lana di colore beige, perfetto per l'inverno.",
+  "prezzo": 21.99,
+  "taglia": "S",
+  "pathImmagine": "/images/maglioncino-collo-alto.jpg",
   "quantitaTotale": 30
 }
 ### ListaProdotti inseriti
 ####
-GET http://localhost:8080/api/rivenditori/rivenditore1/listaprodotti
+GET http://localhost:8081/api/rivenditori/rivenditore1/listaprodotti
 Accept: application/json
 #####
 
