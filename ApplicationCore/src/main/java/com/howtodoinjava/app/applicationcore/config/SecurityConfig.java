@@ -101,7 +101,6 @@ public class SecurityConfig {
         ParameterizedTypeReference<Map<String, Object>> typeReference = new ParameterizedTypeReference<>() {};
         Map<String, Object> configuration = new RestTemplate().exchange(request, typeReference).getBody();
         if(configuration == null) throw new RuntimeException("Configuration is null");
-        System.out.println(configuration);
         ClientRegistration clientRegistration = ClientRegistrations.fromOidcConfiguration(configuration)
                 .clientId(clientId)
                 .clientSecret(clientSecret)
@@ -143,11 +142,17 @@ public class SecurityConfig {
             if (isOidc) {
                 var oidcUserAuthority = (OidcUserAuthority) authority;
                 var userInfo = oidcUserAuthority.getIdToken();
-
+                System.out.println(userInfo.getClaims());
                 if (userInfo.hasClaim(RESOURCE_ACCESS_CLAIM)) {
-                    var resourceAccess = (Map<String,Object>) userInfo.getClaimAsMap(RESOURCE_ACCESS_CLAIM).get(CLIENT_ID_CLAIM);
-                    var roles = (Collection<String>) resourceAccess.get(ROLES_CLAIM);
-                    mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
+                    var resourceAccess = userInfo.getClaimAsMap(RESOURCE_ACCESS_CLAIM);
+                    if(resourceAccess.containsKey(CLIENT_ID_CLAIM)){
+                        var clientResource = (Map<String,Object>) resourceAccess.get(CLIENT_ID_CLAIM);
+                        if(clientResource.containsKey(ROLES_CLAIM)){
+                            var roles = (Collection<String>) clientResource.get(ROLES_CLAIM);
+                            mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
+                        }
+                    }
+
                 }
             } else {
                 var oauth2UserAuthority = (OAuth2UserAuthority) authority;
@@ -155,9 +160,14 @@ public class SecurityConfig {
 
                 if (userAttributes.containsKey(RESOURCE_ACCESS_CLAIM)) {
                     var resourceAccess = (Map<String,Object>) userAttributes.get(RESOURCE_ACCESS_CLAIM);
-                    var clientAccess = (Map<String,Object>) resourceAccess.get(CLIENT_ID_CLAIM);
-                    var roles = (Collection<String>) clientAccess.get(ROLES_CLAIM);
-                    mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
+                    if(resourceAccess.containsKey(CLIENT_ID_CLAIM)){
+                        var clientAccess = (Map<String,Object>) resourceAccess.get(CLIENT_ID_CLAIM);
+                        if (clientAccess.containsKey(ROLES_CLAIM)) {
+                            var roles = (Collection<String>) clientAccess.get(ROLES_CLAIM);
+                            mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
+                        }
+                    }
+
                 }
             }
             return mappedAuthorities;

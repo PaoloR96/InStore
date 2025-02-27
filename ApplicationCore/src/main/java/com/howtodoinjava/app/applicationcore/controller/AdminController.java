@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/admin")
 public class AdminController {
 
-    @GetMapping("")
-    ResponseEntity<?> index(Authentication auth) {
-        System.out.println("********DEBUG********");
-        System.out.println(auth.getAuthorities().stream().toList());
+    @GetMapping("/api/admin")
+    ResponseEntity<?> checkRole(Authentication auth) {
         if (auth instanceof OAuth2AuthenticationToken oauth && oauth.getPrincipal() instanceof OidcUser oidcUser) {
             Account account = new Account(
                     oidcUser.getPreferredUsername(),
@@ -34,6 +32,11 @@ public class AdminController {
             return ResponseEntity.ok(account);
         }
         else return ResponseEntity.badRequest().body("Errore di autenticazione");
+    }
+
+    @GetMapping("/")
+    ResponseEntity<?> index(Authentication auth) {
+        return checkRole(auth);
     }
 }
 

@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="- Configured logout&#10;- Resolved &quot;host null&quot; bug: it was the underscore in the URI of the keycloak container">
+    <list default="true" id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="- Configured RBAC mechanism&#10;- Defined roles: CLIENTE, RIVENDITORE, ADMIN">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/java/com/howtodoinjava/app/applicationcore/controller/ClienteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApplicationCore/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/KeycloakService/data/h2/keycloakdb.mv.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,6 +224,9 @@
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5bd6d9a7-d951-499c-ab0b-dfa73eb5c8af" name="Changes" comment="" />
@@ -237,7 +238,7 @@
       <workItem from="1738421751503" duration="306000" />
       <workItem from="1740049884123" duration="16773000" />
       <workItem from="1740128256419" duration="12073000" />
-      <workItem from="1740414889190" duration="22293000" />
+      <workItem from="1740414889190" duration="32931000" />
     </task>
     <task id="LOCAL-00001" summary="De-commenting networks in docker-compose.yml">
       <option name="closed" value="true" />
@@ -271,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740148107493</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="- Configured RBAC mechanism&#10;- Defined roles: CLIENTE, RIVENDITORE, ADMIN">
+      <option name="closed" value="true" />
+      <created>1740588016147</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1740588016147</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +304,8 @@
     <MESSAGE value="Setting up login and logout with Keycloak" />
     <MESSAGE value="Keycloak finally works on docker network" />
     <MESSAGE value="- Configured logout&#10;- Resolved &quot;host null&quot; bug: it was the underscore in the URI of the keycloak container" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Configured logout&#10;- Resolved &quot;host null&quot; bug: it was the underscore in the URI of the keycloak container" />
+    <MESSAGE value="- Configured RBAC mechanism&#10;- Defined roles: CLIENTE, RIVENDITORE, ADMIN" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Configured RBAC mechanism&#10;- Defined roles: CLIENTE, RIVENDITORE, ADMIN" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
