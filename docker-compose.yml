@@ -1,7 +1,5 @@
 version: '3.8'
 #TODO eliminare i commenti
-#TODO eliminare dockerfile in mysqlserivce
-#TODO variabili d'ambiente per mysl-password e token-vault
 
 services:
   mysql-db:
