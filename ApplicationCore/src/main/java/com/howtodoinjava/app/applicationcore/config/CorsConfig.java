@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:8080") // Frontend servito dallo stesso server
+                        .allowedOrigins("http://localhost:8080", "https://instore.puntoitstore.it") // Frontend servito dallo stesso server
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowCredentials(true);
             }
