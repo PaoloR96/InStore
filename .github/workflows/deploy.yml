@@ -41,8 +41,8 @@ jobs:
             cd ~/InStore/vault
             chmod +x unseal-vault.sh
             cd ..
-            echo ${{ secrets.MYSQL_ROOT_PASSWORD }} >> .env
-            echo ${{ secrets.VAULT_TOKEN }} >> .env
+#            echo ${{ secrets.MYSQL_ROOT_PASSWORD }} >> .env
+#            echo ${{ secrets.VAULT_TOKEN }} >> .env
             docker-compose down
             docker rmi bise97/application-core
             docker rmi bise97/instore-nginx
