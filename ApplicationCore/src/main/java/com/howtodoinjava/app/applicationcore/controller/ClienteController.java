@@ -15,14 +15,14 @@ import java.util.List;
 //TODO eliminare funzionalità di creazione cliente standard
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/clienti")
 public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
 
     //TODO changed this URI
-    @GetMapping("/clienti/prodotti")
+    @GetMapping("/prodotti")
     public ResponseEntity<List<Prodotto>> visualizzaProdotti() {
         List<Prodotto> prodotti = clienteService.visualizzaProdotti();
         return ResponseEntity.ok(prodotti);
@@ -85,7 +85,7 @@ public class ClienteController {
         }
     }
 
-    @PutMapping("/clienti/{username}/upgrade")
+    @PutMapping("/{username}/upgrade")
     public ResponseEntity<String> upgradePremium(@PathVariable String username) {
         try {
             clienteService.upgradePremium(username);
@@ -112,7 +112,7 @@ public class ClienteController {
         }
     }
 
-    @GetMapping("/clienti/{username}")
+    @GetMapping("/{username}")
     public ResponseEntity<Cliente> getClienteInfo(@PathVariable String username) {
         try {
             Cliente cliente = clienteService.getCliente(username);
@@ -122,7 +122,7 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/clienti/aggiungi_standard")
+    @PostMapping("/aggiungi_standard")
     public Cliente creareClienteStandard(@RequestParam String username,
                                          @RequestParam String email,
                                          @RequestParam String password,
