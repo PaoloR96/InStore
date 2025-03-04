@@ -73,8 +73,6 @@ services:
     restart: "no"
     environment:
       VAULT_TOKEN: ${VAULT_TOKEN}
-    networks:
-      - app-network
     depends_on:
       - mysql-db
       - vault-init

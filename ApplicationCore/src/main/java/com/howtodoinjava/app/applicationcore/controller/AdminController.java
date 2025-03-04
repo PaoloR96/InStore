@@ -34,7 +34,7 @@ public class AdminController {
         else return ResponseEntity.badRequest().body("Errore di autenticazione");
     }
 
-    @GetMapping("/")
+    @GetMapping("/api/check-role")
     ResponseEntity<?> index(Authentication auth) {
         return checkRole(auth);
     }
