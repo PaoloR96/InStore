@@ -21,12 +21,12 @@ services:
     build: ./KeycloakService
     container_name: keycloak-manager
     environment:
-#      KC_HOSTNAME: http://keycloak-manager:8080
-#      KC_HTTP_HOST: keycloak-manager
+      KC_HOSTNAME: http://keycloak-manager:8080
+      KC_HTTP_HOST: keycloak-manager
       KC_HOSTNAME_DEBUG: true
       KC_HTTP_ENABLED: true
     ports:
-      - "8090:8080"
+      - "8090:8090"
     volumes:
       - ./KeycloakService/data:/opt/keycloak/data
 
@@ -34,8 +34,8 @@ services:
     image: hashicorp/vault:1.18.4
     container_name: vault-service
     restart: "no"
-#    ports:
-#      - '8200:8200'
+    ports:
+      - '8200:8200'
     volumes:
       - ./vault/config:/vault/config
       - ./vault/policies:/vault/policies
@@ -102,30 +102,28 @@ services:
 #    networks:
 #     - app-network
 
-#  certbot:
-#    image: certbot/certbot:v1.23.0
-#    container_name: certbot
-#    restart: "no"
-#    volumes:
-#      #- ./certbot/conf:/etc/letsencrypt:rw
-#      #- ./certbot/www:/var/www/certbot:rw
-#      - certbot-data:/var/www/certbot
-#      - letsencrypt:/etc/letsencrypt
-#    networks:
-#      - app-network
-#    depends_on:
-#      - nginx
-#    command:
-#      - renew
-#      #- certonly
-#      #- --webroot
-#      #- -w
-#      #- /var/www/certbot
-#      #- --email=paolorusso3196@gmail.com
-#      #- --agree-tos
-#      #- --no-eff-email
-#      #- -d
-#      #- instore.puntoitstore.it
+  certbot:
+    image: certbot/certbot:v1.23.0
+    container_name: certbot
+    restart: "no"
+    volumes:
+      - certbot-data:/var/www/certbot
+      - letsencrypt:/etc/letsencrypt
+    networks:
+      - app-network
+    depends_on:
+      - nginx
+    command:
+      - renew
+      #- certonly
+      #- --webroot
+      #- -w
+      #- /var/www/certbot
+      #- --email=paolorusso3196@gmail.com
+      #- --agree-tos
+      #- --no-eff-email
+      #- -d
+      #- instore.puntoitstore.it
 
 # Definizione dei volumi per la persistenza dei dati
 volumes:
