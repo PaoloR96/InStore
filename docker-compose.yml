@@ -109,8 +109,6 @@ services:
     volumes:
       - certbot-data:/var/www/certbot
       - letsencrypt:/etc/letsencrypt
-    networks:
-      - app-network
     depends_on:
       - nginx
     command:
