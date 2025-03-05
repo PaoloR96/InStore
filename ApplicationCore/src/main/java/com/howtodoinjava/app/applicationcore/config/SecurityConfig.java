@@ -105,7 +105,6 @@ public class SecurityConfig {
             if (isOidc) {
                 var oidcUserAuthority = (OidcUserAuthority) authority;
                 var userInfo = oidcUserAuthority.getIdToken();
-                System.out.println(userInfo.getClaims());
                 if (userInfo.hasClaim(RESOURCE_ACCESS_CLAIM)) {
                     var resourceAccess = userInfo.getClaimAsMap(RESOURCE_ACCESS_CLAIM);
                     if(resourceAccess.containsKey(CLIENT_ID_CLAIM)){
