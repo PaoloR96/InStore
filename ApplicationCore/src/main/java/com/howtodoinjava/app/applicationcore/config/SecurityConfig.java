@@ -40,12 +40,15 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     //local hosts (only for testing)
-    private static final String kcHost = "localhost:8090";
-    private static final String appHost = "localhost:8080";
+//    private static final String kcHost = "localhost:8090";
+//    private static final String appHost = "localhost:8080";
 
     //remote hosts
-//    private static final String kcHost = "keycloak-manager:8080";
-//    private static final String appHost = "applicationcore:8080";
+    private static final String kcHost = "keycloak-manager:8080";
+    private static final String appHost = "instore.puntoitstore.it";
+
+//    private static final String kcHost = "login.localhost";
+//    private static final String appHost = "localhost";
 
     @Value("${spring.security.oauth2.client.registration.instore.client-id}")
     private String clientId;
@@ -150,7 +153,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .oauth2Login(withDefaults())
+                .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
+                        .defaultSuccessUrl("/api/check-role")
+                )
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)

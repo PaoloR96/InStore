@@ -3,6 +3,21 @@
 #TODO eliminare dockerfile in mysqlserivce
 #TODO variabili d'ambiente per mysl-password e token-vault
 
+###########################################
+#
+# To test the app locally with nginx and keycloak integrated together
+# you have to set up "local DNS rules" to resolve the domain names.
+#
+# In Windows you can modify the file "C:\Windows\System32\drivers\etc\hosts", adding the lines:
+#   127.0.0.1 instore.puntoitstore.it
+#   127.0.0.1 login.instore.puntoitstore.it
+# You are bonding these domains names to the local IP address.
+#
+# To test in remote, you have to set DNS records to bond the domains instore.puntoitstore.it
+# and login.instore.puntoitstore.it to the public IP address of your web server.
+#
+###########################################
+
 services:
   mysql-db:
     image: mysql:9.2.0
@@ -19,12 +34,23 @@ services:
     #      - ./MySqlService/persistence:/var/lib/mysql
     command: --lower_case_table_names=1
 
+#  ##########################
+#
+#   3 users:
+#    - user1   ->  CLIENTE
+#    - seller1 ->  RIVENDITORE
+#    - admin1  ->  ADMIN
+#  username and password are the same.
+#
+#  ########################
   keycloak:
     build: ./KeycloakService
     container_name: keycloak-manager
     environment:
-#      KC_HOSTNAME: http://keycloak-manager:8080
-#      KC_HTTP_HOST: keycloak-manager
+      KC_HOSTNAME: http://login.instore.puntoitstore.it
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
+      KC_PROXY_HEADERS: xforwarded
+#      KC_HTTP_HOST: login.instore.puntoitstore.it
       KC_HOSTNAME_DEBUG: true
       KC_HTTP_ENABLED: true
     ports:
