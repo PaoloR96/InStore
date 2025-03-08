@@ -18,7 +18,7 @@ public class JWTUtils {
         else throw new RuntimeException("Invalid authentication token");
     }
 
-    public static List<String> getAuthorities(Authentication auth) throws RuntimeException {
+    public static List<String> getAuthorities(Authentication auth){
         return auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
     }
 }

@@ -3,6 +3,7 @@ package com.howtodoinjava.app.applicationcore.controller;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
