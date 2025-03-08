@@ -17,18 +17,18 @@ services:
     #      - ./MySqlService/persistence:/var/lib/mysql
     command: --lower_case_table_names=1
 
-  keycloak:
-    build: ./KeycloakService
-    container_name: keycloak-manager
-    environment:
-      KC_HOSTNAME: http://keycloak-manager:8080
-      KC_HTTP_HOST: keycloak-manager
-      KC_HOSTNAME_DEBUG: true
-      KC_HTTP_ENABLED: true
-    ports:
-      - "8090:8090"
-    volumes:
-      - ./KeycloakService/data:/opt/keycloak/data
+#  keycloak:
+#    build: ./KeycloakService
+#    container_name: keycloak-manager
+#    environment:
+#      KC_HOSTNAME: http://keycloak-manager:8080
+#      KC_HTTP_HOST: keycloak-manager
+#      KC_HOSTNAME_DEBUG: true
+#      KC_HTTP_ENABLED: true
+#    ports:
+#      - "8090:8090"
+#    volumes:
+#      - ./KeycloakService/data:/opt/keycloak/data
 
   vault:
     image: hashicorp/vault:1.18.4
@@ -74,7 +74,7 @@ services:
     depends_on:
       - mysql-db
       - vault-init
-      - keycloak
+#      - keycloak
     ports:
       - "8081:8080"
 
