@@ -1,6 +1,4 @@
-version: '3.8'
 #TODO eliminare i commenti
-
 services:
   mysql-db:
     image: mysql:9.2.0
