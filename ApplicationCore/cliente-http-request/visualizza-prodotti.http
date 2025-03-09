@@ -1,4 +1,4 @@
-GET http://localhost:8081/api/prodotti
+GET https://instore.puntoitstore.it/api/clienti/prodotti
 Accept: application/json
 
 
