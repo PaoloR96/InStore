@@ -47,12 +47,12 @@ services:
     build: ./KeycloakService
     container_name: keycloak-manager
     environment:
-      KC_HOSTNAME: http://login.instore.puntoitstore.it
-      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
-      KC_PROXY_HEADERS: xforwarded
+      KC_HOSTNAME: "http://login.instore.puntoitstore.it"
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_PROXY_HEADERS: "xforwarded"
 #      KC_HTTP_HOST: login.instore.puntoitstore.it
-      KC_HOSTNAME_DEBUG: true
-      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_DEBUG: "true"
+      KC_HTTP_ENABLED: "true"
     ports:
       - "8090:8080"
     volumes:
