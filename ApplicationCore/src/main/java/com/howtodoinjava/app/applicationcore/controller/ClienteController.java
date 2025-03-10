@@ -3,10 +3,12 @@ package com.howtodoinjava.app.applicationcore.controller;
 import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.service.ClienteService;
+import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -28,12 +30,13 @@ public class ClienteController {
         return ResponseEntity.ok(prodotti);
     }
 
-    @PostMapping("/carrello/{username}/aggiungi")
+    @PostMapping("/carrello/aggiungi")
     public ResponseEntity<?> aggiungiProdottoAlCarrello(
-            @PathVariable String username,
             @RequestParam Long idProdotto,
-            @RequestParam Integer quantita) {
+            @RequestParam Integer quantita,
+            Authentication auth) {
         try {
+            String username = JWTUtils.getUsername(auth);
             if (quantita <= 0) {
                 return ResponseEntity.badRequest().body("La quantità deve essere maggiore di zero.");
             }
@@ -44,7 +47,7 @@ public class ClienteController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore interno del server.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -60,10 +63,11 @@ public class ClienteController {
 //        }
 //    }
 
-    @GetMapping("/carrello/{username}/prodotti")
-    public ResponseEntity<CarrelloResponse> visualizzaProdottiCarrello(@PathVariable String username) {
+    @GetMapping("/carrello/prodotti")
+    public ResponseEntity<CarrelloResponse> visualizzaProdottiCarrello(Authentication auth) {
         // Recupera la lista dei prodotti nel carrello per il cliente specificato
         try {
+            String username = JWTUtils.getUsername(auth);
             CarrelloResponse prodottiAndPrezzo = clienteService.visualizzaProdottiCarrello(username);
             return ResponseEntity.ok(prodottiAndPrezzo);
         } catch (RuntimeException e) {
@@ -72,11 +76,12 @@ public class ClienteController {
         }
     }
 
-    @DeleteMapping("/carrello/{username}/rimuovi")
+    @DeleteMapping("/carrello/rimuovi")
     public ResponseEntity<Void> rimuoviProdottoDalCarrello(
-            @PathVariable String username,
-            @RequestParam Long idProdotto) {
+            @RequestParam Long idProdotto,
+            Authentication auth) {
         try {
+            String username = JWTUtils.getUsername(auth);
             clienteService.rimuoviProdottoCarrello(username, idProdotto);
             return ResponseEntity.noContent().build();
         } catch (RuntimeException e) {
@@ -85,25 +90,27 @@ public class ClienteController {
         }
     }
 
-    @PutMapping("/{username}/upgrade")
-    public ResponseEntity<String> upgradePremium(@PathVariable String username) {
+    @PutMapping("/upgrade")
+    public ResponseEntity<String> upgradePremium(Authentication auth) {
         try {
+            String username = JWTUtils.getUsername(auth);
             clienteService.upgradePremium(username);
             return ResponseEntity.ok("Adesso sei un cliente PREMIUM");
         } catch (IllegalStateException e) {
             // Cliente già premium
             System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (RuntimeException e) {
             // Cliente non trovato
             System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
-    @PostMapping("/pagamento/{username}")
-    public ResponseEntity<String> effettuaPagamento(@PathVariable String username) {
+    @PostMapping("/pagamento")
+    public ResponseEntity<String> effettuaPagamento(Authentication auth) {
         try {
+            String username = JWTUtils.getUsername(auth);
             clienteService.effettuaPagamento(username);
             return ResponseEntity.ok("Pagamento effettuato con successo");
         } catch (RuntimeException e) {
@@ -112,9 +119,10 @@ public class ClienteController {
         }
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<Cliente> getClienteInfo(@PathVariable String username) {
+    @GetMapping("/")
+    public ResponseEntity<Cliente> getClienteInfo(Authentication auth) {
         try {
+            String username = JWTUtils.getUsername(auth);
             Cliente cliente = clienteService.getCliente(username);
             return ResponseEntity.ok(cliente);
         } catch (RuntimeException e) {
