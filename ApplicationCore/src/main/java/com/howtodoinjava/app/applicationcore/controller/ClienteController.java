@@ -17,7 +17,7 @@ import java.util.List;
 //TODO eliminare funzionalità di creazione cliente standard
 
 @RestController
-@RequestMapping("/api/clienti")
+@RequestMapping("/api/cliente")
 public class ClienteController {
 
     @Autowired

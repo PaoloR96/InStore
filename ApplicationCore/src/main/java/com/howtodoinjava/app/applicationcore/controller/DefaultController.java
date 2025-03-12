@@ -1,18 +1,19 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class DefaultController {
 
-    @GetMapping("/api/print-user")
+    @GetMapping("/api/user-details")
     ResponseEntity<?> printUser(Authentication auth) {
         try{
             Account account = new Account(
@@ -33,28 +34,33 @@ public class DefaultController {
             List<String> userRoles = JWTUtils.getAuthorities(auth);
             if(userRoles.isEmpty()){
                 //TODO redirect to completeRegistration
+                return ResponseEntity.status(HttpStatus.FOUND)
+                        .header(HttpHeaders.LOCATION, "/api/details")
+                        .build();
             }
             else{
                 String role = userRoles.get(0);
-                switch (role) {
-                    case "CLIENTE":
+                return switch (role) {
+                    case "CLIENTE" ->
                         //TODO
-                        break;
-
-                    case "ADMIN":
+                            ResponseEntity.status(HttpStatus.FOUND)
+                                    .header(HttpHeaders.LOCATION, "/api/cliente")
+                                    .build();
+                    case "ADMIN" ->
                         //TODO
-                        break;
-
-                    case "RIVENDITORE":
+                            ResponseEntity.status(HttpStatus.FOUND)
+                                    .header(HttpHeaders.LOCATION, "/api/admin")
+                                    .build();
+                    case "RIVENDITORE" ->
                         //TODO
-                        break;
-
-                    default:
+                            ResponseEntity.status(HttpStatus.FOUND)
+                                    .header(HttpHeaders.LOCATION, "/api/rivenditore")
+                                    .build();
+                    default ->
                         //TODO
-                }
+                            ResponseEntity.badRequest().body("Authentication error");
+                };
             }
-            return ResponseEntity.ok().build();
-
         } catch (RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

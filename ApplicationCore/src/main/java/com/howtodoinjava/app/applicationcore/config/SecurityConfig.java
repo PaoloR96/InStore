@@ -28,8 +28,6 @@ import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 /**
  * SecurityConfig class configures security settings for the application,
  * enabling security filters and setting up OAuth2 login and logout behavior.
@@ -140,7 +138,6 @@ public class SecurityConfig {
         return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, ClientRegistrationRepository clientRegistrationRepository) throws Exception {
         http
@@ -151,7 +148,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
-                        .defaultSuccessUrl("/api/check-role")
+                        .defaultSuccessUrl("/api/check-role",true)
                 )
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
