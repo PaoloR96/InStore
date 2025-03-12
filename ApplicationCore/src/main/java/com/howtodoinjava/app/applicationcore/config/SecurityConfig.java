@@ -39,16 +39,13 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    //local hosts (only for testing)
-//    private static final String kcHost = "localhost:8090";
-//    private static final String appHost = "localhost:8080";
-
-    //remote hosts
-    private static final String kcHost = "keycloak-manager:8080";
-    private static final String appHost = "instore.puntoitstore.it";
-
-//    private static final String kcHost = "login.localhost";
-//    private static final String appHost = "localhost";
+// DEV
+// local hosts (only for testing)
+    private static final String kcHost = "localhost:8090";
+    private static final String appHost = "localhost:8080";
+// remote hosts
+//    private static final String kcHost = "keycloak-manager:8080";
+//    private static final String appHost = "instore.puntoitstore.it";
 
     @Value("${spring.security.oauth2.client.registration.instore.client-id}")
     private String clientId;
