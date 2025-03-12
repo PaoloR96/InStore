@@ -19,6 +19,8 @@ public class DefaultController {
                     JWTUtils.getUsername(auth),
                     JWTUtils.getAuthorities(auth)
             );
+            System.out.println("default-controller:");
+            System.out.println(JWTUtils.getOidcUser(auth).getClaims());
             return ResponseEntity.ok(account);
         } catch (RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
