@@ -49,8 +49,8 @@ public class Cliente extends Utente {
                 this.listaClienteOrdini = listaClienteOrdini;
         }
 
-        public Cliente(String email, String username, String password, String numCell, String nome, String cognome, CartaCredito cartaCredito, StatoCliente statoCliente) {
-                super(username, email, password, numCell);
+        public Cliente(String email, String username, String numCell, String nome, String cognome, CartaCredito cartaCredito, StatoCliente statoCliente) {
+                super(username, email, numCell);
                 this.nome = nome;
                 this.cognome = cognome;
                 this.cartaCredito = cartaCredito;

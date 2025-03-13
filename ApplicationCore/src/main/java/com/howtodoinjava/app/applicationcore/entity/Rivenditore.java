@@ -34,8 +34,8 @@ public class Rivenditore  extends Utente {
         this.statoRivenditore = statoRivenditore;
     }
 
-    public Rivenditore(String email, String username, String password, String numCell, String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
-        super(email, username, password, numCell);
+    public Rivenditore(String email, String username, String numCell, String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
+        super(email, username, numCell);
         this.nomeSocieta = nomeSocieta;
         this.partitaIva = partitaIva;
         this.iban = iban;

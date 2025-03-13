@@ -130,21 +130,21 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/aggiungi_standard")
-    public Cliente creareClienteStandard(@RequestParam String username,
-                                         @RequestParam String email,
-                                         @RequestParam String password,
-                                         @RequestParam String numCell,
-                                         @RequestParam String nome,
-                                         @RequestParam String cognome,
-                                         @RequestParam String numeroCarta,
-                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataScadenza,
-                                         @RequestParam String nomeIntestatario,
-                                         @RequestParam String cognomeIntestatario,
-                                         @RequestParam Integer cvc) {
-        return clienteService.creareClienteStandard(username, email, password, numCell, nome, cognome, numeroCarta,
-                dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
-    }
+//    @PostMapping("/aggiungi_standard")
+//    public Cliente creareClienteStandard(@RequestParam String username,
+//                                         @RequestParam String email,
+//                                         @RequestParam String password,
+//                                         @RequestParam String numCell,
+//                                         @RequestParam String nome,
+//                                         @RequestParam String cognome,
+//                                         @RequestParam String numeroCarta,
+//                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataScadenza,
+//                                         @RequestParam String nomeIntestatario,
+//                                         @RequestParam String cognomeIntestatario,
+//                                         @RequestParam Integer cvc) {
+//        return clienteService.creareClienteStandard(username, email, password, numCell, nome, cognome, numeroCarta,
+//                dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
+//    }
 
 //    @PostMapping("/clienti/aggiungi_premium")
 //    public Cliente creareClientePremium(@RequestParam String username,

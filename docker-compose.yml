@@ -61,6 +61,7 @@ services:
       - "8090:8080"
     volumes:
       - ./KeycloakService/data:/opt/keycloak/data
+    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
 
   vault:
     image: hashicorp/vault:1.18.4
