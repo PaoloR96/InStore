@@ -60,7 +60,7 @@ services:
 
   vault:
     image: hashicorp/vault:1.18.4
-    container_name: vault-service
+    container_name: vault.instore.puntoitstore.it
     restart: "no"
     ports:
       - '8200:8200'
@@ -69,9 +69,15 @@ services:
       - ./vault/policies:/vault/policies
       - ./vault/data:/vault/data
       - ./vault/logs:/vault/logs
+      - letsencrypt:/vault/certs:ro
+
     environment:
-      VAULT_ADDR: "http://0.0.0.0:8200"
-      VAULT_API_ADDR: "http://0.0.0.0:8200"
+      VAULT_ADDR: "https://0.0.0.0:8200"
+      VAULT_API_ADDR: "https://0.0.0.0:8200"
+      VAULT_CACERT: "/vault/certs/live/vault.instore.puntoitstore.it/chain.pem"
+      VAULT_CLIENT_CERT: "/vault/certs/live/vault.instore.puntoitstore.it/fullchain.pem"
+      VAULT_CLIENT_KEY: "/vault/certs/live/vault.instore.puntoitstore.it/privkey.pem"
+
     cap_add:
       - IPC_LOCK
     entrypoint: vault server -config=/vault/config/config.hcl
@@ -81,9 +87,13 @@ services:
     image: hashicorp/vault:1.18.4
     restart: "no"
     environment:
-      VAULT_ADDR: "http://vault-service:8200"
+      VAULT_ADDR: "https://vault-service:8200"
+      VAULT_CACERT: "/vault/certs/live/vault.instore.puntoitstore.it/chain.pem"
+      VAULT_CLIENT_CERT: "/vault/certs/live/vault.instore.puntoitstore.it/fullchain.pem"
+      VAULT_CLIENT_KEY: "/vault/certs/live/vault.instore.puntoitstore.it/privkey.pem"
     volumes:
       - ./vault/unseal-vault.sh:/vault/unseal-vault.sh
+      - letsencrypt:/vault/certs:ro
     entrypoint: sh -c "sleep 3 && /vault/unseal-vault.sh"
     cap_add:
       - IPC_LOCK
@@ -94,11 +104,14 @@ services:
     build:
       context: ./ApplicationCore
       dockerfile: Dockerfile
-    container_name: ApplicationCore_Service
+    container_name: instore.puntoitstore.it
     image: bise97/application-core
     restart: "no"
     environment:
       VAULT_TOKEN: ${VAULT_TOKEN}
+      VAULT_CACERT: "/app/certs/live/vault.instore.puntoitstore.it/chain.pem"
+    volumes:
+      - letsencrypt:/app/certs:ro
     depends_on:
       - mysql-db
       - vault-init
