@@ -87,7 +87,7 @@ services:
     image: hashicorp/vault:1.18.4
     restart: "no"
     environment:
-      VAULT_ADDR: "https://vault-service:8200"
+      VAULT_ADDR: "https://vault.instore.puntoitstore.it:8200"
       VAULT_CACERT: "/vault/certs/live/vault.instore.puntoitstore.it/chain.pem"
       VAULT_CLIENT_CERT: "/vault/certs/live/vault.instore.puntoitstore.it/fullchain.pem"
       VAULT_CLIENT_KEY: "/vault/certs/live/vault.instore.puntoitstore.it/privkey.pem"
