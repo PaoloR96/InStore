@@ -50,11 +50,11 @@ services:
 
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KEYCLOAK_URL}
-      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
-      KC_PROXY_HEADERS: xforwarded
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_PROXY_HEADERS: "xforwarded"
 
-      KC_HOSTNAME_DEBUG: true
-      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_DEBUG: "true"
+      KC_HTTP_ENABLED: "true"
     ports:
       - "8090:8080"
     volumes:
@@ -112,7 +112,7 @@ services:
     restart: "no"
     environment:
       APPLICATION_URL: ${APPLICATION_URL}
-      KEYCLOAK_URL: http://login.instore.puntoitstore.it:8080
+      KEYCLOAK_URL: "http://login.instore.puntoitstore.it:8080"
       VAULT_TOKEN: ${VAULT_TOKEN}
       VAULT_CACERT: "/app/certs/live/vault.instore.puntoitstore.it/chain.pem"
     volumes:
