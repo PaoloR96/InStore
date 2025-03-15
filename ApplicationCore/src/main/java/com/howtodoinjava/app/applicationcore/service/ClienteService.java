@@ -3,6 +3,7 @@ package com.howtodoinjava.app.applicationcore.service;
 import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.repository.*;
+import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -326,9 +327,9 @@ public class ClienteService {
 //    }
 
 
-    public Cliente creareClienteStandard(String username, String email, String password, String numCell,
+    public Cliente creareClienteStandard(String username, String email, String numCell,
                                          String nome, String cognome, String numeroCarta, Date dataScadenza,
-                                         String nomeIntestatario, String cognomeIntestatario, Integer cvc) {
+                                         String nomeIntestatario, String cognomeIntestatario, String cvc) {
 
         CartaCredito cartaCredito = new CartaCredito(
                 numeroCarta,
@@ -342,7 +343,6 @@ public class ClienteService {
         Cliente clienteStandard = new Cliente(
                 email,
                 username,
-                password,
                 numCell,
                 nome,
                 cognome,

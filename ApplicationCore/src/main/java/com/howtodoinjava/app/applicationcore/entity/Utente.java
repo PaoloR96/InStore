@@ -10,17 +10,25 @@ public abstract class Utente {
     private String username;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
-    private String password;
+//    TODO remove this
+//    @Column(nullable = false)
+//    private String password;
     @Column(name="num_cell",nullable = false, unique = true)
     private String numCell;
 
     public Utente() {}
 
-    public Utente(String username, String email, String password, String numCell) {
+//      TODO remove this
+//    public Utente(String username, String email, String password, String numCell) {
+//        this.username = username;
+//        this.email = email;
+//        this.password = password;
+//        this.numCell = numCell;
+//    }
+
+    public Utente(String username, String email, String numCell) {
         this.username = username;
         this.email = email;
-        this.password = password;
         this.numCell = numCell;
     }
 
@@ -40,13 +48,15 @@ public abstract class Utente {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    TODO remove this
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public String getNumCell() {
         return numCell;
