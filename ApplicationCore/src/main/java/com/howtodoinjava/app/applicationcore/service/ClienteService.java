@@ -3,6 +3,7 @@ package com.howtodoinjava.app.applicationcore.service;
 import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.repository.*;
+import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -354,8 +355,6 @@ public class ClienteService {
 
         //Salvare il Cliente (e il Carrello grazie a cascade.all)
         clienteRepository.save(clienteStandard);
-
-
 
         return clienteStandard;
     }

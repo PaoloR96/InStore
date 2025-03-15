@@ -15,18 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
-    private final ClienteService clienteService;
 
     public AuthenticationController(AuthenticationService authenticationService, ClienteService clienteService) {
         this.authenticationService = authenticationService;
-        this.clienteService = clienteService;
     }
 
     @GetMapping("/api/user-details")
@@ -36,8 +33,6 @@ public class AuthenticationController {
                     JWTUtils.getUsername(auth),
                     JWTUtils.getAuthorities(auth)
             );
-            System.out.println("default-controller:");
-            System.out.println(JWTUtils.getOidcUser(auth).getClaims());
             return ResponseEntity.ok(account);
         } catch (RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -80,7 +75,7 @@ public class AuthenticationController {
                 String username = JWTUtils.getUsername(auth);
                 String email = JWTUtils.getEmail(auth);
                 String phoneNumber = JWTUtils.getPhoneNumber(auth);
-                Cliente cliente = clienteService.creareClienteStandard(username, email, phoneNumber, nome, cognome, numeroCarta,
+                Cliente cliente = authenticationService.registerCliente(username, email, phoneNumber, nome, cognome, numeroCarta,
                         dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
                 return ResponseEntity.created(URI.create("/api/user-details")).body(cliente);
             } catch (RuntimeException e) {
