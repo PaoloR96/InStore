@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="ADMIN")
-public class Admin extends  Utente {
+public class Admin extends Utente {
 
     @Column(nullable = false)
     private String nome;
@@ -35,8 +35,8 @@ public class Admin extends  Utente {
     }
 
 
-    public Admin(String email, String username, String password, String numCell, String nome, String cognome) {
-        super(email, username, password, numCell);
+    public Admin(String email, String username, String numCell, String nome, String cognome) {
+        super(email, username, numCell);
         this.nome = nome;
         this.cognome = cognome;
     }

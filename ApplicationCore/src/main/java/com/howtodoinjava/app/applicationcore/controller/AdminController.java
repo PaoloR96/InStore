@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
+import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +23,8 @@ public class AdminController {
                     oidcUser.getPreferredUsername(),
                     auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList()
             );
+            System.out.println("admin-controller:");
+            System.out.println(JWTUtils.getOidcUser(auth).getClaims());
             return ResponseEntity.ok(account);
         }
         else return ResponseEntity.badRequest().body("Errore di autenticazione");

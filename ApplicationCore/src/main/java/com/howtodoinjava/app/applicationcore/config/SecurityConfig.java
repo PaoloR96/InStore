@@ -1,6 +1,9 @@
 package com.howtodoinjava.app.applicationcore.config;
 
+import com.howtodoinjava.app.applicationcore.utility.ApplicationProperties;
+import com.howtodoinjava.app.applicationcore.utility.KeycloakProperties;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
@@ -28,8 +31,6 @@ import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 /**
  * SecurityConfig class configures security settings for the application,
  * enabling security filters and setting up OAuth2 login and logout behavior.
@@ -37,18 +38,16 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties({ApplicationProperties.class, KeycloakProperties.class})
 public class SecurityConfig {
 
-    //local hosts (only for testing)
+// TODO remove
+// local hosts (only for testing)
 //    private static final String kcHost = "localhost:8090";
 //    private static final String appHost = "localhost:8080";
-
-    //remote hosts
-    private static final String kcHost = "keycloak-manager:8080";
-    private static final String appHost = "instore.puntoitstore.it";
-
-//    private static final String kcHost = "login.localhost";
-//    private static final String appHost = "localhost";
+// remote hosts
+//    private static final String kcHost = "keycloak-manager:8080";
+//    private static final String appHost = "instore.puntoitstore.it";
 
     @Value("${spring.security.oauth2.client.registration.instore.client-id}")
     private String clientId;
@@ -60,9 +59,14 @@ public class SecurityConfig {
     private static final String ROLES_CLAIM = "roles";
 
     @Bean
-    public ClientRegistrationRepository clientRegistrationRepository() throws URISyntaxException {
+    public ClientRegistrationRepository clientRegistrationRepository(ApplicationProperties appProperties,
+                                                                     KeycloakProperties kcProperties
+    ) throws URISyntaxException {
+        String kcBaseUrl = kcProperties.baseUrl();
+        String appBaseUrl = appProperties.baseUrl();
+
 //        return new InMemoryClientRegistrationRepository(this.keycloakClientRegistration());
-        URI metadataEndpoint = new URI("http://"+kcHost+"/realms/instore/.well-known/openid-configuration");
+        URI metadataEndpoint = new URI(kcBaseUrl + "/realms/instore/.well-known/openid-configuration");
         RequestEntity<Void> request = RequestEntity.get(metadataEndpoint).build();
         ParameterizedTypeReference<Map<String, Object>> typeReference = new ParameterizedTypeReference<>() {};
         Map<String, Object> configuration = new RestTemplate().exchange(request, typeReference).getBody();
@@ -71,7 +75,7 @@ public class SecurityConfig {
                 .clientId(clientId)
                 .clientSecret(clientSecret)
                 .registrationId("instore")
-                .redirectUri("http://"+appHost+"/login/oauth2/code/instore")
+                .redirectUri(appBaseUrl + "/login/oauth2/code/instore")
                 .scope("openid", "profile", "email")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
@@ -143,9 +147,11 @@ public class SecurityConfig {
         return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
-
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, ClientRegistrationRepository clientRegistrationRepository) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           ClientRegistrationRepository clientRegistrationRepository,
+                                           ApplicationProperties appProperties
+    ) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/clienti/**").hasAuthority("CLIENTE")
@@ -154,24 +160,24 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
-                        .defaultSuccessUrl("/api/check-role")
+                        .defaultSuccessUrl("/api/login-redirect",true)
                 )
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
-                        .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository))
+                        .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository, appProperties.baseUrl()))
                 );
         return http.build();
     }
 
 
-    private LogoutSuccessHandler oidcLogoutSuccessHandler(ClientRegistrationRepository clientRegistrationRepository) {
+    private LogoutSuccessHandler oidcLogoutSuccessHandler(ClientRegistrationRepository clientRegistrationRepository, String appBaseUrl) {
         OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =
                 new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
 
 //         Sets the location that the End-User's User Agent will be redirected to
 //         after the logout has been performed at the Provider
-        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("http://"+appHost+"/");
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri(appBaseUrl + "/");
 
         return oidcLogoutSuccessHandler;
     }

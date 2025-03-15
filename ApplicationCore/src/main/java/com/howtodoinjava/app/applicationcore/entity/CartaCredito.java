@@ -22,7 +22,7 @@ public class CartaCredito {
         private String cognomeIntestatario;
         @Column(nullable = false, columnDefinition = "NUMERIC(3, 0)")
         @Digits(integer = 3, fraction = 0)
-        private Integer cvc;
+        private String cvc;
 
         @OneToOne(mappedBy = "cartaCredito")
         private Cliente cliente;
@@ -30,7 +30,7 @@ public class CartaCredito {
         public CartaCredito() {
         }
 
-        public CartaCredito(String numeroCarta, Date dataScadenza, String nomeIntestatario, String cognomeIntestatario, Integer cvc) {
+        public CartaCredito(String numeroCarta, Date dataScadenza, String nomeIntestatario, String cognomeIntestatario, String cvc) {
                 this.numeroCarta = numeroCarta;
                 this.dataScadenza = dataScadenza;
                 this.nomeIntestatario = nomeIntestatario;
@@ -71,11 +71,11 @@ public class CartaCredito {
                 this.cognomeIntestatario = cognomeIntestatario;
         }
 
-        public Integer getCvc() {
+        public String getCvc() {
                 return cvc;
         }
 
-        public void setCvc(Integer cvc) {
+        public void setCvc(String cvc) {
                 this.cvc = cvc;
         }
 

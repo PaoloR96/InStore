@@ -13,6 +13,14 @@ public class JWTUtils {
         return getOidcUser(auth).getPreferredUsername();
     }
 
+    public static String getEmail(Authentication auth) throws RuntimeException {
+        return getOidcUser(auth).getEmail();
+    }
+
+    public static String getPhoneNumber(Authentication auth) throws RuntimeException {
+        return getOidcUser(auth).getPhoneNumber();
+    }
+
     public static OidcUser getOidcUser(Authentication auth) throws RuntimeException {
         if (auth instanceof OAuth2AuthenticationToken oauth && oauth.getPrincipal() instanceof OidcUser oidcUser) return oidcUser;
         else throw new RuntimeException("Invalid authentication token");
