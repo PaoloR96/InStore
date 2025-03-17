@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api/clienti';
+const API_BASE_URL = '/api/cliente';
 let currentUsername = 'cliente1';
 let cartItems = [];
 let isPremiumClient = false;

@@ -1,6 +1,6 @@
 async function upgradeToPremium() {
     try {
-        const response = await fetch(`${API_BASE_URL}/clienti/${currentUsername}/upgrade`, {
+        const response = await fetch(`${API_BASE_URL}/upgrade`, {
             method: 'PUT'
         });
 

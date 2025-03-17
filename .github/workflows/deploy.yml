@@ -40,6 +40,9 @@ jobs:
             git clone https://github.com/PaoloR96/InStore.git -b biagio
             cd ~/InStore/vault
             chmod +x unseal-vault.sh
+            cd
+            cd ~/InStore/KeycloakService
+            chmod -R 777 data
             cd ..
             docker-compose down
             docker rmi bise97/application-core

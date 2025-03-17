@@ -45,6 +45,8 @@ services:
 #  ########################
   keycloak:
     build: ./KeycloakService
+    ##TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
+    user: "0:0"
     container_name: login.instore.puntoitstore.it
     environment:
 
@@ -54,11 +56,16 @@ services:
       KC_PROXY_HEADERS: "xforwarded"
 
       KC_HOSTNAME_DEBUG: "true"
-      KC_HTTP_ENABLED: "true"
+      KC_HTTP_ENABLED: "false"
+      KC_HTTPS_ENABLED: "true"
+      KC_HTTPS_PORT: "8443"
+      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/live/login.instore.puntoitstore.it/fullchain.pem"
+      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/live/login.instore.puntoitstore.it/privkey.pem"
     ports:
-      - "8090:8080"
+      - "8090:8443"
     volumes:
       - ./KeycloakService/data:/opt/keycloak/data
+      - letsencrypt:/etc/keycloak/certs:ro
     entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
 
   vault:
