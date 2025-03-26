@@ -26,11 +26,11 @@ public class AuthenticationService {
         else{
             KeycloakRoles role = KeycloakRoles.valueOf(userRoles.get(0));
             return switch (role) {
-                case CLIENTE, CLIENTE_PREMIUM -> "/api/cliente";
+                case CLIENTE, CLIENTE_PREMIUM -> "/api/clienti";
 
                 case ADMIN -> "/api/admin";
 
-                case RIVENDITORE -> "/api/rivenditore";
+                case RIVENDITORE -> "/api/rivenditori";
 
                 default -> throw new RuntimeException("Authentication Error");
             };

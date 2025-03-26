@@ -49,9 +49,10 @@ services:
     environment:
 
       # remember to modify Root URL in instore-client settings by keycloak UI
-      KC_HOSTNAME: ${KEYCLOAK_URL}
+      KC_HOSTNAME: ${KC_EXT_URL}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
       KC_PROXY_HEADERS: xforwarded
+      APP_ROOT_URL: ${APP_EXT_URL}
 
       KC_HOSTNAME_DEBUG: true
       KC_HTTP_ENABLED: true
@@ -59,7 +60,7 @@ services:
       - "8090:8080"
     volumes:
       - ./KeycloakService/data:/opt/keycloak/data
-    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
+    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --spi-admin-allowed-system-variables=APP_ROOT_URL
 
   vault:
     image: hashicorp/vault:1.18.4
@@ -101,8 +102,8 @@ services:
     #image: bise97/application-core
     restart: "no"
     environment:
-      APPLICATION_URL: ${APPLICATION_URL}
-      KEYCLOAK_URL: http://login.instore.puntoitstore.it:8080
+      APPLICATION_URL: ${APP_EXT_URL}
+      KEYCLOAK_URL: ${KC_INT_URL}
       VAULT_TOKEN: ${VAULT_TOKEN}
     depends_on:
       - mysql-db

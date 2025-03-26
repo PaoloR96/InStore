@@ -2,6 +2,7 @@ package com.howtodoinjava.app.applicationcore.config;
 
 import com.howtodoinjava.app.applicationcore.utility.ApplicationProperties;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakProperties;
+import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -177,6 +178,8 @@ public class SecurityConfig {
 
 //         Sets the location that the End-User's User Agent will be redirected to
 //         after the logout has been performed at the Provider
+
+        //TODO setting up a logout page
         oidcLogoutSuccessHandler.setPostLogoutRedirectUri(appBaseUrl + "/");
 
         return oidcLogoutSuccessHandler;
