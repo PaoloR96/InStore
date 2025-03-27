@@ -1,7 +1,4 @@
 #TODO eliminare i commenti
-#TODO eliminare directory VaultService
-#TODO eliminare dockerfile in mysqlserivce
-#TODO variabili d'ambiente per mysl-password e token-vault
 
 ###########################################
 #
@@ -21,7 +18,7 @@
 services:
   mysql-db:
     image: mysql:9.2.0
-    container_name: Mysql_Service
+    container_name: mysql.instore.puntoitstore.it
     restart: "no"
     ports:
       - "3306:3306"
@@ -31,8 +28,12 @@ services:
       MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
       - mysql-data:/var/lib/mysql
-    #      - ./MySqlService/persistence:/var/lib/mysql
-    command: --lower_case_table_names=1
+      - mysql-certs:/etc/mysql/certs:ro
+    command:
+      - --lower_case_table_names=1
+      - --require-secure-transport=ON
+      - --ssl-cert=/etc/mysql/certs/fullchain.pem
+      - --ssl-key=/etc/mysql/certs/privkey.pem
 
 #  ##########################
 #
@@ -59,13 +60,13 @@ services:
       KC_HTTP_ENABLED: "false"
       KC_HTTPS_ENABLED: "true"
       KC_HTTPS_PORT: "8443"
-      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/live/login.instore.puntoitstore.it/fullchain.pem"
-      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/live/login.instore.puntoitstore.it/privkey.pem"
+      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain.pem"
+      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey.pem"
     ports:
       - "8090:8443"
     volumes:
       - ./KeycloakService/data:/opt/keycloak/data
-      - letsencrypt:/etc/keycloak/certs:ro
+      - keycloak-certs:/etc/keycloak/certs:ro
     entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
 
   vault:
@@ -75,19 +76,15 @@ services:
     ports:
       - '8200:8200'
     volumes:
-      - ./vault/config:/vault/config
-      - ./vault/policies:/vault/policies
-      - ./vault/data:/vault/data
-      - ./vault/logs:/vault/logs
-      - letsencrypt:/vault/certs:ro
+      - ./VaultService/config:/vault/config
+      - ./VaultService/policies:/vault/policies
+      - ./VaultService/data:/vault/data
+      - ./VaultService/logs:/vault/logs
+      - vault-certs:/vault/certs:ro
 
     environment:
       VAULT_ADDR: "https://0.0.0.0:8200"
       VAULT_API_ADDR: "https://0.0.0.0:8200"
-      VAULT_CACERT: "/vault/certs/live/vault.instore.puntoitstore.it/chain.pem"
-      VAULT_CLIENT_CERT: "/vault/certs/live/vault.instore.puntoitstore.it/fullchain.pem"
-      VAULT_CLIENT_KEY: "/vault/certs/live/vault.instore.puntoitstore.it/privkey.pem"
-
     cap_add:
       - IPC_LOCK
     entrypoint: vault server -config=/vault/config/config.hcl
@@ -98,12 +95,8 @@ services:
     restart: "no"
     environment:
       VAULT_ADDR: "https://vault.instore.puntoitstore.it:8200"
-      VAULT_CACERT: "/vault/certs/live/vault.instore.puntoitstore.it/chain.pem"
-      VAULT_CLIENT_CERT: "/vault/certs/live/vault.instore.puntoitstore.it/fullchain.pem"
-      VAULT_CLIENT_KEY: "/vault/certs/live/vault.instore.puntoitstore.it/privkey.pem"
     volumes:
-      - ./vault/unseal-vault.sh:/vault/unseal-vault.sh
-      - letsencrypt:/vault/certs:ro
+      - ./VaultService/unseal-vault.sh:/vault/unseal-vault.sh
     entrypoint: sh -c "sleep 3 && /vault/unseal-vault.sh"
     cap_add:
       - IPC_LOCK
@@ -115,15 +108,14 @@ services:
       context: ./ApplicationCore
       dockerfile: Dockerfile
     container_name: instore.puntoitstore.it
-    image: bise97/application-core
+    #image: bise97/application-core
     restart: "no"
     environment:
       APPLICATION_URL: ${APPLICATION_URL}
-      KEYCLOAK_URL: "http://login.instore.puntoitstore.it:8080"
+      KEYCLOAK_URL: "https://login.instore.puntoitstore.it:8443"
       VAULT_TOKEN: ${VAULT_TOKEN}
-      VAULT_CACERT: "/app/certs/live/vault.instore.puntoitstore.it/chain.pem"
     volumes:
-      - letsencrypt:/app/certs:ro
+      - application-core-certs:/app/certs:ro
     depends_on:
       - mysql-db
       - vault-init
@@ -135,8 +127,8 @@ services:
     build:
       context: ./NgnixService
       dockerfile: Dockerfile
-    container_name: Nginx_Manager
-    image: bise97/instore-nginx
+    container_name: nginx
+    #image: bise97/instore-nginx
     restart: "no"
     ports:
       - "80:80"
@@ -144,7 +136,7 @@ services:
     volumes:
       - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf
       - letsencrypt:/etc/letsencrypt  # Volume per i certificati
-      - certbot-data:/var/www/certbot   # Volume per la sfida ACME
+      #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
     depends_on:
       - application-core
 
@@ -155,17 +147,17 @@ services:
 #    networks:
 #     - app-network
 
-  certbot:
-    image: certbot/certbot:v1.23.0
-    container_name: certbot
-    restart: "no"
-    volumes:
-      - certbot-data:/var/www/certbot
-      - letsencrypt:/etc/letsencrypt
-    depends_on:
-      - nginx
-    command:
-      - renew
+#  certbot:
+#    image: certbot/certbot:v1.23.0
+#    container_name: certbot
+#    restart: "no"
+#    volumes:
+#      - certbot-data:/var/www/certbot
+#      - letsencrypt:/etc/letsencrypt
+#    depends_on:
+#      - nginx
+#    command:
+#      - renew
       #- certonly
       #- --webroot
       #- -w
@@ -176,9 +168,38 @@ services:
       #- -d
       #- instore.puntoitstore.it
 
-# Definizione dei volumi per la persistenza dei dati
 volumes:
   mysql-data:
     name: instore-mysql
+
   certbot-data:
   letsencrypt:
+
+  mysql-certs:
+    driver: local
+    driver_opts:
+      type: bind
+      o: bind
+      device: /var/lib/docker/volumes/instore_letsencrypt/_data/live/mysql.instore.puntoitstore.it
+
+  vault-certs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /var/lib/docker/volumes/instore_letsencrypt/_data/live/vault.instore.puntoitstore.it
+
+  application-core-certs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /var/lib/docker/volumes/instore_letsencrypt/_data/live/instore.puntoitstore.it
+
+  keycloak-certs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /var/lib/docker/volumes/instore_letsencrypt/_data/live/login.instore.puntoitstore.it
+
