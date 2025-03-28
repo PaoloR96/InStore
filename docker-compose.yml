@@ -52,8 +52,6 @@ services:
       KC_HOSTNAME: ${KC_EXT_URL}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
       KC_PROXY_HEADERS: xforwarded
-      APP_ROOT_URL: ${APP_EXT_URL}
-
       KC_HOSTNAME_DEBUG: true
       KC_HTTP_ENABLED: true
     ports:
@@ -85,7 +83,7 @@ services:
     image: hashicorp/vault:1.18.4
     restart: "no"
     environment:
-      VAULT_ADDR: "http://vault-service:8200"
+      VAULT_ADDR: ${VAULT_URL}
     volumes:
       - ./vault/unseal-vault.sh:/vault/unseal-vault.sh
     entrypoint: sh -c "sleep 3 && /vault/unseal-vault.sh"
@@ -105,10 +103,10 @@ services:
       APPLICATION_URL: ${APP_EXT_URL}
       KEYCLOAK_URL: ${KC_INT_URL}
       VAULT_TOKEN: ${VAULT_TOKEN}
+      VAULT_URL: ${VAULT_URL}
+      MYSQL_URL: ${MYSQL_URL}
     depends_on:
-      - mysql-db
       - vault-init
-      - keycloak
     ports:
       - "8081:8080"
 
