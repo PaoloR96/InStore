@@ -1,8 +1,15 @@
 package com.howtodoinjava.app.applicationcore.service;
 
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
+import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
+import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.client.endpoint.RestClientRefreshTokenTokenResponseClient;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
 import java.util.Date;
 import java.util.List;
@@ -21,16 +28,16 @@ public class AuthenticationService {
     public String loginRedirect(List<String> userRoles) throws RuntimeException{
         if(userRoles.isEmpty()){
             //TODO redirect to completeRegistration
-            return "/api/user-details";
+            return "/complete-registration.html";
         }
         else{
             KeycloakRoles role = KeycloakRoles.valueOf(userRoles.get(0));
             return switch (role) {
-                case CLIENTE, CLIENTE_PREMIUM -> "/api/clienti";
+                case CLIENTE, CLIENTE_PREMIUM -> "/clienti/index.html";
 
-                case ADMIN -> "/api/admin";
+                case ADMIN -> "/admin/index.html";
 
-                case RIVENDITORE -> "/api/rivenditori";
+                case RIVENDITORE -> "/rivenditori/index.html";
 
                 default -> throw new RuntimeException("Authentication Error");
             };
@@ -43,9 +50,20 @@ public class AuthenticationService {
         String nomeIntestatario, String cognomeIntestatario, String cvc
     ){
         keycloakService.addRole(username, KeycloakRoles.CLIENTE);
-        Cliente cliente = clienteService.creareClienteStandard(
+        return clienteService.creareClienteStandard(
                 username, email, numCell, nome, cognome, numeroCarta, dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
-        return cliente;
+    }
+
+    public Rivenditore registerRivenditore(
+            String username,
+            String email,
+            String phoneNumber,
+            String nomeSocieta,
+            String partitaIva,
+            String iban
+    ){
+        keycloakService.addRole(username, KeycloakRoles.RIVENDITORE);
+        return new Rivenditore(); //DEV
     }
 
 

@@ -18,7 +18,13 @@ public class JWTUtils {
     }
 
     public static String getPhoneNumber(Authentication auth) throws RuntimeException {
-        return getOidcUser(auth).getPhoneNumber();
+        OidcUser oidcUser = getOidcUser(auth);
+        System.out.println(oidcUser.getClaims());
+        String phoneNumber = oidcUser.getPhoneNumber();
+        if(phoneNumber != null) {
+            return phoneNumber;
+        }
+        else throw new RuntimeException("Phone number is null");
     }
 
     public static OidcUser getOidcUser(Authentication auth) throws RuntimeException {

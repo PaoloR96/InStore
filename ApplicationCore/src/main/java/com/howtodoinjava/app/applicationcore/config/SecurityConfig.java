@@ -156,10 +156,14 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/clienti/**").hasAuthority("CLIENTE")
+                        .requestMatchers("/clienti/**").hasAuthority("CLIENTE")
                         .requestMatchers("/api/rivenditori/**").hasAuthority("RIVENDITORE")
+                        .requestMatchers("/rivenditori/**").hasAuthority("RIVENDITORE")
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
+                .csrf().disable()
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
                         .defaultSuccessUrl("/api/login-redirect",true)
                 )

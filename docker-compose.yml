@@ -44,10 +44,30 @@ services:
 #
 #  ########################
   keycloak:
-    build: ./KeycloakService
+    image: keycloak/keycloak:26.1
+#    container_name: login.instore.puntoitstore.it
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: password
+      # remember to modify Root URL in instore-client settings by keycloak UI
+      # KC_HOSTNAME: ${KC_EXT_URL}
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
+      KC_PROXY_HEADERS: xforwarded
+      KC_HOSTNAME_DEBUG: true
+      KC_HTTP_ENABLED: true
+    ports:
+      - "8091:8080"
+    volumes:
+      - ./KeycloakService/data:/opt/keycloak/data
+    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --spi-admin-allowed-system-variables=APP_ROOT_URL
+#    entrypoint: /opt/keycloak/bin/kc.sh export --file /opt/keycloak/data/realms.cfg
+
+  keycloak2604:
+    image: keycloak/keycloak:26.0.4
     container_name: login.instore.puntoitstore.it
     environment:
-
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: password
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KC_EXT_URL}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
@@ -57,8 +77,9 @@ services:
     ports:
       - "8090:8080"
     volumes:
-      - ./KeycloakService/data:/opt/keycloak/data
+      - ./KeycloakService/data2604:/opt/keycloak/data
     entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --spi-admin-allowed-system-variables=APP_ROOT_URL
+#    entrypoint: /opt/keycloak/bin/kc.sh import --file /opt/keycloak/data/realms.cfg
 
   vault:
     image: hashicorp/vault:1.18.4
@@ -92,12 +113,27 @@ services:
     depends_on:
       - vault
 
+#  application-core:
+#    build:
+#      context: ./ApplicationCore
+#      dockerfile: Dockerfile
+#    container_name: ApplicationCore_Service
+#    #image: bise97/application-core
+#    restart: "no"
+#    environment:
+#      APPLICATION_URL: ${APP_EXT_URL}
+#      KEYCLOAK_URL: ${KC_INT_URL}
+#      VAULT_TOKEN: ${VAULT_TOKEN}
+#      VAULT_URL: ${VAULT_URL}
+#      MYSQL_URL: ${MYSQL_URL}
+#    depends_on:
+#      - vault-init
+#    ports:
+#      - "8081:8080"
+
   application-core:
-    build:
-      context: ./ApplicationCore
-      dockerfile: Dockerfile
+    image: openjdk:17-jdk-slim
     container_name: ApplicationCore_Service
-    #image: bise97/application-core
     restart: "no"
     environment:
       APPLICATION_URL: ${APP_EXT_URL}
@@ -109,6 +145,9 @@ services:
       - vault-init
     ports:
       - "8081:8080"
+    volumes:
+      - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar
+    entrypoint: java -jar /target/app.jar
 
   nginx:
     build:
