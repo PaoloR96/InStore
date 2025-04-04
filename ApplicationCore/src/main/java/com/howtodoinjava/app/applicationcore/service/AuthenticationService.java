@@ -2,6 +2,7 @@ package com.howtodoinjava.app.applicationcore.service;
 
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
+import com.howtodoinjava.app.applicationcore.entity.StatoRivenditore;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +21,16 @@ public class AuthenticationService {
 
     private final ClienteService clienteService;
     private final KeycloakService keycloakService;
+    private final RivenditoreService rivenditoreService;
 
-    public AuthenticationService(ClienteService clienteService, KeycloakService keycloakService) {
+    public AuthenticationService(
+            ClienteService clienteService,
+            KeycloakService keycloakService,
+            RivenditoreService rivenditoreService
+    ) {
         this.clienteService = clienteService;
         this.keycloakService = keycloakService;
+        this.rivenditoreService = rivenditoreService;
     }
 
     public String loginRedirect(List<String> userRoles) throws RuntimeException{
@@ -33,11 +41,11 @@ public class AuthenticationService {
         else{
             KeycloakRoles role = KeycloakRoles.valueOf(userRoles.get(0));
             return switch (role) {
-                case CLIENTE, CLIENTE_PREMIUM -> "/clienti/index.html";
+                case CLIENTE, CLIENTE_PREMIUM -> "/cliente/index.html";
 
                 case ADMIN -> "/admin/index.html";
 
-                case RIVENDITORE -> "/rivenditori/index.html";
+                case RIVENDITORE -> "/rivenditore/index.html";
 
                 default -> throw new RuntimeException("Authentication Error");
             };
@@ -63,7 +71,14 @@ public class AuthenticationService {
             String iban
     ){
         keycloakService.addRole(username, KeycloakRoles.RIVENDITORE);
-        return new Rivenditore(); //DEV
+        return rivenditoreService.createRivenditore(
+                email,
+                username,
+                phoneNumber,
+                nomeSocieta,
+                partitaIva,
+                iban
+        );
     }
 
 

@@ -17,6 +17,7 @@ import java.net.URI;
 import java.util.*;
 
 @RestController
+@RequestMapping("/api")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
@@ -25,7 +26,7 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @GetMapping("/api/user-details")
+    @GetMapping("/user-details")
     ResponseEntity<?> printUser(Authentication auth) {
         try{
             Account account = new Account(
@@ -38,7 +39,7 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping("/api/login-redirect")
+    @GetMapping("/login-redirect")
     ResponseEntity<?> loginRedirect(Authentication auth) {
         try{
             List<String> userRoles = JWTUtils.getAuthorities(auth);
@@ -51,7 +52,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/api/rivenditore-registration")
+    @PostMapping("/rivenditore-registration")
     public ResponseEntity<?> rivenditoreRegistration(Authentication auth,
               @RequestParam String nomeSocieta,
               @RequestParam String partitaIva,
@@ -64,15 +65,14 @@ public class AuthenticationController {
             Rivenditore rivenditore = authenticationService.registerRivenditore(
                     username, email, phoneNumber, nomeSocieta, partitaIva, iban);
             session.invalidate();
-//            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/clienti/index.html")).body(cliente);
-            return ResponseEntity.created(URI.create("/rivenditori/index.html")).body(rivenditore);
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/rivenditori/index.html")).body(rivenditore);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @PostMapping("/api/cliente-registration")
+    @PostMapping("/cliente-registration")
     public ResponseEntity<?> clienteRegistration(Authentication auth,
              @RequestParam String nome,
              @RequestParam String cognome,
