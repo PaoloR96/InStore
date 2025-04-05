@@ -32,8 +32,8 @@ services:
     command:
       - --lower_case_table_names=1
       - --require-secure-transport=ON
-      - --ssl-cert=/etc/mysql/certs/fullchain.pem
-      - --ssl-key=/etc/mysql/certs/privkey.pem
+      - --ssl-cert=/etc/mysql/certs/fullchain1.pem
+      - --ssl-key=/etc/mysql/certs/privkey1.pem
 
 #  ##########################
 #
@@ -60,8 +60,8 @@ services:
       KC_HTTP_ENABLED: "false"
       KC_HTTPS_ENABLED: "true"
       KC_HTTPS_PORT: "8443"
-      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain.pem"
-      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey.pem"
+      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain1.pem"
+      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey1.pem"
     ports:
       - "8090:8443"
     volumes:
@@ -180,26 +180,26 @@ volumes:
     driver_opts:
       type: bind
       o: bind
-      device: /var/lib/docker/volumes/instore_letsencrypt/_data/live/mysql.instore.puntoitstore.it
+      device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/mysql.instore.puntoitstore.it
 
   vault-certs:
     driver: local
     driver_opts:
-      type: none
+      type: bind
       o: bind
-      device: /var/lib/docker/volumes/instore_letsencrypt/_data/live/vault.instore.puntoitstore.it
+      device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/vault.instore.puntoitstore.it
 
   application-core-certs:
     driver: local
     driver_opts:
-      type: none
+      type: bind
       o: bind
-      device: /var/lib/docker/volumes/instore_letsencrypt/_data/live/instore.puntoitstore.it
+      device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/instore.puntoitstore.it
 
   keycloak-certs:
     driver: local
     driver_opts:
-      type: none
+      type: bind
       o: bind
-      device: /var/lib/docker/volumes/instore_letsencrypt/_data/live/login.instore.puntoitstore.it
+      device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/login.instore.puntoitstore.it
 

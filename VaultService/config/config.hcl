@@ -4,8 +4,8 @@ storage "file" {
 
 listener "tcp" {
    address     = "0.0.0.0:8200"
-   tls_cert_file = "/vault/certs/fullchain.pem"
-   tls_key_file  = "/vault/certs/privkey.pem"
+   tls_cert_file = "/vault/certs/fullchain1.pem"
+   tls_key_file  = "/vault/certs/privkey1.pem"
    tls_disable_client_certs = true
 }
 
