@@ -119,7 +119,7 @@ public class ClienteController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping("/info")
     public ResponseEntity<Cliente> getClienteInfo(Authentication auth) {
         try {
             String username = JWTUtils.getUsername(auth);

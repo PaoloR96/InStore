@@ -40,9 +40,10 @@ jobs:
             git clone https://github.com/PaoloR96/InStore.git -b biagio
             cd ~/InStore/vault
             chmod +x unseal-vault.sh
+            cd
+            cd ~/InStore/KeycloakService
+            chmod -R 777 data
             cd ..
-#            echo ${{ secrets.MYSQL_ROOT_PASSWORD }} >> .env
-#            echo ${{ secrets.VAULT_TOKEN }} >> .env
             docker-compose down
             docker rmi bise97/application-core
             docker rmi bise97/instore-nginx

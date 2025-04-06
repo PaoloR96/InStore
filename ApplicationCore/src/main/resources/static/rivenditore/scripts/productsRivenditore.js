@@ -1,37 +1,46 @@
+/ Configurazione centralizzata dell'API
+const API_CONFIG = {
+    basePath: "/api",
+    retailerId: "rivenditore2"
+};
+
+// Costruisce l'URL base completo
+const API_BASE_URL = `${API_CONFIG.basePath}/rivenditori/${API_CONFIG.retailerId}`;
+
 document.addEventListener("DOMContentLoaded", () => {
     loadRetailerName();
     loadProducts();
     document.getElementById("productForm").addEventListener("submit", addProduct);
 });
 
-// Funzione per provare più porte
-async function tryFetchFromMultiplePorts(paths) {
-    const ports = [80, 8081];
-    for (let port of ports) {
-        try {
-            const response = await fetch(`http://localhost:${port}${paths}`);
-            if (response.ok) {
-                return await response.json();
-            }
-        } catch (error) {
-            console.warn(`Errore su porta ${port}:`, error);
+// Funzione per effettuare richieste API
+async function fetchAPI(endpoint, options = {}) {
+    try {
+        const url = `${API_BASE_URL}${endpoint}`;
+        const response = await fetch(url, options);
+
+        if (!response.ok) {
+            throw new Error(`Errore HTTP: ${response.status}`);
         }
+
+        return await response.json();
+    } catch (error) {
+        console.error(`Errore nella richiesta API: ${error.message}`);
+        throw error;
     }
-    throw new Error("Nessuna connessione disponibile");
 }
 
 // Funzione per estrarre e visualizzare il nome del rivenditore
 function loadRetailerName() {
-    const apiUrl = "/api/rivenditori/rivenditore2/listaprodotti";
-    const retailerId = "rivenditore2";
-    const formattedName = retailerId.charAt(0).toUpperCase() + retailerId.slice(1);
-
+    const formattedName = API_CONFIG.retailerId.charAt(0).toUpperCase() + API_CONFIG.retailerId.slice(1);
     document.getElementById("retailerName").textContent = formattedName;
 }
 
 // Funzione per caricare i prodotti
 async function loadProducts() {
     const productsGrid = document.getElementById("productsGrid");
+
+    // Mostra stato di caricamento
     productsGrid.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
             <i class="fas fa-spinner fa-spin fa-2x"></i>
@@ -40,24 +49,8 @@ async function loadProducts() {
     `;
 
     try {
-        const data = await tryFetchFromMultiplePorts("/api/rivenditori/rivenditore2/listaprodotti");
-        productsGrid.innerHTML = "";
-
-        if (data.length === 0) {
-            productsGrid.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                    <i class="fas fa-box-open fa-2x"></i>
-                    <p>Nessun prodotto disponibile</p>
-                </div>
-            `;
-            return;
-        }
-
-        data.sort((a, b) => b.id - a.id);
-        data.forEach(product => {
-            productsGrid.appendChild(createProductCard(product));
-        });
-
+        const products = await fetchAPI("/listaprodotti");
+        displayProducts(products);
     } catch (error) {
         console.error("Errore nel caricamento prodotti:", error);
         productsGrid.innerHTML = `
@@ -67,6 +60,51 @@ async function loadProducts() {
             </div>
         `;
     }
+}
+
+// Funzione per visualizzare i prodotti
+function displayProducts(products) {
+    const productsGrid = document.getElementById("productsGrid");
+    productsGrid.innerHTML = "";
+
+    if (products.length === 0) {
+        productsGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                <i class="fas fa-box-open fa-2x"></i>
+                <p>Nessun prodotto disponibile</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Ordina i prodotti per ID in ordine decrescente
+    products.sort((a, b) => b.id - a.id);
+
+    productsGrid.innerHTML = products.map(product => `
+        <div class="product-card">
+            <img src="${product.pathImmagine || '/placeholder.jpg'}" alt="${product.nomeProdotto}" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">${product.nomeProdotto}</h3>
+                <p class="product-price">€${product.prezzo.toFixed(2)}</p>
+                <div class="product-size">
+                    <span>Taglia:</span>
+                    <span class="size-badge">${product.taglia}</span>
+                </div>
+                <p class="product-description">${product.descrizione || ''}</p>
+                <div class="quantity-selector">
+                    <input type="number" min="1" max="${product.quantitaTotale}" value="1" id="qty-${product.id || product.idProdotto}">
+                    <button onclick="addToCart(${product.id || product.idProdotto})">Aggiungi al carrello</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Funzione per aggiungere un prodotto al carrello (stub)
+function addToCart(productId) {
+    const quantity = document.getElementById(`qty-${productId}`).value;
+    console.log(`Aggiunto al carrello: Prodotto ID ${productId}, Quantità ${quantity}`);
+    showSuccessAnimation("Prodotto aggiunto al carrello!");
 }
 
 // Funzione per aggiungere un prodotto
@@ -83,38 +121,22 @@ async function addProduct(event) {
         descrizione: document.getElementById("descrizione").value,
         prezzo: parseFloat(document.getElementById("prezzo").value),
         taglia: document.getElementById("taglia").value,
-        pathImmagine: document.getElementById("pathImmagine").value,
+        pathImmagine: document.getElementById("pathImmagine").value || '/placeholder.jpg',
         quantitaTotale: parseInt(document.getElementById("quantitaTotale").value),
     };
 
-    const endpoints = [
-        "http://localhost:80/api/rivenditori/rivenditore2/insprodotti",
-        "http://localhost:8081/api/rivenditori/rivenditore2/insprodotti"
-    ];
+    try {
+        await fetchAPI("/insprodotti", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuovoProdotto)
+        });
 
-    let success = false;
-    for (let url of endpoints) {
-        try {
-            const response = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(nuovoProdotto)
-            });
-
-            if (response.ok) {
-                success = true;
-                break;
-            }
-        } catch (error) {
-            console.warn(`Errore su ${url}:`, error);
-        }
-    }
-
-    if (success) {
-        showSuccessAnimation();
+        showSuccessAnimation("Prodotto aggiunto con successo!");
         document.getElementById("productForm").reset();
         loadProducts();
-    } else {
+    } catch (error) {
+        console.error("Errore nell'aggiunta del prodotto:", error);
         showErrorMessage("Errore nell'aggiunta del prodotto");
     }
 
@@ -122,31 +144,12 @@ async function addProduct(event) {
     submitButton.innerHTML = originalButtonText;
 }
 
-function createProductCard(product) {
-    const productCard = document.createElement("div");
-    productCard.classList.add("product-card");
-
-    productCard.innerHTML = `
-        <img src="${product.pathImmagine}" alt="${product.nomeProdotto}" class="product-image">
-        <div class="product-details">
-            <h3 class="product-title">${product.nomeProdotto}</h3>
-            <p class="product-price">€${product.prezzo.toFixed(2)}</p>
-            <div class="product-meta">
-                <span><i class="fas fa-tshirt"></i> ${product.taglia}</span>
-                <span><i class="fas fa-cubes"></i> ${product.quantitaTotale}</span>
-            </div>
-        </div>
-    `;
-
-    return productCard;
-}
-
-function showSuccessAnimation() {
+function showSuccessAnimation(message = "Operazione completata con successo!") {
     const successDiv = document.createElement("div");
     successDiv.className = "success-animation";
     successDiv.innerHTML = `
         <i class="fas fa-check-circle fa-3x" style="color: var(--success-color); margin-bottom: 1rem;"></i>
-        <p>Prodotto aggiunto con successo!</p>
+        <p>${message}</p>
     `;
     document.body.appendChild(successDiv);
 

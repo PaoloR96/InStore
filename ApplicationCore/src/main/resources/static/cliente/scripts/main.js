@@ -12,7 +12,7 @@ function refreshStore() {
 
 async function loadClientInfo() {
     try {
-        const response = await fetch(`${API_BASE_URL}/clienti/${currentUsername}`);
+        const response = await fetch(`${API_BASE_URL}/info`);
         const cliente = await response.json();
         isPremiumClient = cliente.tipo_cliente === 'PREMIUM';
     } catch (error) {

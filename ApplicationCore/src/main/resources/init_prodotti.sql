@@ -10,7 +10,7 @@ INSERT INTO carta_di_credito(numero_carta, cognome_intestatario, cvc, data_scade
 
 -- Inserisci il cliente e associa direttamente il carrello
 INSERT INTO cliente (email, username, password, num_cell, nome, cognome, stato_cliente, sconto, tipo_cliente, numero_carta_credito)
-VALUES ('mario.rossi@example.com', 'mrossi', 'password123', '1234567890', 'Mario', 'Rossi', 'ABILITATO', NULL, 'STANDARD', '4087575738998');
+VALUES ('mario.rossi@example.com', 'user1', 'password123', '1234567890', 'Mario', 'Rossi', 'ABILITATO', NULL, 'STANDARD', '4087575738998');
 
 
 -- Inserisci dati nella tabella PRODOTTO, associandoli ai Rivenditori
