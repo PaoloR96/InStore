@@ -25,6 +25,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -43,10 +44,6 @@ import java.util.stream.Collectors;
 @EnableConfigurationProperties({ApplicationProperties.class, KeycloakProperties.class, OAuth2ClientProperties.class})
 public class SecurityConfig {
 
-//    @Value("${spring.security.oauth2.client.registration.instore.client-id}")
-//    private static String clientId;
-//    @Value("${spring.security.oauth2.client.registration.instore.client-secret}")
-//    private static String clientSecret;
     private static String realm;
     private static String kcBaseUrl;
     private static String appBaseUrl;
@@ -144,10 +141,11 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
                         .anyRequest().authenticated()
                 )
-                .csrf().disable()
+//                .csrf().disable()
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
                         .defaultSuccessUrl("/api/login-redirect",true)
                 )
+                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
