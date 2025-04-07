@@ -2,6 +2,7 @@ package com.howtodoinjava.app.applicationcore.service;
 import com.howtodoinjava.app.applicationcore.dto.ProdottoDTO;
 import com.howtodoinjava.app.applicationcore.entity.Prodotto;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
+import com.howtodoinjava.app.applicationcore.entity.StatoRivenditore;
 import com.howtodoinjava.app.applicationcore.mapper.ProdottoMapper;
 import com.howtodoinjava.app.applicationcore.repository.ProdottoRepository;
 import com.howtodoinjava.app.applicationcore.repository.RivenditoreRepository;
@@ -10,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,6 +78,29 @@ public class RivenditoreService {
 
         logger.info("Recuperati {} prodotti per il rivenditore {}", prodottoDTOList.size(), rivenditoreUsername);
         return prodottoDTOList;
+    }
+
+    public Rivenditore createRivenditore(
+          String email,
+          String username,
+          String phoneNumber,
+          String nomeSocieta,
+          String partitaIva,
+          String iban
+    ){
+        Rivenditore rivenditore = new Rivenditore(
+                email,
+                username,
+                phoneNumber,
+                nomeSocieta,
+                partitaIva,
+                iban,
+                new ArrayList<>(),
+                StatoRivenditore.ABILITATO
+        );
+        rivenditoreRepository.save(rivenditore);
+
+        return rivenditore;
     }
 
 

@@ -229,6 +229,7 @@ public class ClienteService {
         return prodottiCarrello;
     }
 
+    // TODO implementare metodo di pagamento
     private Boolean eseguiPagamento(Ordine ordine) {
             return true;
     }

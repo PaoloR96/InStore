@@ -4,5 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("keycloak")
 public record KeycloakProperties (
-        String baseUrl
+        String baseUrl,
+        String realm,
+        String adminClientId,
+        String adminClientSecret
 ){}

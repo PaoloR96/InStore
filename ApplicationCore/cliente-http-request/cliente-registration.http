@@ -1,0 +1,11 @@
+POST http://instore.puntoitstore.it/api/cliente-registration
+Cookie: JSESSIONID=F18373C8BB7B8C926BF86E9CC2F4F01F
+Content-Type: application/x-www-form-urlencoded
+
+nome = Mario &
+cognome = Rossi &
+numeroCarta = 58768989 &
+dataScadenza = 2027-12-31 &
+nomeIntestatario = Mario &
+cognomeIntestatario = Rossi &
+cvc = 333

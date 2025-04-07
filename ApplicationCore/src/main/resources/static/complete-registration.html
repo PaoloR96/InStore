@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione Cliente</title>
+</head>
+<body>
+<h2>Form di Login</h2>
+<form name="registration" method="POST">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <fieldset id="roleChoose" onchange="enableFieldset()">
+        <legend>Scegli il tuo ruolo</legend>
+        <input type="radio" id="cliente" name="role" value="CLIENTE"/>
+        <label for="cliente">Cliente</label><br>
+        <input type="radio" id="rivenditore" name="role" value="RIVENDITORE"/>
+        <label for="rivenditore">Rivenditore</label><br>
+    </fieldset>
+
+    <fieldset hidden="hidden" disabled="disabled" id="clienteAttributes">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="cognome">Cognome:</label><br>
+        <input type="text" id="cognome" name="cognome" required><br><br>
+
+        <label for="numeroCarta">Numero Carta di Credito:</label><br>
+        <input type="text" id="numeroCarta" name="numeroCarta" required><br><br>
+
+        <label for="dataScadenza">Data di Scadenza:</label><br>
+        <input type="date" id="dataScadenza" name="dataScadenza" required><br><br>
+
+        <label for="nomeIntestatario">Nome Intestatario Carta:</label><br>
+        <input type="text" id="nomeIntestatario" name="nomeIntestatario" required><br><br>
+
+        <label for="cognomeIntestatario">Cognome Intestatario Carta:</label><br>
+        <input type="text" id="cognomeIntestatario" name="cognomeIntestatario" required><br><br>
+
+        <label for="cvc">CVC:</label><br>
+        <input type="text" id="cvc" name="cvc" required><br><br>
+
+        <button type="submit" formaction="/api/cliente-registration">Completa Registrazione</button>
+    </fieldset>
+
+    <fieldset hidden="hidden" disabled="disabled" id="rivenditoreAttributes">
+        <label for="nomeSocieta">Nome Societa':</label><br>
+        <input type="text" id="nomeSocieta" name="nomeSocieta" required><br><br>
+
+        <label for="partitaIva">Partita IVA:</label><br>
+        <input type="text" id="partitaIva" name="partitaIva" required><br><br>
+
+        <label for="iban">IBAN:</label><br>
+        <input type="text" id="iban" name="iban" required><br><br>
+
+        <button type="submit" formaction="/api/rivenditore-registration">Completa Registrazione</button>
+    </fieldset>
+</form>
+
+<script src="scripts/registration.js"></script>
+</body>
+</html>

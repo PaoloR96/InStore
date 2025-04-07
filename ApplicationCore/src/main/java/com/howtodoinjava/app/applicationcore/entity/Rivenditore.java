@@ -26,13 +26,13 @@ public class Rivenditore  extends Utente {
 
     public Rivenditore(){}
 
-    public Rivenditore(String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
-        this.nomeSocieta = nomeSocieta;
-        this.partitaIva = partitaIva;
-        this.iban = iban;
-        this.listaProdottiRivenditore = listaProdottiRivenditore;
-        this.statoRivenditore = statoRivenditore;
-    }
+//    public Rivenditore(String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
+//        this.nomeSocieta = nomeSocieta;
+//        this.partitaIva = partitaIva;
+//        this.iban = iban;
+//        this.listaProdottiRivenditore = listaProdottiRivenditore;
+//        this.statoRivenditore = statoRivenditore;
+//    }
 
     public Rivenditore(String email, String username, String numCell, String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
         super(email, username, numCell);

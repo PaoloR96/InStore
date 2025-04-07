@@ -57,9 +57,6 @@ public class Cliente extends Utente {
                 this.statoCliente = statoCliente;
         }
 
-
-
-
         public String getNome() {
                 return nome;
         }

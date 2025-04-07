@@ -1,23 +1,23 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
+import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
 import com.howtodoinjava.app.applicationcore.service.AuthenticationService;
 import com.howtodoinjava.app.applicationcore.service.ClienteService;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.*;
 
 @RestController
+@RequestMapping("/api")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
@@ -26,7 +26,7 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
-    @GetMapping("/api/user-details")
+    @GetMapping("/user-details")
     ResponseEntity<?> printUser(Authentication auth) {
         try{
             Account account = new Account(
@@ -39,7 +39,7 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping("/api/login-redirect")
+    @GetMapping("/login-redirect")
     ResponseEntity<?> loginRedirect(Authentication auth) {
         try{
             List<String> userRoles = JWTUtils.getAuthorities(auth);
@@ -52,34 +52,48 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/api/rivenditore-registration")
-    ResponseEntity<?> rivenditoreRegistration(Authentication auth,
-      @RequestParam String nomeSocieta,
-      @RequestParam String partitaIva,
-      @RequestParam String iban) {
-
-
-        return ResponseEntity.ok().build();
+    @PostMapping("/rivenditore-registration")
+    public ResponseEntity<?> rivenditoreRegistration(Authentication auth,
+              @RequestParam String nomeSocieta,
+              @RequestParam String partitaIva,
+              @RequestParam String iban,
+              HttpSession session) {
+        try{
+            String username = JWTUtils.getUsername(auth);
+            String email = JWTUtils.getEmail(auth);
+            String phoneNumber = JWTUtils.getPhoneNumber(auth);
+            Rivenditore rivenditore = authenticationService.registerRivenditore(
+                    username, email, phoneNumber, nomeSocieta, partitaIva, iban);
+            session.invalidate();
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/rivenditori/index.html")).body(rivenditore);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
-    @PostMapping("/api/cliente-registration")
-    ResponseEntity<?> clienteRegistration(Authentication auth,
-        @RequestParam String nome,
-        @RequestParam String cognome,
-        @RequestParam String numeroCarta,
-        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataScadenza,
-        @RequestParam String nomeIntestatario,
-        @RequestParam String cognomeIntestatario,
-        @RequestParam String cvc) {
-            try{
-                String username = JWTUtils.getUsername(auth);
-                String email = JWTUtils.getEmail(auth);
-                String phoneNumber = JWTUtils.getPhoneNumber(auth);
-                Cliente cliente = authenticationService.registerCliente(username, email, phoneNumber, nome, cognome, numeroCarta,
-                        dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
-                return ResponseEntity.created(URI.create("/api/user-details")).body(cliente);
-            } catch (RuntimeException e) {
-                return ResponseEntity.badRequest().body(e.getMessage());
-            }
+    @PostMapping("/cliente-registration")
+    public ResponseEntity<?> clienteRegistration(Authentication auth,
+             @RequestParam String nome,
+             @RequestParam String cognome,
+             @RequestParam String numeroCarta,
+             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataScadenza,
+             @RequestParam String nomeIntestatario,
+             @RequestParam String cognomeIntestatario,
+             @RequestParam String cvc,
+             HttpSession httpSession) {
+        try{
+            String username = JWTUtils.getUsername(auth);
+            String email = JWTUtils.getEmail(auth);
+            String phoneNumber = JWTUtils.getPhoneNumber(auth);
+            Cliente cliente = authenticationService.registerCliente(username, email, phoneNumber, nome, cognome, numeroCarta,
+                    dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
+            httpSession.invalidate();
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/clienti/index.html")).body(cliente);
+//                return ResponseEntity.created(URI.create("/clienti/index")).body(cliente);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

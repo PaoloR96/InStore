@@ -2,7 +2,9 @@ package com.howtodoinjava.app.applicationcore.config;
 
 import com.howtodoinjava.app.applicationcore.utility.ApplicationProperties;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakProperties;
+import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +25,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -38,35 +41,33 @@ import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
-@EnableConfigurationProperties({ApplicationProperties.class, KeycloakProperties.class})
+@EnableConfigurationProperties({ApplicationProperties.class, KeycloakProperties.class, OAuth2ClientProperties.class})
 public class SecurityConfig {
 
-// TODO remove
-// local hosts (only for testing)
-//    private static final String kcHost = "localhost:8090";
-//    private static final String appHost = "localhost:8080";
-// remote hosts
-//    private static final String kcHost = "keycloak-manager:8080";
-//    private static final String appHost = "instore.puntoitstore.it";
-
-    @Value("${spring.security.oauth2.client.registration.instore.client-id}")
-    private String clientId;
-    @Value("${spring.security.oauth2.client.registration.instore.client-secret}")
-    private String clientSecret;
+    private static String realm;
+    private static String kcBaseUrl;
+    private static String appBaseUrl;
+    private static String clientId;
+    private static String clientSecret;
 
     private static final String RESOURCE_ACCESS_CLAIM = "resource_access";
-    private static final String CLIENT_ID_CLAIM = "instore-client";
     private static final String ROLES_CLAIM = "roles";
 
-    @Bean
-    public ClientRegistrationRepository clientRegistrationRepository(ApplicationProperties appProperties,
-                                                                     KeycloakProperties kcProperties
-    ) throws URISyntaxException {
-        String kcBaseUrl = kcProperties.baseUrl();
-        String appBaseUrl = appProperties.baseUrl();
+    public SecurityConfig(
+            ApplicationProperties appProperties,
+            KeycloakProperties kcProperties,
+            OAuth2ClientProperties oAuth2ClientProperties
+    ){
+        realm = kcProperties.realm();
+        kcBaseUrl = kcProperties.baseUrl();
+        appBaseUrl = appProperties.baseUrl();
+        clientId = oAuth2ClientProperties.getRegistration().get(realm).getClientId();
+        clientSecret = oAuth2ClientProperties.getRegistration().get(realm).getClientSecret();
+    }
 
-//        return new InMemoryClientRegistrationRepository(this.keycloakClientRegistration());
-        URI metadataEndpoint = new URI(kcBaseUrl + "/realms/instore/.well-known/openid-configuration");
+    @Bean
+    public ClientRegistrationRepository clientRegistrationRepository() throws URISyntaxException {
+        URI metadataEndpoint = new URI(kcBaseUrl + "/realms/" + realm + "/.well-known/openid-configuration");
         RequestEntity<Void> request = RequestEntity.get(metadataEndpoint).build();
         ParameterizedTypeReference<Map<String, Object>> typeReference = new ParameterizedTypeReference<>() {};
         Map<String, Object> configuration = new RestTemplate().exchange(request, typeReference).getBody();
@@ -74,7 +75,7 @@ public class SecurityConfig {
         ClientRegistration clientRegistration = ClientRegistrations.fromOidcConfiguration(configuration)
                 .clientId(clientId)
                 .clientSecret(clientSecret)
-                .registrationId("instore")
+                .registrationId(realm)
                 .redirectUri(appBaseUrl + "/login/oauth2/code/instore")
                 .scope("openid", "profile", "email")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
@@ -82,25 +83,6 @@ public class SecurityConfig {
                 .build();
         return new InMemoryClientRegistrationRepository(clientRegistration);
     }
-
-    //TODO remove this method
-//    private ClientRegistration keycloakClientRegistration() {
-//        return ClientRegistration.withRegistrationId("instore")
-//                .clientId(clientId)
-//                .clientSecret(clientSecret)
-//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//                .redirectUri("http://"+appHost+"/login/oauth2/code/instore")
-//                .scope("openid", "profile", "email")
-//                .authorizationUri("http://"+kcHost+"/realms/instore/protocol/openid-connect/auth")
-//                .tokenUri("http://"+kcHost+"/realms/instore/protocol/openid-connect/token")
-//                .userInfoUri("http://"+kcHost+"/realms/instore/protocol/openid-connect/userinfo")
-//                .userNameAttributeName(IdTokenClaimNames.SUB)
-//                .jwkSetUri("http://"+kcHost+"/realms/instore/protocol/openid-connect/certs")
-//                .clientName("instore-client")
-//                .issuerUri("http://"+kcHost+"/realms/instore")
-//                .build();
-//    }
 
     @Bean
     public GrantedAuthoritiesMapper userAuthoritiesMapperForKeycloak() {
@@ -114,8 +96,8 @@ public class SecurityConfig {
                 var userInfo = oidcUserAuthority.getIdToken();
                 if (userInfo.hasClaim(RESOURCE_ACCESS_CLAIM)) {
                     var resourceAccess = userInfo.getClaimAsMap(RESOURCE_ACCESS_CLAIM);
-                    if(resourceAccess.containsKey(CLIENT_ID_CLAIM)){
-                        var clientResource = (Map<String,Object>) resourceAccess.get(CLIENT_ID_CLAIM);
+                    if(resourceAccess.containsKey(clientId)){
+                        var clientResource = (Map<String,Object>) resourceAccess.get(clientId);
                         if(clientResource.containsKey(ROLES_CLAIM)){
                             var roles = (Collection<String>) clientResource.get(ROLES_CLAIM);
                             mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
@@ -129,8 +111,8 @@ public class SecurityConfig {
 
                 if (userAttributes.containsKey(RESOURCE_ACCESS_CLAIM)) {
                     var resourceAccess = (Map<String,Object>) userAttributes.get(RESOURCE_ACCESS_CLAIM);
-                    if(resourceAccess.containsKey(CLIENT_ID_CLAIM)){
-                        var clientAccess = (Map<String,Object>) resourceAccess.get(CLIENT_ID_CLAIM);
+                    if(resourceAccess.containsKey(clientId)){
+                        var clientAccess = (Map<String,Object>) resourceAccess.get(clientId);
                         if (clientAccess.containsKey(ROLES_CLAIM)) {
                             var roles = (Collection<String>) clientAccess.get(ROLES_CLAIM);
                             mappedAuthorities.addAll(generateAuthoritiesFromClaim(roles));
@@ -154,11 +136,13 @@ public class SecurityConfig {
     ) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/clienti/**").hasAuthority("CLIENTE")
-                        .requestMatchers("/api/rivenditori/**").hasAuthority("RIVENDITORE")
-                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/cliente/**").hasAuthority(KeycloakRoles.CLIENTE.name())
+                        .requestMatchers("/rivenditore/**").hasAuthority(KeycloakRoles.RIVENDITORE.name())
+                        .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
                         .anyRequest().authenticated()
                 )
+                .csrf().disable()
+//                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
                         .defaultSuccessUrl("/api/login-redirect",true)
                 )
@@ -177,6 +161,8 @@ public class SecurityConfig {
 
 //         Sets the location that the End-User's User Agent will be redirected to
 //         after the logout has been performed at the Provider
+
+        //TODO setting up a logout page
         oidcLogoutSuccessHandler.setPostLogoutRedirectUri(appBaseUrl + "/");
 
         return oidcLogoutSuccessHandler;

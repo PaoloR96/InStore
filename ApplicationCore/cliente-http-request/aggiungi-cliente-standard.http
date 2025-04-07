@@ -1,9 +1,9 @@
 POST http://instore.puntoitstore.it/api/clienti/aggiungi_standard
+Cookie: JSESSIONID=B8DC5F0B6AA5F49CE33860C7EE338F90
 Content-Type: application/x-www-form-urlencoded
 
 username = cliente1 &
 email = cliente1@example.com &
-password = password000 &
 numCell = 3465433 &
 nome = Mario &
 cognome = Rossi &
