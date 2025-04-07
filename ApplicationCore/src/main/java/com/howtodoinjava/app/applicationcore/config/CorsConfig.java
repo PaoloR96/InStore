@@ -17,7 +17,19 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:8081", appProperties.baseUrl()) // Frontend servito dallo stesso server
+                        .allowedOrigins("https://localhost:8081", appProperties.baseUrl()) // Frontend servito dallo stesso server
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowCredentials(true);
+                registry.addMapping("/cliente/api/**")
+                        .allowedOrigins("https://localhost:8081", appProperties.baseUrl()) // Frontend servito dallo stesso server
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowCredentials(true);
+                registry.addMapping("/rivenditore/api/**")
+                        .allowedOrigins("https://localhost:8081", appProperties.baseUrl()) // Frontend servito dallo stesso server
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowCredentials(true);
+                registry.addMapping("/admin/api/**")
+                        .allowedOrigins("https://localhost:8081", appProperties.baseUrl()) // Frontend servito dallo stesso server
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowCredentials(true);
             }

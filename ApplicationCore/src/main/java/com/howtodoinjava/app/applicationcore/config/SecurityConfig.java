@@ -141,11 +141,11 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
                         .anyRequest().authenticated()
                 )
-//                .csrf().disable()
+                .csrf().disable()
+//                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
                         .defaultSuccessUrl("/api/login-redirect",true)
                 )
-                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
