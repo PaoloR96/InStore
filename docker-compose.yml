@@ -50,6 +50,8 @@ services:
     user: "0:0"
     container_name: login.instore.puntoitstore.it
     environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: password
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KC_EXT_URL}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
@@ -72,8 +74,8 @@ services:
     user: "0:0"
     container_name: login.instore.puntoitstore.it
     environment:
-      # KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      # KC_BOOTSTRAP_ADMIN_PASSWORD: password
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: password
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KC_EXT_URL}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
@@ -82,8 +84,8 @@ services:
       KC_HTTP_ENABLED: false
       KC_HTTPS_ENABLED: true
       KC_HTTPS_PORT: 8443
-      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain.pem"
-      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey.pem"
+      KC_HTTPS_CERTIFICATE_FILE: /etc/keycloak/certs/fullchain.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/keycloak/certs/privkey.pem
     ports:
       - "8090:8443"
     volumes:
@@ -117,8 +119,7 @@ services:
     image: hashicorp/vault:1.18.4
     restart: "no"
     environment:
-      # TODO setup VAULT_UTL env variable
-      VAULT_ADDR: "https://vault.instore.puntoitstore.it:8200"
+      VAULT_ADDR: ${VAULT_URL}
     volumes:
       - ./VaultService/unseal-vault.sh:/vault/unseal-vault.sh
     entrypoint: sh -c "sleep 3 && /vault/unseal-vault.sh"
