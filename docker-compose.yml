@@ -44,30 +44,30 @@ services:
 #  username and password are the same.
 #
 #  ########################
-  keycloak:
-    build: keycloak/keycloak:26.1
-    ##TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
-    user: "0:0"
-    container_name: login.instore.puntoitstore.it
-    environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: password
-      # remember to modify Root URL in instore-client settings by keycloak UI
-      KC_HOSTNAME: ${KC_EXT_URL}
-      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
-      KC_PROXY_HEADERS: "xforwarded"
-      KC_HOSTNAME_DEBUG: "true"
-      KC_HTTP_ENABLED: "false"
-      KC_HTTPS_ENABLED: "true"
-      KC_HTTPS_PORT: "8443"
-      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain.pem"
-      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey.pem"
-    ports:
-      - "8090:8443"
-    volumes:
-      - ./KeycloakService/data:/opt/keycloak/data
-      - keycloak-certs:/etc/keycloak/certs:ro
-    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
+#  keycloak:
+#    build: keycloak/keycloak:26.1
+#    ##TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
+#    user: "0:0"
+#    container_name: login.instore.puntoitstore.it
+#    environment:
+#      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+#      KC_BOOTSTRAP_ADMIN_PASSWORD: password
+#      # remember to modify Root URL in instore-client settings by keycloak UI
+#      KC_HOSTNAME: ${KC_EXT_URL}
+#      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+#      KC_PROXY_HEADERS: "xforwarded"
+#      KC_HOSTNAME_DEBUG: "true"
+#      KC_HTTP_ENABLED: "false"
+#      KC_HTTPS_ENABLED: "true"
+#      KC_HTTPS_PORT: "8443"
+#      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain.pem"
+#      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey.pem"
+#    ports:
+#      - "8090:8443"
+#    volumes:
+#      - ./KeycloakService/data:/opt/keycloak/data
+#      - keycloak-certs:/etc/keycloak/certs:ro
+#    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
 
   keycloak2604:
     image: keycloak/keycloak:26.0.4
@@ -81,18 +81,24 @@ services:
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
       KC_PROXY_HEADERS: xforwarded
       KC_HOSTNAME_DEBUG: true
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
       KC_HTTP_ENABLED: false
       KC_HTTPS_ENABLED: true
       KC_HTTPS_PORT: 8443
       KC_HTTPS_CERTIFICATE_FILE: /etc/keycloak/certs/fullchain.pem
       KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/keycloak/certs/privkey.pem
+      KC_DB: mysql
+      KC_DB_USERNAME: keycloak_user
+      KC_DB_PASSWORD: kcmysqlpassword01
+      KC_DB_URL: jdbc:mysql://mysql.instore.puntoitstore.it/keycloak_db
     ports:
-      - "8090:8443"
+      - "8090:8080"
     volumes:
       - ./KeycloakService/data2604:/opt/keycloak/data
       - keycloak-certs:/etc/keycloak/certs:ro
     entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
-  #    entrypoint: /opt/keycloak/bin/kc.sh import --file /opt/keycloak/data/realms.cfg
+  #    entrypoint: /opt/keycloak/bin/kc.sh start --optimized --log="console,file"
 
   vault:
     image: hashicorp/vault:1.18.4

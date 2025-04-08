@@ -50,9 +50,9 @@
 
         <!-- Dipendenza per il connettore MySQL, necessario per connettersi a un database MySQL -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.30</version> <!-- Versione specificata del connettore MySQL -->
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.2.0</version> <!-- Versione specificata del connettore MySQL -->
             <scope>runtime</scope> <!-- La dipendenza è utilizzata solo in fase di runtime -->
         </dependency>
 
