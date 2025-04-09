@@ -30,9 +30,10 @@ public class Cliente extends Utente {
         @JsonIgnore
         private Carrello carrello;
 
-        @Column(name = "stato_cliente", nullable = false)
-        @Enumerated(EnumType.STRING)
-        private StatoCliente statoCliente;
+        // TODO remove
+//        @Column(name = "stato_cliente", nullable = false)
+//        @Enumerated(EnumType.STRING)
+//        private StatoCliente statoCliente;
 
         @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
         @JsonIgnore
@@ -40,21 +41,36 @@ public class Cliente extends Utente {
 
         public Cliente() {}
 
-        public Cliente(String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, StatoCliente statoCliente, List<Ordine> listaClienteOrdini) {
+        public Cliente(String nome,
+                       String cognome,
+                       CartaCredito cartaCredito,
+                       Carrello carrello,
+//                       StatoCliente statoCliente,
+                       List<Ordine> listaClienteOrdini
+        ) {
                 this.nome = nome;
                 this.cognome = cognome;
                 this.cartaCredito = cartaCredito;
                 this.carrello = carrello;
-                this.statoCliente = statoCliente;
+//                this.statoCliente = statoCliente;
                 this.listaClienteOrdini = listaClienteOrdini;
         }
 
-        public Cliente(String email, String username, String numCell, String nome, String cognome, CartaCredito cartaCredito, StatoCliente statoCliente) {
+        public Cliente(String email,
+                       String username,
+                       String numCell,
+//                       boolean status,
+                       String nome,
+                       String cognome,
+                       CartaCredito cartaCredito
+//                       StatoCliente statoCliente
+        ) {
                 super(username, email, numCell);
+//                super(username, email, numCell, status);
                 this.nome = nome;
                 this.cognome = cognome;
                 this.cartaCredito = cartaCredito;
-                this.statoCliente = statoCliente;
+//                this.statoCliente = statoCliente;
         }
 
         public String getNome() {
@@ -89,13 +105,14 @@ public class Cliente extends Utente {
                 this.carrello = carrello;
         }
 
-        public StatoCliente getStatoCliente() {
-                return statoCliente;
-        }
-
-        public void setStatoCliente(StatoCliente statoCliente) {
-                this.statoCliente = statoCliente;
-        }
+        //TODO remove
+//        public StatoCliente getStatoCliente() {
+//                return statoCliente;
+//        }
+//
+//        public void setStatoCliente(StatoCliente statoCliente) {
+//                this.statoCliente = statoCliente;
+//        }
 
         public List<Ordine> getListaClienteOrdini() {
                 return listaClienteOrdini;

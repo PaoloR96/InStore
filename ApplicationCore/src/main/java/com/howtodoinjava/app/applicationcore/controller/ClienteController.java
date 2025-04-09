@@ -4,6 +4,7 @@ import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.service.ClienteService;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -91,10 +92,11 @@ public class ClienteController {
     }
 
     @PutMapping("/upgrade")
-    public ResponseEntity<String> upgradePremium(Authentication auth) {
+    public ResponseEntity<String> upgradePremium(Authentication auth, HttpSession httpSession) {
         try {
             String username = JWTUtils.getUsername(auth);
             clienteService.upgradePremium(username);
+            httpSession.invalidate();
             return ResponseEntity.ok("Adesso sei un cliente PREMIUM");
         } catch (IllegalStateException e) {
             // Cliente già premium

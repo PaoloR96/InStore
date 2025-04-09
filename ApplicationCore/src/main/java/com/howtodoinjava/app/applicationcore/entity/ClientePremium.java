@@ -21,7 +21,7 @@ public class ClientePremium extends Cliente {
         }
 
         public ClientePremium(String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, StatoCliente statoCliente, List<Ordine> listaClienteOrdini, String numeroCartaFedelta, Integer sconto) {
-                super(nome, cognome, cartaCredito, carrello, statoCliente, listaClienteOrdini);
+                super(nome, cognome, cartaCredito, carrello, listaClienteOrdini);
                 this.sconto = sconto;
         }
 

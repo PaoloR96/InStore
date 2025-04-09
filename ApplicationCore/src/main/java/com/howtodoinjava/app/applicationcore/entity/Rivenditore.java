@@ -1,7 +1,9 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
+import net.minidev.json.annotate.JsonIgnore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //TODO CLASSE DTO E MAPPER
@@ -16,13 +18,14 @@ public class Rivenditore  extends Utente {
     private String partitaIva;
     @Column(nullable = false, unique = true)
     private String iban;
-
     @OneToMany(mappedBy = "rivenditore", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Prodotto> listaProdottiRivenditore;
 
-    @Column(name = "stato_rivenditore", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private StatoRivenditore statoRivenditore;
+    // TODO remove
+//    @Column(name = "stato_rivenditore", nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private StatoRivenditore statoRivenditore;
 
     public Rivenditore(){}
 
@@ -34,13 +37,39 @@ public class Rivenditore  extends Utente {
 //        this.statoRivenditore = statoRivenditore;
 //    }
 
-    public Rivenditore(String email, String username, String numCell, String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
-        super(email, username, numCell);
+    public Rivenditore(String email,
+                       String username,
+                       String numCell,
+//                       boolean status,
+                       String nomeSocieta,
+                       String partitaIva,
+                       String iban,
+                       List<Prodotto> listaProdottiRivenditore
+//                       StatoRivenditore statoRivenditore
+    ) {
+        super(username, email, numCell);
+//        super(username, email, numCell, status);
         this.nomeSocieta = nomeSocieta;
         this.partitaIva = partitaIva;
         this.iban = iban;
         this.listaProdottiRivenditore = listaProdottiRivenditore;
-        this.statoRivenditore = statoRivenditore;
+//        this.statoRivenditore = statoRivenditore;
+    }
+
+    public Rivenditore(String email,
+                       String username,
+                       String numCell,
+//                       boolean status,
+                       String nomeSocieta,
+                       String partitaIva,
+                       String iban
+    ) {
+        super(username, email, numCell);
+//        super(username, email, numCell, status);
+        this.nomeSocieta = nomeSocieta;
+        this.partitaIva = partitaIva;
+        this.iban = iban;
+        this.listaProdottiRivenditore = new ArrayList<Prodotto>();
     }
 
     public String getNomeSocieta() {
@@ -75,11 +104,12 @@ public class Rivenditore  extends Utente {
         this.listaProdottiRivenditore = listaProdottiRivenditore;
     }
 
-    public StatoRivenditore getStatoRivenditore() {
-        return statoRivenditore;
-    }
-
-    public void setStatoRivenditore(StatoRivenditore statoRivenditore) {
-        this.statoRivenditore = statoRivenditore;
-    }
+    //TODO remove
+//    public StatoRivenditore getStatoRivenditore() {
+//        return statoRivenditore;
+//    }
+//
+//    public void setStatoRivenditore(StatoRivenditore statoRivenditore) {
+//        this.statoRivenditore = statoRivenditore;
+//    }
 }

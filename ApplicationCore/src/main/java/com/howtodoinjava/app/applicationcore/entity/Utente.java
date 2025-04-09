@@ -10,27 +10,25 @@ public abstract class Utente {
     private String username;
     @Column(unique = true, nullable = false)
     private String email;
-//    TODO remove this
-//    @Column(nullable = false)
-//    private String password;
     @Column(name="num_cell",nullable = false, unique = true)
     private String numCell;
+    // TODO remove
+//    @Column(nullable = false)
+//    private boolean enabled = true;
+
 
     public Utente() {}
-
-//      TODO remove this
-//    public Utente(String username, String email, String password, String numCell) {
-//        this.username = username;
-//        this.email = email;
-//        this.password = password;
-//        this.numCell = numCell;
-//    }
 
     public Utente(String username, String email, String numCell) {
         this.username = username;
         this.email = email;
         this.numCell = numCell;
     }
+
+//    public Utente(String username, String email, String numCell, boolean status){
+//        this(username, email, numCell);
+//        this.enabled = status;
+//    }
 
     public String getUsername() {
         return username;
@@ -48,16 +46,6 @@ public abstract class Utente {
         this.email = email;
     }
 
-
-//    TODO remove this
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-
     public String getNumCell() {
         return numCell;
     }
@@ -65,4 +53,13 @@ public abstract class Utente {
     public void setNumCell(String numCell) {
         this.numCell = numCell;
     }
+
+    //TODO remove
+//    public boolean isEnabled() {
+//        return enabled;
+//    }
+//
+//    public void setEnabled(boolean enabled) {
+//        this.enabled = enabled;
+//    }
 }

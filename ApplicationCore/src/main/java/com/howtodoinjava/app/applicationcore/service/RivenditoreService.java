@@ -94,9 +94,7 @@ public class RivenditoreService {
                 phoneNumber,
                 nomeSocieta,
                 partitaIva,
-                iban,
-                new ArrayList<>(),
-                StatoRivenditore.ABILITATO
+                iban
         );
         rivenditoreRepository.save(rivenditore);
 

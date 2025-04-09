@@ -35,6 +35,12 @@ public class ClienteService {
     @Autowired
     private OrdineRepository ordineRepository;
 
+    private final KeycloakService keycloakService;
+
+    public ClienteService(KeycloakService keycloakService) {
+        this.keycloakService = keycloakService;
+    }
+
 
     public List<Prodotto> visualizzaProdotti(){
         return prodottoRepository.findAll();
@@ -146,7 +152,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public void upgradePremium(String username) {
+    public void upgradePremium(String username){
 
         Cliente cliente = clienteRepository.findById(username)
                 .orElseThrow(() -> new RuntimeException("Cliente non trovato con username: " + username));
@@ -156,7 +162,7 @@ public class ClienteService {
         }
 
         clienteRepository.upgradeClientePremium(username, 10);
-
+        keycloakService.addRole(username, KeycloakRoles.CLIENTE_PREMIUM);
     }
 
 
@@ -347,8 +353,9 @@ public class ClienteService {
                 numCell,
                 nome,
                 cognome,
-                cartaCredito,
-                StatoCliente.ABILITATO);
+                cartaCredito
+//                StatoCliente.ABILITATO
+        );
 
         Carrello carrello = new Carrello(clienteStandard, 0.0f);
 

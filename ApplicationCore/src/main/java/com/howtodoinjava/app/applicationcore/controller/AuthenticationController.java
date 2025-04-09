@@ -96,3 +96,8 @@ public class AuthenticationController {
         }
     }
 }
+
+record Account(
+        String name,
+        List<String> roles
+){}
