@@ -14,31 +14,34 @@
 <div class="dashboard-container">
     <header class="top-navbar">
         <div class="container">
-            <div class="store-branding">
+            <div class="store-branding" onclick="refreshStore()" style="cursor: pointer; padding: 5px 10px; border-radius: 6px;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'" onmouseout="this.style.backgroundColor='transparent'" onmousedown="this.style.backgroundColor='rgba(255,255,255,0.2)'" onmouseup="this.style.backgroundColor='rgba(255,255,255,0.1)'">
                 <div class="store-logo">
                     <i class="fas fa-store"></i>
                     <h1 class="store-title">InStore</h1>
                 </div>
-                <div class="user-profile">
+            </div>
+            <div class="container">
+                <div class="user-profile" onclick="window.location.href='profile.html'" style="cursor: pointer;">
                     <div class="profile-image">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="user-info">
                         <span class="greeting">Ciao,</span>
-                        <span class="user-name" id="usernameDisplay">Cliente1</span>
+                        <span class="user-name" id="usernameDisplay">...</span>
                     </div>
                 </div>
             </div>
 
             <nav class="main-menu">
                 <ul class="menu-items">
-                    <li class="active"><i class="fas fa-shopping-bag"></i> Catalogo</li>
+                    <li onclick="window.location.href='/logout'">
+                        <i class="fas fa-sign-out-alt"></i> Logout</li>
                     <li onclick="toggleCart()">
                         <i class="fas fa-shopping-cart"></i> Carrello
                         <span class="cart-count" id="cartCount">0</span>
                     </li>
                     <li onclick="upgradeToPremium()">
-                        <i class="fas fa-crown"></i> Diventa Premium
+                        <i class="fas fa-crown"></i> Premium
                     </li>
                 </ul>
             </nav>
@@ -48,15 +51,6 @@
             </div>
         </div>
     </header>
-
-    <div class="breadcrumb">
-        <div class="container">
-            <ul>
-                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                <li class="active">Catalogo</li>
-            </ul>
-        </div>
-    </div>
 
     <main class="main-content">
         <div class="container">
@@ -71,17 +65,7 @@
 
             <section class="products-section">
                 <div class="products-grid" id="productsGrid">
-                    <!-- I prodotti verranno inseriti qui dinamicamente -->
-                </div>
-                <div class="pagination">
-                    <span class="page-info">Mostrando 1-12 di 36 prodotti</span>
-                    <div class="page-controls">
-                        <button disabled><i class="fas fa-chevron-left"></i></button>
-                        <button class="active">1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button><i class="fas fa-chevron-right"></i></button>
-                    </div>
+                    <!-- Sarà riempito dinamicamente) -->
                 </div>
             </section>
         </div>
@@ -139,10 +123,17 @@
             </button>
         </div>
     </div>
-    <div id="cartItems" class="cart-items"></div>
-    <div class="cart-total">
-        <div id="discountInfo" class="discount-info"></div>
-        <h3>Totale: <i class="fas fa-euro-sign"></i><span id="cartTotal">0.00</span></h3>
+    <div id="cartItems" class="cart-items">
+        <!-- Sarà riempito dinamicamente) -->
+    </div>
+    <div class="cart-summary">
+
+        <div class="cart-total">
+            <div id="discountInfo" class="discount-info"></div>
+            <h3>Totale: <i class="fas fa-euro-sign"></i><span id="cartTotal">0.00</span></h3>
+        </div>
+    </div>
+    <div class="cart-actions">
         <button class="checkout-btn" onclick="checkout()">
             <i class="fas fa-credit-card"></i> Procedi al pagamento
         </button>

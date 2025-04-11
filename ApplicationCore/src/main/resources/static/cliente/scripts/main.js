@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('usernameDisplay').textContent = currentUsername;
     loadProducts();
     updateCart();
     loadClientInfo();
@@ -14,7 +13,8 @@ async function loadClientInfo() {
     try {
         const response = await fetch(`${API_BASE_URL}/info`);
         const cliente = await response.json();
-        isPremiumClient = cliente.tipo_cliente === 'PREMIUM';
+        currentUsername = cliente.username;
+        document.getElementById('usernameDisplay').textContent = currentUsername;
     } catch (error) {
         console.error('Errore nel caricamento delle informazioni del cliente:', error);
     }

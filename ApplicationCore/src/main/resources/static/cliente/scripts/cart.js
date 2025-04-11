@@ -1,13 +1,16 @@
 async function updateCart() {
     try {
         const response = await fetch(`${API_BASE_URL}/carrello/prodotti`);
+        const tipoResponse = await fetch(`${API_BASE_URL}/tipo`);
+
         const cartResponse = await response.json();
+        const userTipo = await tipoResponse.text();
 
         cartItems = cartResponse.prodotti;
         const totalItems = cartItems.reduce((sum, item) => sum + item.quantitaTotale, 0);
         document.getElementById('cartCount').textContent = totalItems;
 
-        displayCartItems(cartResponse.prezzoTotale, cartResponse.scontoApplicato);
+        displayCartItems(cartResponse.prezzoTotale, cartResponse.scontoApplicato, userTipo);
     } catch (error) {
         console.error('Errore nell\'aggiornamento del carrello:', error);
     }
@@ -35,29 +38,34 @@ async function addToCart(productId) {
     }
 }
 
-function displayCartItems(totalPrice, discount) {
+function displayCartItems(totalPrice, discount, tipoCliente) {
     const cartItemsContainer = document.getElementById('cartItems');
     const discountInfo = document.getElementById('discountInfo');
 
     cartItemsContainer.innerHTML = cartItems.map(item => `
-            <div class="cart-item">
-                <div>
-                    <h4>${item.nomeProdotto}</h4>
-                    <p>€${item.prezzo.toFixed(2)} x ${item.quantitaTotale}</p>
-                    <small>Taglia: ${item.taglia}</small>
-                </div>
-                <button onclick="removeFromCart(${item.idProdotto})">Rimuovi</button>
+        <div class="cart-item">
+            <img src="${item.pathImmagine || '/placeholder.jpg'}" alt="${item.nomeProdotto}" class="cart-item-image">
+            <div class="cart-item-details">
+                <span class="cart-item-title">${item.nomeProdotto}</span>
+                <span class="cart-item-price">€${item.prezzo.toFixed(2)} x ${item.quantitaTotale}</span>
+                <small>Taglia: ${item.taglia}</small>
             </div>
-        `).join('');
+            <div class="cart-item-actions">
+                <button class="remove-item-btn" onclick="removeFromCart(${item.idProdotto})" title="Rimuovi">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
 
     // Mostra le informazioni sullo sconto se presente
-    if (discount && discount > 0) {
+    if (tipoCliente === 'PREMIUM') {
         discountInfo.innerHTML = `
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>Sconto Premium applicato:</span>
-                    <strong>-${discount}%</strong>
-                </div>
-            `;
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Sconto Premium applicato:</span>
+                <strong>-${discount}%</strong>
+            </div>
+        `;
     } else {
         discountInfo.innerHTML = ''; // Nasconde la sezione sconto se non presente
     }

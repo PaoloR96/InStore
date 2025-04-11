@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class Rivenditore  extends Utente {
     private String iban;
 
     @OneToMany(mappedBy = "rivenditore", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Prodotto> listaProdottiRivenditore;
 
     @Column(name = "stato_rivenditore", nullable = false)
@@ -35,7 +37,7 @@ public class Rivenditore  extends Utente {
 //    }
 
     public Rivenditore(String email, String username, String numCell, String nomeSocieta, String partitaIva, String iban, List<Prodotto> listaProdottiRivenditore, StatoRivenditore statoRivenditore) {
-        super(email, username, numCell);
+        super(username, email, numCell);
         this.nomeSocieta = nomeSocieta;
         this.partitaIva = partitaIva;
         this.iban = iban;

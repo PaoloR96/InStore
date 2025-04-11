@@ -4,6 +4,7 @@ import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.service.ClienteService;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
+import jakarta.persistence.DiscriminatorValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -125,6 +126,18 @@ public class ClienteController {
             String username = JWTUtils.getUsername(auth);
             Cliente cliente = clienteService.getCliente(username);
             return ResponseEntity.ok(cliente);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/tipo")
+    public ResponseEntity<String> getTipoCliente(Authentication auth) {
+        try {
+            String username = JWTUtils.getUsername(auth);
+            Cliente cliente = clienteService.getCliente(username);
+            String tipo = cliente.getClass().getAnnotation(DiscriminatorValue.class).value();
+            return ResponseEntity.ok(tipo);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
