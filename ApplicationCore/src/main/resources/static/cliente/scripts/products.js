@@ -12,10 +12,12 @@ function displayProducts(products) {
     const grid = document.getElementById('productsGrid');
     grid.innerHTML = products.map(product => `
         <div class="product-card">
-            <img src="${product.pathImmagine || '/placeholder.jpg'}" alt="${product.nomeProdotto}" class="product-image">
+            <div class="product-image-container">
+                <img src="${product.pathImmagine || '/placeholder.jpg'}" alt="${product.nomeProdotto}" class="product-image">
+            </div>
             <div class="product-info">
                 <h3 class="product-title">${product.nomeProdotto}</h3>
-                <p class="product-price">€${product.prezzo.toFixed(2)}</p>
+                <span class="product-price">€${product.prezzo.toFixed(2)}</span>
                 <div class="product-size">
                     <span>Taglia:</span>
                     <span class="size-badge">${product.taglia}</span>
@@ -23,7 +25,11 @@ function displayProducts(products) {
                 <p class="product-description">${product.descrizione || ''}</p>
                 <div class="quantity-selector">
                     <input type="number" min="1" max="${product.quantitaTotale}" value="1" id="qty-${product.idProdotto}">
-                    <button onclick="addToCart(${product.idProdotto})">Aggiungi al carrello</button>
+                </div>
+                <div class="product-actions">
+                    <button class="add-to-cart-btn" onclick="addToCart(${product.idProdotto})">
+                        <i class="fas fa-cart-plus"></i> Aggiungi al carrello
+                    </button>
                 </div>
             </div>
         </div>

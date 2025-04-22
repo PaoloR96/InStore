@@ -5,7 +5,6 @@ async function upgradeToPremium() {
         });
 
         if (response.ok) {
-            //document.getElementById('premiumBadge').classList.add('active');
             alert('Congratulazioni! Ora sei un cliente PREMIUM!');
         } else {
             if(response.status === 400) {

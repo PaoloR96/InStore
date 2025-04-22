@@ -3,58 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrazione Cliente</title>
+    <title>Registrazione Utente</title>
+    <link rel="stylesheet" href="css/registration.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<h2>Form di Login</h2>
-<form name="registration" method="POST">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <fieldset id="roleChoose" onchange="enableFieldset()">
-        <legend>Scegli il tuo ruolo</legend>
-        <input type="radio" id="cliente" name="role" value="CLIENTE"/>
-        <label for="cliente">Cliente</label><br>
-        <input type="radio" id="rivenditore" name="role" value="RIVENDITORE"/>
-        <label for="rivenditore">Rivenditore</label><br>
-    </fieldset>
+<div class="registration-container">
+    <header class="registration-header">
+        <h1><i class="fas fa-user-plus"></i> Registrazione</h1>
+        <p class="header-subtitle">Scegli il tuo ruolo e completa i campi sottostanti.</p>
+    </header>
+    <form name="registration" method="POST" class="registration-form">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
-    <fieldset hidden="hidden" disabled="disabled" id="clienteAttributes">
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome" required><br><br>
+        <fieldset id="roleChoose" class="form-group radio-group" onchange="enableFieldset()">
+            <legend><i class="fas fa-users-cog"></i> Scegli il tuo ruolo</legend>
+            <div class="radio-button">
+                <input type="radio" id="cliente" name="role" value="CLIENTE"/>
+                <label for="cliente"><i class="fas fa-user"></i> Cliente</label>
+            </div>
+            <div class="radio-button">
+                <input type="radio" id="rivenditore" name="role" value="RIVENDITORE"/>
+                <label for="rivenditore"><i class="fas fa-briefcase"></i> Rivenditore</label>
+            </div>
+        </fieldset>
 
-        <label for="cognome">Cognome:</label><br>
-        <input type="text" id="cognome" name="cognome" required><br><br>
+        <fieldset hidden="hidden" disabled="disabled" id="clienteAttributes" class="form-group fieldset-group">
+            <legend><i class="fas fa-id-card"></i> Dati Cliente</legend>
+            <div class="input-group">
+                <label for="nome"><i class="fas fa-signature"></i> Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="input-group">
+                <label for="cognome"><i class="fas fa-user-tag"></i> Cognome:</label>
+                <input type="text" id="cognome" name="cognome" required>
+            </div>
+            <div class="input-group">
+                <label for="numeroCarta"><i class="far fa-credit-card"></i> Numero Carta:</label>
+                <input type="text" id="numeroCarta" name="numeroCarta" required>
+            </div>
+            <div class="input-group">
+                <label for="dataScadenza"><i class="far fa-calendar-alt"></i> Scadenza Carta:</label>
+                <input type="date" id="dataScadenza" name="dataScadenza" required>
+            </div>
+            <div class="input-group">
+                <label for="nomeIntestatario"><i class="fas fa-user-circle"></i> Nome Intestatario:</label>
+                <input type="text" id="nomeIntestatario" name="nomeIntestatario" required>
+            </div>
+            <div class="input-group">
+                <label for="cognomeIntestatario"><i class="fas fa-users"></i> Cognome Intestatario:</label>
+                <input type="text" id="cognomeIntestatario" name="cognomeIntestatario" required>
+            </div>
+            <div class="input-group">
+                <label for="cvc"><i class="fas fa-lock"></i> CVC:</label>
+                <input type="text" id="cvc" name="cvc" required>
+            </div>
+            <button type="submit" formaction="/api/cliente-registration" class="submit-button"><i class="fas fa-check-circle"></i> Completa Registrazione</button>
+        </fieldset>
 
-        <label for="numeroCarta">Numero Carta di Credito:</label><br>
-        <input type="text" id="numeroCarta" name="numeroCarta" required><br><br>
-
-        <label for="dataScadenza">Data di Scadenza:</label><br>
-        <input type="date" id="dataScadenza" name="dataScadenza" required><br><br>
-
-        <label for="nomeIntestatario">Nome Intestatario Carta:</label><br>
-        <input type="text" id="nomeIntestatario" name="nomeIntestatario" required><br><br>
-
-        <label for="cognomeIntestatario">Cognome Intestatario Carta:</label><br>
-        <input type="text" id="cognomeIntestatario" name="cognomeIntestatario" required><br><br>
-
-        <label for="cvc">CVC:</label><br>
-        <input type="text" id="cvc" name="cvc" required><br><br>
-
-        <button type="submit" formaction="/api/cliente-registration">Completa Registrazione</button>
-    </fieldset>
-
-    <fieldset hidden="hidden" disabled="disabled" id="rivenditoreAttributes">
-        <label for="nomeSocieta">Nome Societa':</label><br>
-        <input type="text" id="nomeSocieta" name="nomeSocieta" required><br><br>
-
-        <label for="partitaIva">Partita IVA:</label><br>
-        <input type="text" id="partitaIva" name="partitaIva" required><br><br>
-
-        <label for="iban">IBAN:</label><br>
-        <input type="text" id="iban" name="iban" required><br><br>
-
-        <button type="submit" formaction="/api/rivenditore-registration">Completa Registrazione</button>
-    </fieldset>
-</form>
+        <fieldset hidden="hidden" disabled="disabled" id="rivenditoreAttributes" class="form-group fieldset-group">
+            <legend><i class="fas fa-building"></i> Dati Rivenditore</legend>
+            <div class="input-group">
+                <label for="nomeSocieta"><i class="fas fa-store-alt"></i> Nome Società:</label>
+                <input type="text" id="nomeSocieta" name="nomeSocieta" required>
+            </div>
+            <div class="input-group">
+                <label for="partitaIva"><i class="fas fa-id-card-alt"></i> Partita IVA:</label>
+                <input type="text" id="partitaIva" name="partitaIva" required>
+            </div>
+            <div class="input-group">
+                <label for="iban"><i class="fas fa-university"></i> IBAN:</label>
+                <input type="text" id="iban" name="iban" required>
+            </div>
+            <button type="submit" formaction="/api/rivenditore-registration" class="submit-button"><i class="fas fa-check-circle"></i> Completa Registrazione</button>
+        </fieldset>
+    </form>
+    <div class="logout-container">
+        <button class="logout-button" onclick="window.location.href='/logout'"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+</div>
 
 <script src="scripts/registration.js"></script>
 </body>

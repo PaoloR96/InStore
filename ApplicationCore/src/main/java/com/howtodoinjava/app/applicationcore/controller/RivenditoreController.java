@@ -1,11 +1,14 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
 import com.howtodoinjava.app.applicationcore.dto.ProdottoDTO;
+import com.howtodoinjava.app.applicationcore.entity.Cliente;
+import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
 import com.howtodoinjava.app.applicationcore.service.RivenditoreService;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +54,17 @@ public class RivenditoreController {
         } catch (RuntimeException e) {
             logger.info(e.getMessage());
             return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<Rivenditore> getRivenditoreInfo(Authentication auth) {
+        try {
+            String username = JWTUtils.getUsername(auth);
+            Rivenditore rivenditore = rivenditoreService.getRivenditore(username);
+            return ResponseEntity.ok(rivenditore);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 

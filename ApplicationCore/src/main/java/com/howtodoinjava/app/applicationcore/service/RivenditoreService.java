@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.service;
 import com.howtodoinjava.app.applicationcore.dto.ProdottoDTO;
+import com.howtodoinjava.app.applicationcore.entity.Cliente;
 import com.howtodoinjava.app.applicationcore.entity.Prodotto;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
 import com.howtodoinjava.app.applicationcore.entity.StatoRivenditore;
@@ -101,5 +102,10 @@ public class RivenditoreService {
         return rivenditore;
     }
 
+
+    public Rivenditore getRivenditore(String username) {
+        return rivenditoreRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Rivenditore non trovato con username: " + username));
+    }
 
 }

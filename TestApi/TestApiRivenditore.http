@@ -1,7 +1,8 @@
 ### Inserisci un nuovo prodotto
 ### Inserimento di un prodotto per un rivenditore
 ### Inserimento Prodotto per il Rivenditore 1
-POST http://instore.puntoitstore.it/api/rivenditori/rivenditore2/insprodotti
+POST https://instore.puntoitstore.it/rivenditore/api/insprodotti
+Cookie: JSESSIONID=FBDF9F8D0FA9533663F67633DC576FE0
 Content-Type: application/json
 
 {
@@ -17,4 +18,6 @@ Content-Type: application/json
 GET http://localhost:8081/api/rivenditori/rivenditore1/listaprodotti
 Accept: application/json
 #####
+
+
 

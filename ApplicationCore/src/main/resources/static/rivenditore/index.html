@@ -3,105 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestione Prodotti - Rivenditori</title>
+    <title>Gestione Prodotti - Rivenditori | InStore</title>
     <link rel="stylesheet" href="css/styleRivenditore.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="dashboard-container">
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <h1 class="store-title">
-                <i class="fas fa-store"></i>
-                InStore
-            </h1>
-            <div class="retailer-name" id="retailerName"></div>
+    <header class="top-navbar">
+        <div class="container">
+            <div class="store-branding" onclick=refreshStore() style="cursor: pointer; padding: 5px 10px; border-radius: 6px;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'" onmouseout="this.style.backgroundColor='transparent'" onmousedown="this.style.backgroundColor='rgba(255,255,255,0.2)'" onmouseup="this.style.backgroundColor='rgba(255,255,255,0.1)'">
+                <div class="store-logo">
+                    <i class="fas fa-store"></i>
+                    <h1 class="store-title">InStore</h1>
+                </div>
+            </div>
+
+            <div class="user-profile">
+                <div class="profile-image" >
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-info" onclick="window.location.href='profile.html'">
+                    <span class="greeting">Ciao,</span>
+                    <span class="user-name" id="retailerName"></span>
+                </div>
+            </div>
+
+            <nav class="main-menu">
+                <ul class="menu-items">
+                    <li class="active">
+                        <i class="fas fa-plus-circle"></i> Inserisci Prodotti
+                    </li>
+                    <li onclick="window.location.href='/logout'">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
-        <ul class="sidebar-menu">
-            <li class="active"><i class="fas fa-plus-circle"></i> Inserisci Prodotti</li>
-            <li onclick="window.location.href='listaProdotti.html'">
-                <i class="fas fa-list"></i> Lista Prodotti
-            </li>
-        </ul>
-    </nav>
+    </header>
 
     <main class="main-content">
-        <header class="page-header">
-            <h2><i class="fas fa-box-open"></i> Gestione Prodotti</h2>
-        </header>
-
-        <div class="content-grid">
-            <!-- Form inserimento prodotti -->
-            <section class="product-form-card">
-                <h3><i class="fas fa-plus"></i> Nuovo Prodotto</h3>
-                <form id="productForm" class="animated-form">
-                    <!-- Form fields come here -->
-                    <div class="form-group">
-                        <label for="nomeProdotto">
-                            <i class="fas fa-tag"></i> Nome Prodotto
-                        </label>
-                        <input type="text" id="nomeProdotto" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="descrizione">
-                            <i class="fas fa-align-left"></i> Descrizione
-                        </label>
-                        <textarea id="descrizione" required></textarea>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="prezzo">
-                                <i class="fas fa-euro-sign"></i> Prezzo
-                            </label>
-                            <input type="number" id="prezzo" step="0.01" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="taglia">
-                                <i class="fas fa-tshirt"></i> Taglia
-                            </label>
-                            <select id="taglia">
-                                <option value="S">S</option>
-                                <option value="M" selected>M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="pathImmagine">
-                            <i class="fas fa-image"></i> URL Immagine
-                        </label>
-                        <input type="text" id="pathImmagine" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="quantitaTotale">
-                            <i class="fas fa-cubes"></i> Quantità
-                        </label>
-                        <input type="number" id="quantitaTotale" required>
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-plus-circle"></i> Aggiungi Prodotto
+        <div class="container">
+            <div class="page-header">
+                <h2><i class="fas fa-box-open"></i> Gestione Prodotti</h2>
+                <div class="header-actions">
+                    <button class="refresh-button" onclick="loadProducts()" title="Aggiorna prodotti">
+                        <i class="fas fa-sync-alt"></i>
                     </button>
-                </form>
-            </section>
-
-            <!-- Sezione prodotti -->
-            <section class="products-section">
-                <h3><i class="fas fa-boxes"></i> Prodotti Disponibili</h3>
-                <div class="products-grid" id="productsGrid">
-                    <!-- I prodotti verranno caricati dinamicamente -->
                 </div>
-            </section>
+            </div>
+
+            <div class="content-grid balanced-grid">
+                <section class="product-form-card">
+                    <h3><i class="fas fa-plus-circle"></i> Nuovo Prodotto</h3>
+                    <form id="productForm" class="animated-form">
+                        <div class="form-group">
+                            <label for="nomeProdotto">
+                                <i class="fas fa-tag"></i> Nome Prodotto
+                            </label>
+                            <input type="text" id="nomeProdotto" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descrizione">
+                                <i class="fas fa-align-left"></i> Descrizione
+                            </label>
+                            <textarea id="descrizione" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="prezzo">
+                                    <i class="fas fa-euro-sign"></i> Prezzo
+                                </label>
+                                <input type="number" id="prezzo" step="0.01" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="taglia">
+                                    <i class="fas fa-tshirt"></i> Taglia
+                                </label>
+                                <select id="taglia">
+                                    <option value="S">S</option>
+                                    <option value="M" selected>M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pathImmagine">
+                                <i class="fas fa-image"></i> Path Immagine
+                            </label>
+                            <input type="text" id="pathImmagine" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantitaTotale">
+                                <i class="fas fa-cubes"></i> Quantità
+                            </label>
+                            <input type="number" id="quantitaTotale" required>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-plus-circle"></i> Aggiungi Prodotto
+                        </button>
+                    </form>
+                </section>
+
+                <section class="products-section">
+                    <h3><i class="fas fa-boxes"></i> Prodotti Disponibili</h3>
+                    <div class="products-grid" id="productsGrid">
+                        <!-- I prodotti verranno inseriti qui dinamicamente -->
+                    </div>
+                </section>
+            </div>
         </div>
     </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-store"></i>
+                    <h2>InStore</h2>
+                    <p>La tua piattaforma per la gestione rivenditori</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Link Utili</h3>
+                    <ul>
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Gestione Ordini</a></li>
+                        <li><a href="#">Supporto</a></li>
+                        <li><a href="#">Contatti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Rimani aggiornato sulle novità per i rivenditori</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="La tua email">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 InStore. Tutti i diritti riservati.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>
 
-<script src="scripts/productsRivenditore.js"></script>
+<script src="scripts/config.js"></script>
+<script src="scripts/main.js"></script>
+<script src="scripts/products.js"></script>
+
 </body>
 </html>
