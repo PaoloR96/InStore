@@ -19,7 +19,6 @@ public class JWTUtils {
 
     public static String getPhoneNumber(Authentication auth) throws RuntimeException {
         OidcUser oidcUser = getOidcUser(auth);
-        System.out.println(oidcUser.getClaims());
         String phoneNumber = oidcUser.getPhoneNumber();
         if(phoneNumber != null) {
             return phoneNumber;
@@ -27,7 +26,7 @@ public class JWTUtils {
         else throw new RuntimeException("Phone number is null");
     }
 
-    public static OidcUser getOidcUser(Authentication auth) throws RuntimeException {
+    private static OidcUser getOidcUser(Authentication auth) throws RuntimeException {
         if (auth instanceof OAuth2AuthenticationToken oauth && oauth.getPrincipal() instanceof OidcUser oidcUser) return oidcUser;
         else throw new RuntimeException("Invalid authentication token");
     }

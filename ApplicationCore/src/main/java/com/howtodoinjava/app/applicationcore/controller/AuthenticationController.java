@@ -39,7 +39,7 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping("/login-redirect")
+    @GetMapping({"/login-redirect", "/", "/index.html", "/index"})
     ResponseEntity<?> loginRedirect(Authentication auth) {
         try{
             List<String> userRoles = JWTUtils.getAuthorities(auth);

@@ -3,17 +3,24 @@ package com.howtodoinjava.app.applicationcore.service;
 import com.howtodoinjava.app.applicationcore.entity.Utente;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakProperties;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.Configuration;
+import org.hibernate.validator.internal.constraintvalidators.hv.CodePointLengthValidator;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
+import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
+import org.keycloak.protocol.oidc.representations.OIDCConfigurationRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +36,10 @@ public class KeycloakService {
     private final String realm;
     private final String appClientId;
 
-    public KeycloakService(KeycloakProperties kcProperties, OAuth2ClientProperties oAuth2ClientProperties) {
+    public KeycloakService(
+            KeycloakProperties kcProperties,
+            OAuth2ClientProperties oAuth2ClientProperties)
+    {
         this.realm = kcProperties.realm();
         this.appClientId = oAuth2ClientProperties.getRegistration().get(this.realm).getClientId();
         this.keycloak = KeycloakBuilder.builder()
@@ -75,16 +85,16 @@ public class KeycloakService {
         String idClient = getClientResource(appClientId).toRepresentation().getId();
         System.out.println(userRepresentations.get(0)); // dev
         for (UserRepresentation userRepresentation : userRepresentations) {
-            Map<String,List<String>> userRoles = userRepresentation.getClientRoles();
-            List<String> userClientRoles = new ArrayList<String>();
-            if(userRoles != null) userClientRoles = userRoles.get(idClient);
-            else userClientRoles.add("NONE");
+            Map<String,List<String>> userClientRoles = userRepresentation.getClientRoles();
+            List<String> userRoles = new ArrayList<String>();
+            if(userClientRoles != null) userRoles = userClientRoles.get(idClient);
+            else userRoles.add("NONE");
 
             users.add( new KCUser(
                     userRepresentation.getUsername(),
                     userRepresentation.getEmail(),
                     userRepresentation.getAttributes().get("phone_number").get(0),
-                    userClientRoles,
+                    userRoles,
                     userRepresentation.isEnabled()
             ));
         }

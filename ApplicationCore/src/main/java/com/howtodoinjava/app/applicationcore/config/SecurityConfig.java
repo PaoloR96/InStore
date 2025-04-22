@@ -3,16 +3,18 @@ package com.howtodoinjava.app.applicationcore.config;
 import com.howtodoinjava.app.applicationcore.utility.ApplicationProperties;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakProperties;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.RequestEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -21,23 +23,25 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * SecurityConfig class configures security settings for the application,
  * enabling security filters and setting up OAuth2 login and logout behavior.
  */
+
+//interface AuthoritiesConverter extends Converter<Map<String, Object>, Collection<GrantedAuthority>> {}
 
 @Configuration
 @EnableWebSecurity
@@ -129,6 +133,32 @@ public class SecurityConfig {
         return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
+//    @Bean
+//    AuthoritiesConverter realmRolesAuthoritiesConverter() {
+//        return claims -> {
+//            var realmAccess = Optional.ofNullable((Map<String, Object>) claims.get(RESOURCE_ACCESS_CLAIM));
+//            var roles = realmAccess.flatMap(map -> Optional.ofNullable((List<String>) map.get(ROLES_CLAIM)));
+//            return roles.map(List::stream)
+//                    .orElse(Stream.empty())
+//                    .map(SimpleGrantedAuthority::new)
+//                    .map(GrantedAuthority.class::cast)
+//                    .toList();
+//        };
+//    }
+//
+//    @Bean
+//    GrantedAuthoritiesMapper authenticationConverter(
+//            AuthoritiesConverter authoritiesConverter) {
+//        return (authorities) -> authorities.stream()
+//                .filter(authority -> authority instanceof OidcUserAuthority)
+//                .map(OidcUserAuthority.class::cast)
+//                .map(OidcUserAuthority::getIdToken)
+//                .map(OidcIdToken::getClaims)
+//                .map(authoritiesConverter::convert).filter(Objects::nonNull)
+//                .flatMap(Collection::stream)
+//                .collect(Collectors.toSet());
+//    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,
                                            ClientRegistrationRepository clientRegistrationRepository,
@@ -141,7 +171,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
                         .anyRequest().authenticated()
                 )
-                .csrf().disable()
+                .csrf(AbstractHttpConfigurer::disable)
 //                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
                         .defaultSuccessUrl("/api/login-redirect",true)
@@ -153,7 +183,6 @@ public class SecurityConfig {
                 );
         return http.build();
     }
-
 
     private LogoutSuccessHandler oidcLogoutSuccessHandler(ClientRegistrationRepository clientRegistrationRepository, String appBaseUrl) {
         OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler =

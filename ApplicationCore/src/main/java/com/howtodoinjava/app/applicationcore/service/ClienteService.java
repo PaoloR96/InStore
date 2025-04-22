@@ -243,6 +243,7 @@ public class ClienteService {
     private Float applicaSconto(Cliente cliente, Carrello carrello) {
         Float prezzoTotale;
 
+        // TODO modify this check
         if (cliente instanceof ClientePremium) {
             prezzoTotale = carrello.getPrezzoComplessivo() -
                     carrello.getPrezzoComplessivo() * ((ClientePremium) cliente).getSconto() / 100;
