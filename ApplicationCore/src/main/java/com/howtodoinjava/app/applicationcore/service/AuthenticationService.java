@@ -35,7 +35,6 @@ public class AuthenticationService {
 
     public String loginRedirect(List<String> userRoles) throws RuntimeException{
         if(userRoles.isEmpty()){
-            //TODO redirect to completeRegistration
             return "/complete-registration.html";
         }
         else{

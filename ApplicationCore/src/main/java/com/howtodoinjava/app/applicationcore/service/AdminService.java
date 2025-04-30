@@ -44,15 +44,5 @@ public class AdminService {
 
     public void enableUser(String username, boolean enable){
         keycloakService.enableUser(username, enable);
-        // TODO remove
-//        Optional<? extends Utente> user = clienteRepository.findById(username);
-//        if(user.isEmpty()){
-//            user = rivenditoreRepository.findById(username);
-//        }
-//        try{
-//            user.get().setEnabled(enable);
-//        } catch (NoSuchElementException e){
-//            System.out.println(e.getMessage());
-//        }
     }
 }

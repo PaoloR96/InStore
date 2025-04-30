@@ -80,14 +80,6 @@ async function toggleUserStatus(userId, currentStatus, isClient) {
         let api_url
         if(currentStatus) api_url = '/disable-user'
         else api_url = '/enable-user'
-        // TODO remove
-        // await fetch(`${API_BASE_URL}/${userId}`, {
-        //     method: "PATCH",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({ isActive: updatedStatus })
-        // });
         await fetch(`${API_BASE_URL}${api_url}?` + new URLSearchParams(
             {
                 username: `${userId}`

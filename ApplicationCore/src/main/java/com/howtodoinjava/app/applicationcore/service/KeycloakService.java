@@ -53,7 +53,6 @@ public class KeycloakService {
 
     private UserResource getUserResource(String username){
         RealmResource realmResource = keycloak.realm(realm);
-        System.out.println(username); // dev
         String userId = realmResource.users().search(username).get(0).getId();
         return realmResource.users().get(userId);
     }
@@ -83,7 +82,6 @@ public class KeycloakService {
         List<UserRepresentation> userRepresentations = keycloak.realm(realm).users().list();
         List<KCUser> users = new ArrayList<>();
         String idClient = getClientResource(appClientId).toRepresentation().getId();
-        System.out.println(userRepresentations.get(0)); // dev
         for (UserRepresentation userRepresentation : userRepresentations) {
             Map<String,List<String>> userClientRoles = userRepresentation.getClientRoles();
             List<String> userRoles = new ArrayList<String>();

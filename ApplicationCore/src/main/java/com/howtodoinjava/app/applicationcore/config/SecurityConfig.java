@@ -191,7 +191,6 @@ public class SecurityConfig {
 //         Sets the location that the End-User's User Agent will be redirected to
 //         after the logout has been performed at the Provider
 
-        //TODO setting up a logout page
         oidcLogoutSuccessHandler.setPostLogoutRedirectUri(appBaseUrl + "/");
 
         return oidcLogoutSuccessHandler;
