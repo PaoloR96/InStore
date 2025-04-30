@@ -1,4 +1,5 @@
 #TODO eliminare i commenti
+#TODO cambiare i restart dei vari container
 
 ###########################################
 #
@@ -112,6 +113,8 @@ services:
       VAULT_API_ADDR: "https://0.0.0.0:8200"
     cap_add:
       - IPC_LOCK
+      #IPC_LOCK: le pagine di memoria afferenti all’applicazione
+      #vengono conservate nella RAM, senza che possa essere effettuato lo swap
     entrypoint: vault server -config=/vault/config/config.hcl
 
   vault-init:
