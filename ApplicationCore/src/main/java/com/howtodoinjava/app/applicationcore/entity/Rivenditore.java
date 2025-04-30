@@ -1,6 +1,6 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore; // TODO remove
 import jakarta.persistence.*;
 import net.minidev.json.annotate.JsonIgnore;
 
