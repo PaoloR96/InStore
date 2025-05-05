@@ -17,7 +17,6 @@ import java.net.URI;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
@@ -39,7 +38,7 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping({"/login-redirect", "/", "/index.html", "/index"})
+    @GetMapping({ "/", "/index.html", "/index"})
     ResponseEntity<?> loginRedirect(Authentication auth) {
         try{
             List<String> userRoles = JWTUtils.getAuthorities(auth);
@@ -52,7 +51,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/rivenditore-registration")
+    @PostMapping("/api/rivenditore-registration")
     public ResponseEntity<?> rivenditoreRegistration(Authentication auth,
               @RequestParam String nomeSocieta,
               @RequestParam String partitaIva,
@@ -72,7 +71,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/cliente-registration")
+    @PostMapping("/api/cliente-registration")
     public ResponseEntity<?> clienteRegistration(Authentication auth,
              @RequestParam String nome,
              @RequestParam String cognome,

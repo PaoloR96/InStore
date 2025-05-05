@@ -70,12 +70,21 @@ services:
 #      - keycloak-certs:/etc/keycloak/certs:ro
 #    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
 
+  #  ##########################
+  #
+  #   Users:
+  #    - user1:user1   ->  CLIENTE
+  #    - seller1:seller1 ->  RIVENDITORE
+  #    - admin1:admin1  ->  ADMIN
+  #
+  #  ########################
   keycloak2604:
     image: keycloak/keycloak:26.0.4
+    ## TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
     user: "0:0"
     container_name: login.instore.puntoitstore.it
     environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin # TODO implements a secure way to access to keycloak control panel
       KC_BOOTSTRAP_ADMIN_PASSWORD: password
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KC_EXT_URL}

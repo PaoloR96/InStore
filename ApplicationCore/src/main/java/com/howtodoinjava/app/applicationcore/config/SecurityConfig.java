@@ -16,6 +16,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
@@ -28,6 +30,8 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -67,6 +71,16 @@ public class SecurityConfig {
         appBaseUrl = appProperties.baseUrl();
         clientId = oAuth2ClientProperties.getRegistration().get(realm).getClientId();
         clientSecret = oAuth2ClientProperties.getRegistration().get(realm).getClientSecret();
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
     @Bean
@@ -169,17 +183,27 @@ public class SecurityConfig {
                         .requestMatchers("/cliente/**").hasAuthority(KeycloakRoles.CLIENTE.name())
                         .requestMatchers("/rivenditore/**").hasAuthority(KeycloakRoles.RIVENDITORE.name())
                         .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
+                        .requestMatchers("/complete-registration.html").not().hasAnyAuthority(
+                                KeycloakRoles.CLIENTE.name(),
+                                KeycloakRoles.RIVENDITORE.name(),
+                                KeycloakRoles.ADMIN.name()
+                        )
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
 //                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
-                        .defaultSuccessUrl("/api/login-redirect",true)
+                        .defaultSuccessUrl("/",true)
                 )
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository, appProperties.baseUrl()))
+                )
+                .sessionManagement(
+                        sessionManagementConfigurer -> sessionManagementConfigurer
+                                .sessionAuthenticationStrategy(new RegisterSessionAuthenticationStrategy(sessionRegistry()))
+                                .sessionConcurrency(session -> session.maximumSessions(1))
                 );
         return http.build();
     }

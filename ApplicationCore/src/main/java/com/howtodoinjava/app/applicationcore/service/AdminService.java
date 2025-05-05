@@ -1,48 +1,37 @@
 package com.howtodoinjava.app.applicationcore.service;
 
-import com.howtodoinjava.app.applicationcore.entity.Cliente;
-import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
-import com.howtodoinjava.app.applicationcore.entity.Utente;
-import com.howtodoinjava.app.applicationcore.repository.ClienteRepository;
-import com.howtodoinjava.app.applicationcore.repository.RivenditoreRepository;
-import org.keycloak.representations.idm.UserRepresentation;
+import com.howtodoinjava.app.applicationcore.dto.UtenteDTO;
+import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class AdminService {
 
-    private final ClienteRepository clienteRepository;
-    private final RivenditoreRepository rivenditoreRepository;
     private final KeycloakService keycloakService;
+    private final SessionRegistry sessionRegistry;
 
-    public AdminService(
-            ClienteRepository clienteRepository,
-            RivenditoreRepository rivenditoreRepository,
-            KeycloakService keycloakService
-    ) {
-        this.clienteRepository = clienteRepository;
-        this.rivenditoreRepository = rivenditoreRepository;
+    public AdminService(KeycloakService keycloakService, SessionRegistry sessionRegistry) {
         this.keycloakService = keycloakService;
+        this.sessionRegistry = sessionRegistry;
     }
 
-    public List<?> getUsers(){
+    public List<UtenteDTO> getUsers() {
         return keycloakService.getAllUsers();
-    }
-
-    public List<Cliente> getClienti(){
-        return clienteRepository.findAll();
-    }
-
-    public List<Rivenditore> getRivenditori(){
-        return rivenditoreRepository.findAll();
     }
 
     public void enableUser(String username, boolean enable){
         keycloakService.enableUser(username, enable);
+        List<Object> principals = sessionRegistry.getAllPrincipals();
+        for (Object principal : principals) {
+            if (principal instanceof OidcUser oidcUser) {
+                if (oidcUser.getPreferredUsername().equals(username)){
+                    sessionRegistry.getAllSessions(principal, false).forEach(SessionInformation::expireNow);
+                }
+            }
+        }
     }
 }

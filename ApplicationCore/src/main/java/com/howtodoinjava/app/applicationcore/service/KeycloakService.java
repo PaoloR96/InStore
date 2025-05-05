@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.service;
 
+import com.howtodoinjava.app.applicationcore.dto.UtenteDTO;
 import com.howtodoinjava.app.applicationcore.entity.Utente;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakProperties;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
@@ -78,9 +79,9 @@ public class KeycloakService {
         userResource.update(userRepresentation);
     }
 
-    public List<?> getAllUsers(){
+    public List<UtenteDTO> getAllUsers(){
         List<UserRepresentation> userRepresentations = keycloak.realm(realm).users().list();
-        List<KCUser> users = new ArrayList<>();
+        List<UtenteDTO> users = new ArrayList<>();
         String idClient = getClientResource(appClientId).toRepresentation().getId();
         for (UserRepresentation userRepresentation : userRepresentations) {
             Map<String,List<String>> userClientRoles = userRepresentation.getClientRoles();
@@ -88,7 +89,7 @@ public class KeycloakService {
             if(userClientRoles != null) userRoles = userClientRoles.get(idClient);
             else userRoles.add("NONE");
 
-            users.add( new KCUser(
+            users.add( new UtenteDTO(
                     userRepresentation.getUsername(),
                     userRepresentation.getEmail(),
                     userRepresentation.getAttributes().get("phone_number").get(0),
@@ -97,30 +98,5 @@ public class KeycloakService {
             ));
         }
         return users;
-    }
-}
-
-class KCUser extends Utente {
-    private final List<String> roles;
-    private final boolean enabled;
-
-    KCUser(
-            String username,
-            String email,
-            String numCell,
-            List<String> roles,
-            boolean enabled
-    ){
-        super(username, email, numCell);
-        this.roles = roles;
-        this.enabled = enabled;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
     }
 }

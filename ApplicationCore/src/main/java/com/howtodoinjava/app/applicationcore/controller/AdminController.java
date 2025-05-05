@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
+import com.howtodoinjava.app.applicationcore.dto.UtenteDTO;
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
 import com.howtodoinjava.app.applicationcore.entity.Utente;
@@ -29,22 +30,11 @@ public class AdminController {
     }
 
     @GetMapping("/get-users")
-    public ResponseEntity<List<?>> getUsers() {
-        List<?> users = adminService.getUsers();
+    public ResponseEntity<List<UtenteDTO>> getUsers(Authentication auth) {
+        List<UtenteDTO> users = adminService.getUsers();
+        users.removeIf(u -> u.getUsername().equals(JWTUtils.getUsername(auth)));
         return ResponseEntity.ok(users);
     }
-
-//    @GetMapping("/get-clienti")
-//    public ResponseEntity<List<Cliente>> getClienti() {
-//        List<Cliente> users = adminService.getClienti();
-//        return ResponseEntity.ok(users);
-//    }
-//
-//    @GetMapping("/get-rivenditori")
-//    public ResponseEntity<List<Rivenditore>> getRivenditori() {
-//        List<Rivenditore> users = adminService.getRivenditori();
-//        return ResponseEntity.ok(users);
-//    }
 
     @GetMapping("/enable-user")
     public ResponseEntity<?> enableUser(@RequestParam String username) {
