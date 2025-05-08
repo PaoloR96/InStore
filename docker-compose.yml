@@ -96,6 +96,7 @@ services:
   #    entrypoint: /opt/keycloak/bin/kc.sh import --file /opt/keycloak/data/realms.cfg
 
   vault:
+    user: "1000:1000"
     image: hashicorp/vault:1.18.4
     container_name: vault.instore.puntoitstore.it
     restart: "no"
@@ -107,10 +108,6 @@ services:
       - ./VaultService/data:/vault/data
       - ./VaultService/logs:/vault/logs
       - vault-certs:/vault/certs:ro
-
-    environment:
-      VAULT_ADDR: "https://0.0.0.0:8200"
-      VAULT_API_ADDR: "https://0.0.0.0:8200"
     cap_add:
       - IPC_LOCK
       #IPC_LOCK: le pagine di memoria afferenti all’applicazione
@@ -118,6 +115,7 @@ services:
     entrypoint: vault server -config=/vault/config/config.hcl
 
   vault-init:
+    user: "1000:1000"
     container_name: vault-init
     image: hashicorp/vault:1.18.4
     restart: "no"
