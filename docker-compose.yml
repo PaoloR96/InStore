@@ -169,7 +169,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf
+      - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./NginxService/log:/var/log/nginx
       - letsencrypt:/etc/letsencrypt  # Volume per i certificati
       #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
     depends_on:
