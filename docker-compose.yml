@@ -84,8 +84,8 @@ services:
     user: "0:0"
     container_name: login.instore.puntoitstore.it
     environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin # TODO implements a secure way to access to keycloak control panel
-      KC_BOOTSTRAP_ADMIN_PASSWORD: password
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_ADMIN_USR} # TODO implements a secure way to access to keycloak control panel
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_ADMIN_PWD}
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KC_EXT_URL}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true

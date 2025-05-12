@@ -2,17 +2,8 @@ package com.howtodoinjava.app.applicationcore.service;
 
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
-import com.howtodoinjava.app.applicationcore.entity.StatoRivenditore;
-import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.client.endpoint.RestClientRefreshTokenTokenResponseClient;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
