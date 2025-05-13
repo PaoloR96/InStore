@@ -26,16 +26,16 @@ public class AuthenticationService {
 
     public String loginRedirect(List<String> userRoles) throws RuntimeException{
         if(userRoles.isEmpty()){
-            return "/complete-registration.html";
+            return "/complete-registration";
         }
         else{
             KeycloakRoles role = KeycloakRoles.valueOf(userRoles.get(0));
             return switch (role) {
-                case CLIENTE, CLIENTE_PREMIUM -> "/cliente/index.html";
+                case CLIENTE, CLIENTE_PREMIUM -> "/cliente/index";
 
-                case ADMIN -> "/admin/index.html";
+                case ADMIN -> "/admin/index";
 
-                case RIVENDITORE -> "/rivenditore/index.html";
+                case RIVENDITORE -> "/rivenditore/index";
 
                 default -> throw new RuntimeException("Authentication Error");
             };

@@ -31,13 +31,6 @@
     </dependencyManagement>
 
     <dependencies>
-<!--TODO remove-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-properties-migrator</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
         <!-- Dipendenza per Spring Data JPA, utile per la gestione dei dati tramite JPA (Java Persistence API) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

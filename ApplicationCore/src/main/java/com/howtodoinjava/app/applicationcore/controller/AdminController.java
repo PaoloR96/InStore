@@ -11,10 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +33,13 @@ public class AdminController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/enable-user")
+    @PatchMapping("/enable-user")
     public ResponseEntity<?> enableUser(@RequestParam String username) {
         adminService.enableUser(username, true);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/disable-user")
+    @PatchMapping("/disable-user")
     public ResponseEntity<?> disableUser(@RequestParam String username) {
         adminService.enableUser(username, false);
         return ResponseEntity.ok().build();

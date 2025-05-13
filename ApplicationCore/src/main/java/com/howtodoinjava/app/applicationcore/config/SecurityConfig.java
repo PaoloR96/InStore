@@ -11,7 +11,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.RequestEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -187,8 +186,6 @@ public class SecurityConfig {
                         )
                         .anyRequest().authenticated()
                 )
-                .csrf(AbstractHttpConfigurer::disable)
-//                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
                         .defaultSuccessUrl("/",true)
                 )

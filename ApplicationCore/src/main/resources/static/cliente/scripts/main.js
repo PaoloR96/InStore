@@ -19,3 +19,15 @@ async function loadClientInfo() {
         console.error('Errore nel caricamento delle informazioni del cliente:', error);
     }
 }
+
+async function sendRequest(uri, method){
+    let csrf_token = $("meta[name='_csrf']").attr("content");
+    let csrf_header = $("meta[name='_csrf_header']").attr("content");
+
+    return await fetch(uri, {
+        method: method,
+        headers: {
+            [csrf_header]: csrf_token,
+        }
+    });
+}

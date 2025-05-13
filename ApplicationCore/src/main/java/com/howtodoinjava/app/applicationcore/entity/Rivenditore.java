@@ -1,7 +1,7 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;

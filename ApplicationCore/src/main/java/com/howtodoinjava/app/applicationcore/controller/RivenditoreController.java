@@ -64,6 +64,8 @@ public class RivenditoreController {
             Rivenditore rivenditore = rivenditoreService.getRivenditore(username);
             return ResponseEntity.ok(rivenditore);
         } catch (RuntimeException e) {
+            logger.error(e.getMessage());
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }

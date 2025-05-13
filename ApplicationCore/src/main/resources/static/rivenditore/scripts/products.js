@@ -81,9 +81,15 @@ async function addProduct(event) {
     };
 
     try {
+        let csrf_token = $("meta[name='_csrf']").attr("content");
+        let csrf_header = $("meta[name='_csrf_header']").attr("content");
+
         await fetch(`${API_BASE_URL}/insprodotti`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                [csrf_header]: csrf_token,
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(nuovoProdotto)
         });
 

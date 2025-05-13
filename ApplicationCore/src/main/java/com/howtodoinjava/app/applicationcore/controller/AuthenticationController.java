@@ -64,7 +64,7 @@ public class AuthenticationController {
             Rivenditore rivenditore = authenticationService.registerRivenditore(
                     username, email, phoneNumber, nomeSocieta, partitaIva, iban);
             session.invalidate();
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/rivenditore/index.html")).body(rivenditore);
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/rivenditore/index")).body(rivenditore);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -88,7 +88,7 @@ public class AuthenticationController {
             Cliente cliente = authenticationService.registerCliente(username, email, phoneNumber, nome, cognome, numeroCarta,
                     dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
             httpSession.invalidate();
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/cliente/index.html")).body(cliente);
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/cliente/index")).body(cliente);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -7,13 +7,11 @@ import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 //TODO eliminare funzionalità di creazione cliente standard
@@ -144,37 +142,4 @@ public class ClienteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-
-//    @PostMapping("/aggiungi_standard")
-//    public Cliente creareClienteStandard(@RequestParam String username,
-//                                         @RequestParam String email,
-//                                         @RequestParam String numCell,
-//                                         @RequestParam String nome,
-//                                         @RequestParam String cognome,
-//                                         @RequestParam String numeroCarta,
-//                                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataScadenza,
-//                                         @RequestParam String nomeIntestatario,
-//                                         @RequestParam String cognomeIntestatario,
-//                                         @RequestParam String cvc) {
-//        return clienteService.creareClienteStandard(username, email, numCell, nome, cognome, numeroCarta,
-//                dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
-//    }
-
-//    @PostMapping("/clienti/aggiungi_premium")
-//    public Cliente creareClientePremium(@RequestParam String username,
-//                                        @RequestParam String email,
-//                                        @RequestParam String password,
-//                                        @RequestParam String numCell,
-//                                        @RequestParam String nome,
-//                                        @RequestParam String cognome,
-//                                        @RequestParam Integer sconto,
-//                                        @RequestParam String numeroCarta,
-//                                        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataScadenza,
-//                                        @RequestParam String nomeIntestatario,
-//                                        @RequestParam String cognomeIntestatario,
-//                                        @RequestParam Integer cvc) {
-//        return clienteService.creareClientePremium(username, email, password, numCell, nome, cognome, sconto, numeroCarta, dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
-//    }
-
-
 }

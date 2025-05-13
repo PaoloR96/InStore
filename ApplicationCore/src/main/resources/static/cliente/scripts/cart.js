@@ -21,9 +21,11 @@ async function addToCart(productId) {
     const quantity = parseInt(quantityInput.value);
 
     try {
-        const response = await fetch(`${API_BASE_URL}/carrello/aggiungi?idProdotto=${productId}&quantita=${quantity}`, {
-            method: 'POST'
-        });
+        // const response = await fetch(`${API_BASE_URL}/carrello/aggiungi?idProdotto=${productId}&quantita=${quantity}`, {
+        //     method: 'POST'
+        // });
+
+        const response = sendRequest(`${API_BASE_URL}/carrello/aggiungi?idProdotto=${productId}&quantita=${quantity}`, 'POST')
 
         if (response.ok) {
             updateCart();
@@ -75,9 +77,11 @@ function displayCartItems(totalPrice, discount, tipoCliente) {
 
 async function removeFromCart(productId) {
     try {
-        const response = await fetch(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, {
-            method: 'DELETE'
-        });
+        // const response = await fetch(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, {
+        //     method: 'DELETE'
+        // });
+
+        const response = sendRequest(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, 'DELETE')
 
         if (response.ok) {
             updateCart();
@@ -92,9 +96,11 @@ async function removeFromCart(productId) {
 
 async function checkout() {
     try {
-        const response = await fetch(`${API_BASE_URL}/pagamento`, {
-            method: 'POST'
-        });
+        // const response = await fetch(`${API_BASE_URL}/pagamento`, {
+        //     method: 'POST'
+        // });
+
+        const response = sendRequest(`${API_BASE_URL}/pagamento`, 'POST')
 
         if (response.ok) {
             alert('Pagamento effettuato con successo!');

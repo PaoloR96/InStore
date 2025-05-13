@@ -1,8 +1,16 @@
 async function upgradeToPremium() {
     try {
-        const response = await fetch(`${API_BASE_URL}/upgrade`, {
-            method: 'PUT'
-        });
+        // let csrf_token = $("meta[name='_csrf']").attr("content");
+        // let csrf_header = $("meta[name='_csrf_header']").attr("content");
+        //
+        // const response = await fetch(`${API_BASE_URL}/upgrade`, {
+        //     method: 'PUT',
+        //     headers: {
+        //         [csrf_header] : csrf_token,
+        //     }
+        // });
+
+        const response = sendRequest(`${API_BASE_URL}/upgrade`, 'PUT')
 
         if (response.ok) {
             alert('Congratulazioni! Ora sei un cliente PREMIUM!');
