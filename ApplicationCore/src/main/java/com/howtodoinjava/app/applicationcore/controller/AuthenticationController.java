@@ -6,6 +6,7 @@ import com.howtodoinjava.app.applicationcore.service.AuthenticationService;
 import com.howtodoinjava.app.applicationcore.service.ClienteService;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    public AuthenticationController(AuthenticationService authenticationService, ClienteService clienteService) {
+    public AuthenticationController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
 
@@ -93,6 +94,12 @@ public class AuthenticationController {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PostMapping("/csp-report")
+    public ResponseEntity<?> cspReport(@RequestBody String requestBody){
+        LoggerFactory.getLogger(AuthenticationController.class).info(requestBody);
+        return ResponseEntity.ok(requestBody);
     }
 }
 

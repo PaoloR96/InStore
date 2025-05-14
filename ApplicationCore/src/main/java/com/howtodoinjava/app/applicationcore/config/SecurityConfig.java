@@ -28,6 +28,7 @@ import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.client.RestTemplate;
 
@@ -53,6 +54,7 @@ public class SecurityConfig {
     private static String appBaseUrl;
     private static String clientId;
     private static String clientSecret;
+    private static String cspReportEndpoint;
 
     private static final String RESOURCE_ACCESS_CLAIM = "resource_access";
     private static final String ROLES_CLAIM = "roles";
@@ -67,6 +69,7 @@ public class SecurityConfig {
         appBaseUrl = appProperties.baseUrl();
         clientId = oAuth2ClientProperties.getRegistration().get(realm).getClientId();
         clientSecret = oAuth2ClientProperties.getRegistration().get(realm).getClientSecret();
+        cspReportEndpoint = appBaseUrl + "/csp-report";
     }
 
     @Bean
@@ -174,32 +177,56 @@ public class SecurityConfig {
                                            ClientRegistrationRepository clientRegistrationRepository,
                                            ApplicationProperties appProperties
     ) throws Exception {
+
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/cliente/**").hasAuthority(KeycloakRoles.CLIENTE.name())
-                        .requestMatchers("/rivenditore/**").hasAuthority(KeycloakRoles.RIVENDITORE.name())
-                        .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
-                        .requestMatchers("/complete-registration.html").not().hasAnyAuthority(
-                                KeycloakRoles.CLIENTE.name(),
-                                KeycloakRoles.RIVENDITORE.name(),
-                                KeycloakRoles.ADMIN.name()
-                        )
-                        .anyRequest().authenticated()
-                )
-                .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
-                        .defaultSuccessUrl("/",true)
-                )
-                .logout(logout -> logout
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository, appProperties.baseUrl()))
-                )
-                .sessionManagement(
-                        sessionManagementConfigurer -> sessionManagementConfigurer
-                                .sessionAuthenticationStrategy(new RegisterSessionAuthenticationStrategy(sessionRegistry()))
-                                .sessionConcurrency(session -> session.maximumSessions(1))
-                );
+            .authorizeHttpRequests(authorize -> authorize
+                    .requestMatchers("/cliente/**").hasAuthority(KeycloakRoles.CLIENTE.name())
+                    .requestMatchers("/rivenditore/**").hasAuthority(KeycloakRoles.RIVENDITORE.name())
+                    .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
+                    .requestMatchers("/complete-registration.html").not().hasAnyAuthority(
+                            KeycloakRoles.CLIENTE.name(),
+                            KeycloakRoles.RIVENDITORE.name(),
+                            KeycloakRoles.ADMIN.name()
+                    )
+                    .anyRequest().authenticated()
+            )
+            .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
+                    .defaultSuccessUrl("/",true)
+            )
+            .logout(logout -> logout
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository, appProperties.baseUrl()))
+            )
+            .sessionManagement(
+                    sessionManagementConfigurer -> sessionManagementConfigurer
+                            .sessionAuthenticationStrategy(new RegisterSessionAuthenticationStrategy(sessionRegistry()))
+                            .sessionConcurrency(session -> session.maximumSessions(1))
+            )
+            .csrf(csrfConfigurer -> csrfConfigurer
+                    .ignoringRequestMatchers("/csp-report")
+            )
+            .headers(headers -> headers
+                    .contentSecurityPolicy(contentSecurityPolicyConfig -> contentSecurityPolicyConfig
+                            .policyDirectives(getContentSecurityPolicy())
+//                            .reportOnly()
+                    )
+                    .addHeaderWriter(new StaticHeadersWriter(
+                            "Reporting-Endpoints",
+                            "csp-endpoint=\"" + cspReportEndpoint + "\""))
+            );
+
         return http.build();
+    }
+
+    private String getContentSecurityPolicy(){
+        String styleSrc = "; style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com";
+        String reportTo = "; report-to csp-endpoint; report-uri /csp-report";
+        String scriptSrc = "; script-src 'self' https://code.jquery.com";
+        String fontSrc = "; font-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com";
+
+        return "default-src 'self'" + scriptSrc + styleSrc + fontSrc + reportTo + "; upgrade-insecure-requests";
     }
 
     private LogoutSuccessHandler oidcLogoutSuccessHandler(ClientRegistrationRepository clientRegistrationRepository, String appBaseUrl) {

@@ -19,6 +19,11 @@ function renderUsers(users) {
 
     users.forEach(user => {
         const row = document.createElement("tr");
+        const btn = document.createElement("button");
+        btn.innerHTML = `${user.enabled ? "Disabilita" : "Abilita"}`;
+        btn.addEventListener("click", toggleUserStatus)
+        btn.user = user.username;
+        btn.enabled = user.enabled;
 
         row.innerHTML = `
             <td>${user.username}</td>
@@ -26,20 +31,22 @@ function renderUsers(users) {
             <td>${user.numCell}</td>
             <td>${user.roles.join(", ")}</td>
             <td>${user.enabled ? "Abilitato" : "Disabilitato"}</td>
-            <td>
-                <button onclick="toggleUserStatus('${user.username}', ${user.enabled})">
-                    ${user.enabled ? "Disabilita" : "Abilita"}
-                </button>
-            </td>
         `;
+
+        const btn_column = document.createElement("td");
+        btn_column.appendChild(btn);
+        row.appendChild(btn_column);
 
         tableBody.appendChild(row);
     });
 }
 
 // Funzione per abilitare/disabilitare un utente
-async function toggleUserStatus(userId, currentStatus) {
+async function toggleUserStatus(evt) {
     try {
+        const currentStatus = evt.currentTarget.enabled;
+        const userId = evt.currentTarget.user;
+
         let api_url
         if(currentStatus) api_url = '/disable-user'
         else api_url = '/enable-user'
@@ -58,11 +65,19 @@ async function toggleUserStatus(userId, currentStatus) {
             }
         })
 
-        fetchUsers()
+        await fetchUsers()
     } catch (error) {
         console.error("Errore nel cambiamento dello stato dell'utente:", error);
     }
 }
 
+// Funzione di logout
+function logout() {
+    window.location.href = '/logout';
+}
+
 // Recupera e mostra la lista degli utenti all'avvio
-fetchUsers()
+document.addEventListener('DOMContentLoaded', () => {
+    fetchUsers();
+    document.getElementById("logout-btn").addEventListener("click", logout);
+});

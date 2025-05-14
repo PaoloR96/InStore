@@ -1,9 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
-    updateCart();
-    loadClientInfo();
-});
-
 function refreshStore() {
     loadProducts();
     updateCart();
@@ -31,3 +25,34 @@ async function sendRequest(uri, method){
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadProducts();
+    updateCart();
+    loadClientInfo();
+    const store_branding = document.getElementById("store-branding");
+    store_branding.addEventListener("click", refreshStore);
+    store_branding.addEventListener("mouseover", (evt) => {
+        evt.currentTarget.style.backgroundColor='rgba(255,255,255,0.1)'
+    });
+    store_branding.addEventListener("mouseout", (evt) => {
+        evt.currentTarget.style.backgroundColor='transparent'
+    });
+    store_branding.addEventListener("mousedown", (evt) => {
+        evt.currentTarget.style.backgroundColor='rgba(255,255,255,0.2)'
+    });
+    store_branding.addEventListener("mouseup", (evt) => {
+        evt.currentTarget.style.backgroundColor='rgba(255,255,255,0.1)'
+    });
+    document.getElementById("user-profile-btn").addEventListener("click", () => {
+        window.location.href='profile'
+    });
+    document.getElementById("logout-btn").addEventListener("click", () => {window.location.href='/logout'});
+    document.getElementById("toggle-cart").addEventListener("click", toggleCart);
+    document.getElementById("close-cart-btn").addEventListener("click", toggleCart);
+    document.getElementById("refresh-btn").addEventListener("click", refreshStore);
+    document.getElementById("premium-upgrade").addEventListener("click", upgradeToPremium);
+    document.getElementById("refresh-cart-btn").addEventListener("click", updateCart);
+    document.getElementById("checkout-btn").addEventListener("click", checkout);
+});
+

@@ -14,13 +14,13 @@
     <!-- Top Navbar -->
     <header class="top-navbar">
         <div class="container">
-            <div class="store-branding" onclick="window.location.href='index'" style="cursor: pointer; padding: 5px 10px; border-radius: 6px;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'" onmouseout="this.style.backgroundColor='transparent'" onmousedown="this.style.backgroundColor='rgba(255,255,255,0.2)'" onmouseup="this.style.backgroundColor='rgba(255,255,255,0.1)'">
+            <div id="store-branding" class="store-branding">
                 <div class="store-logo">
                     <i class="fas fa-store"></i>
                     <h1 class="store-title">InStore</h1>
                 </div>
             </div>
-            <div class="container" onclick="window.location.href='profile'">
+            <div id="profile-div" class="container">
                 <div class="user-profile active">
                     <div class="profile-image">
                         <i class="fas fa-user"></i>
@@ -33,13 +33,13 @@
             </div>
             <div class="main-menu">
                 <ul class="menu-items">
-                    <li onclick="logout()">
+                    <li id="logout-btn">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </li>
                 </ul>
             </div>
-            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <div id="mobile-menu-div" class="mobile-menu-toggle">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
@@ -61,7 +61,7 @@
             <div class="page-header">
                 <h2><i class="fas fa-user-circle"></i> Il Mio Profilo</h2>
                 <div class="header-actions">
-                    <button class="refresh-button" onclick="loadUserData()">
+                    <button id="refresh-btn" class="refresh-button">
                         <i class="fas fa-sync-alt"></i> Aggiorna
                     </button>
                 </div>
@@ -112,10 +112,10 @@
                         </div>
 
                         <div class="profile-actions">
-                            <button class="edit-profile-btn" onclick="alert('Funzionalità di modifica non ancora implementata')">
+                            <button id="edit-profile-btn" class="edit-profile-btn">
                                 <i class="fas fa-edit"></i> Modifica Profilo
                             </button>
-                            <button class="change-password-btn" onclick="alert('Funzionalità di cambio password non ancora implementata')">
+                            <button id="change-pwd-btn" class="change-password-btn">
                                 <i class="fas fa-lock"></i> Cambia Password
                             </button>
                         </div>

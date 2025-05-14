@@ -10,7 +10,7 @@ async function upgradeToPremium() {
         //     }
         // });
 
-        const response = sendRequest(`${API_BASE_URL}/upgrade`, 'PUT')
+        const response = await sendRequest(`${API_BASE_URL}/upgrade`, 'PUT')
 
         if (response.ok) {
             alert('Congratulazioni! Ora sei un cliente PREMIUM!');
