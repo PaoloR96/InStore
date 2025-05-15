@@ -27,6 +27,7 @@ jobs:
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             rm -r InStore/
             git clone https://github.com/PaoloR96/InStore.git
+            chown -R 1000:1000 InStore/VaultService
             cd InStore/VaultService
             chmod +x unseal-vault.sh
             cd ..
