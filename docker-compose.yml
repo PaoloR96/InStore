@@ -87,7 +87,7 @@ services:
     build:
       context: ./VaultService
       dockerfile: Dockerfile
-#    user: "1000:1000"
+    user: "1000:1000"
     container_name: vault.instore.puntoitstore.it
     restart: "no"
     ports:
@@ -113,7 +113,7 @@ services:
   vault-init:
     container_name: vault-init
     image: hashicorp/vault:1.18.4
-#    user: "1000:1000"
+    user: "1000:1000"
     restart: "no"
     environment:
       VAULT_ADDR: ${VAULT_URL}
