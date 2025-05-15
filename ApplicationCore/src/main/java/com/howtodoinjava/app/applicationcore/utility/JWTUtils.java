@@ -19,6 +19,7 @@ public class JWTUtils {
 
     public static String getPhoneNumber(Authentication auth) throws RuntimeException {
         OidcUser oidcUser = getOidcUser(auth);
+        System.out.println("ID TOKEN: " + oidcUser.getIdToken()); //dev debug
         String phoneNumber = oidcUser.getPhoneNumber();
         if(phoneNumber != null) {
             return phoneNumber;

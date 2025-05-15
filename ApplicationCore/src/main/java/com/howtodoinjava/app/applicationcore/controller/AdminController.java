@@ -1,5 +1,6 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
+import com.howtodoinjava.app.applicationcore.dto.UtenteDTO;
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
 import com.howtodoinjava.app.applicationcore.entity.Utente;
@@ -10,10 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,30 +27,20 @@ public class AdminController {
     }
 
     @GetMapping("/get-users")
-    public ResponseEntity<List<?>> getUsers() {
-        List<?> users = adminService.getUsers();
+    public ResponseEntity<List<UtenteDTO>> getUsers(Authentication auth) {
+        List<UtenteDTO> users = adminService.getUsers();
+        users.removeIf(u -> u.getUsername().equals(JWTUtils.getUsername(auth)));
+        users.forEach(UtenteDTO::escape); // escaping
         return ResponseEntity.ok(users);
     }
 
-//    @GetMapping("/get-clienti")
-//    public ResponseEntity<List<Cliente>> getClienti() {
-//        List<Cliente> users = adminService.getClienti();
-//        return ResponseEntity.ok(users);
-//    }
-//
-//    @GetMapping("/get-rivenditori")
-//    public ResponseEntity<List<Rivenditore>> getRivenditori() {
-//        List<Rivenditore> users = adminService.getRivenditori();
-//        return ResponseEntity.ok(users);
-//    }
-
-    @GetMapping("/enable-user")
+    @PatchMapping("/enable-user")
     public ResponseEntity<?> enableUser(@RequestParam String username) {
         adminService.enableUser(username, true);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/disable-user")
+    @PatchMapping("/disable-user")
     public ResponseEntity<?> disableUser(@RequestParam String username) {
         adminService.enableUser(username, false);
         return ResponseEntity.ok().build();

@@ -41,4 +41,8 @@ public class CarrelloResponse {
     public List<Prodotto> getProdotti() {
         return prodotti;
     }
+
+    public void escape(){
+        prodotti.forEach(Prodotto::escape);
+    }
 }

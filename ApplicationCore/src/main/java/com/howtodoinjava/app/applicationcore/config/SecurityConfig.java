@@ -8,14 +8,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.RequestEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
@@ -23,18 +23,19 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * SecurityConfig class configures security settings for the application,
@@ -53,6 +54,7 @@ public class SecurityConfig {
     private static String appBaseUrl;
     private static String clientId;
     private static String clientSecret;
+    private static String cspReportEndpoint;
 
     private static final String RESOURCE_ACCESS_CLAIM = "resource_access";
     private static final String ROLES_CLAIM = "roles";
@@ -67,6 +69,17 @@ public class SecurityConfig {
         appBaseUrl = appProperties.baseUrl();
         clientId = oAuth2ClientProperties.getRegistration().get(realm).getClientId();
         clientSecret = oAuth2ClientProperties.getRegistration().get(realm).getClientSecret();
+        cspReportEndpoint = appBaseUrl + "/csp-report";
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
     @Bean
@@ -164,24 +177,56 @@ public class SecurityConfig {
                                            ClientRegistrationRepository clientRegistrationRepository,
                                            ApplicationProperties appProperties
     ) throws Exception {
+
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/cliente/**").hasAuthority(KeycloakRoles.CLIENTE.name())
-                        .requestMatchers("/rivenditore/**").hasAuthority(KeycloakRoles.RIVENDITORE.name())
-                        .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
-                        .anyRequest().authenticated()
-                )
-                .csrf(AbstractHttpConfigurer::disable)
-//                .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
-                        .defaultSuccessUrl("/api/login-redirect",true)
-                )
-                .logout(logout -> logout
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository, appProperties.baseUrl()))
-                );
+            .authorizeHttpRequests(authorize -> authorize
+                    .requestMatchers("/cliente/**").hasAuthority(KeycloakRoles.CLIENTE.name())
+                    .requestMatchers("/rivenditore/**").hasAuthority(KeycloakRoles.RIVENDITORE.name())
+                    .requestMatchers("/admin/**").hasAuthority(KeycloakRoles.ADMIN.name())
+                    .requestMatchers("/complete-registration.html").not().hasAnyAuthority(
+                            KeycloakRoles.CLIENTE.name(),
+                            KeycloakRoles.RIVENDITORE.name(),
+                            KeycloakRoles.ADMIN.name()
+                    )
+                    .anyRequest().authenticated()
+            )
+            .oauth2Login(httpSecurityOAuth2LoginConfigurer -> httpSecurityOAuth2LoginConfigurer
+                    .defaultSuccessUrl("/",true)
+            )
+            .logout(logout -> logout
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository, appProperties.baseUrl()))
+            )
+            .sessionManagement(
+                    sessionManagementConfigurer -> sessionManagementConfigurer
+                            .sessionAuthenticationStrategy(new RegisterSessionAuthenticationStrategy(sessionRegistry()))
+                            .sessionConcurrency(session -> session.maximumSessions(1))
+            )
+            .csrf(csrfConfigurer -> csrfConfigurer
+                    .ignoringRequestMatchers("/csp-report")
+            )
+            .headers(headers -> headers
+                    .contentSecurityPolicy(contentSecurityPolicyConfig -> contentSecurityPolicyConfig
+                            .policyDirectives(getContentSecurityPolicy())
+//                            .reportOnly()
+                    )
+                    .addHeaderWriter(new StaticHeadersWriter(
+                            "Reporting-Endpoints",
+                            "csp-endpoint=\"" + cspReportEndpoint + "\""))
+            );
+
         return http.build();
+    }
+
+    private String getContentSecurityPolicy(){
+        String styleSrc = "; style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com";
+        String reportTo = "; report-to csp-endpoint; report-uri /csp-report";
+        String scriptSrc = "; script-src 'self' https://code.jquery.com";
+        String fontSrc = "; font-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com";
+
+        return "default-src 'self'" + scriptSrc + styleSrc + fontSrc + reportTo + "; upgrade-insecure-requests";
     }
 
     private LogoutSuccessHandler oidcLogoutSuccessHandler(ClientRegistrationRepository clientRegistrationRepository, String appBaseUrl) {
@@ -191,7 +236,6 @@ public class SecurityConfig {
 //         Sets the location that the End-User's User Agent will be redirected to
 //         after the logout has been performed at the Provider
 
-        //TODO setting up a logout page
         oidcLogoutSuccessHandler.setPostLogoutRedirectUri(appBaseUrl + "/");
 
         return oidcLogoutSuccessHandler;

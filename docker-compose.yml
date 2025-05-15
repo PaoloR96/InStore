@@ -49,47 +49,22 @@ services:
     networks:
       - instore_net
 
-#  ##########################
-#
-#   3 users:
-#    - user1   ->  CLIENTE
-#    - seller1 ->  RIVENDITORE
-#    - admin1  ->  ADMIN
-#  username and password are the same.
-#
-#  ########################
-#  keycloak:
-#    build: keycloak/keycloak:26.1
-#    ##TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
-#    user: "0:0"
-#    container_name: login.instore.puntoitstore.it
-#    environment:
-#      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-#      KC_BOOTSTRAP_ADMIN_PASSWORD: password
-#      # remember to modify Root URL in instore-client settings by keycloak UI
-#      KC_HOSTNAME: ${KC_EXT_URL}
-#      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
-#      KC_PROXY_HEADERS: "xforwarded"
-#      KC_HOSTNAME_DEBUG: "true"
-#      KC_HTTP_ENABLED: "false"
-#      KC_HTTPS_ENABLED: "true"
-#      KC_HTTPS_PORT: "8443"
-#      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain1.pem"
-#      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey1.pem"
-#    ports:
-#      - "8090:8443"
-#    volumes:
-#      - ./KeycloakService/data:/opt/keycloak/data
-#      - keycloak-certs:/etc/keycloak/certs:ro
-#    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
-
+  #  ##########################
+  #
+  #   Users:
+  #    - user1:user1   ->  CLIENTE
+  #    - seller1:seller1 ->  RIVENDITORE
+  #    - admin1:admin1  ->  ADMIN
+  #
+  #  ########################
   keycloak2604:
     image: keycloak/keycloak:26.0.4
+    ## TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
     user: "0:0"
     container_name: login.instore.puntoitstore.it
     environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: password
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_ADMIN_USR} # TODO implements a secure way to access to keycloak control panel
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_ADMIN_PWD}
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KC_EXT_URL}
       KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
@@ -105,8 +80,7 @@ services:
     volumes:
       - ./KeycloakService/data2604:/opt/keycloak/data
       - keycloak-certs:/etc/keycloak/certs:ro
-    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
-  #    entrypoint: /opt/keycloak/bin/kc.sh import --file /opt/keycloak/data/realms.cfg
+    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --log-file-level=debug
     networks:
       - instore_net
 
@@ -169,7 +143,8 @@ services:
     ports:
       - "8081:8080"
     volumes:
-      - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar
+      - ./spring_log:/var/log/spring
+      - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar:ro
       - application-core-certs:/app/certs:ro
     entrypoint: java -jar /target/app.jar
     networks:
@@ -185,7 +160,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf
+      - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./NginxService/log:/var/log/nginx
       - letsencrypt:/etc/letsencrypt  # Volume per i certificati
       #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
     depends_on:

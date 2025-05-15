@@ -2,17 +2,8 @@ package com.howtodoinjava.app.applicationcore.service;
 
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
-import com.howtodoinjava.app.applicationcore.entity.StatoRivenditore;
-import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import com.howtodoinjava.app.applicationcore.utility.KeycloakRoles;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.client.endpoint.RestClientRefreshTokenTokenResponseClient;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,17 +26,16 @@ public class AuthenticationService {
 
     public String loginRedirect(List<String> userRoles) throws RuntimeException{
         if(userRoles.isEmpty()){
-            //TODO redirect to completeRegistration
-            return "/complete-registration.html";
+            return "/complete-registration";
         }
         else{
             KeycloakRoles role = KeycloakRoles.valueOf(userRoles.get(0));
             return switch (role) {
-                case CLIENTE, CLIENTE_PREMIUM -> "/cliente/index.html";
+                case CLIENTE, CLIENTE_PREMIUM -> "/cliente/index";
 
-                case ADMIN -> "/admin/index.html";
+                case ADMIN -> "/admin/index";
 
-                case RIVENDITORE -> "/rivenditore/index.html";
+                case RIVENDITORE -> "/rivenditore/index";
 
                 default -> throw new RuntimeException("Authentication Error");
             };
