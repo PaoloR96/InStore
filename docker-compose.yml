@@ -32,6 +32,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - mysql-certs:/etc/mysql/certs:ro
+      - mysql-keyring:/var/lib/mysql-keyring/
     command:
       - --lower_case_table_names=1
       - --require-secure-transport=ON
@@ -113,7 +114,7 @@ services:
     build:
       context: ./VaultService
       dockerfile: Dockerfile
-    user: "1000:1000"
+    #user: "1000:1000"
     container_name: vault.instore.puntoitstore.it
     restart: "no"
     ports:
@@ -139,7 +140,7 @@ services:
   vault-init:
     container_name: vault-init
     image: hashicorp/vault:1.18.4
-    user: "1000:1000"
+    #user: "1000:1000"
     restart: "no"
     environment:
       VAULT_ADDR: ${VAULT_URL}
@@ -222,8 +223,7 @@ services:
 
 volumes:
   mysql-data:
-    name: instore-mysql
-
+  mysql-keyring:
   certbot-data:
   letsencrypt:
 
