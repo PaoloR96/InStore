@@ -4,8 +4,6 @@ FROM alpine:3.18
 # Aggiorna il sistema e installa NGINX
 RUN apk update && apk add --no-cache nginx
 
-RUN mkidr -p /var/log/nginx
-
 # Crea la directory per la configurazione personalizzata di NGINX
 #RUN mkdir -p /etc/nginx/conf.d
 
