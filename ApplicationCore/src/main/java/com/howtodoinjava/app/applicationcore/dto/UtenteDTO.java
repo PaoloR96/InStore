@@ -1,6 +1,7 @@
 package com.howtodoinjava.app.applicationcore.dto;
 
 import com.howtodoinjava.app.applicationcore.entity.Utente;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -20,11 +21,18 @@ public class UtenteDTO extends Utente {
         this.enabled = enabled;
     }
 
+
     public List<String> getRoles() {
         return roles;
     }
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void escape(){
+        this.email = HtmlUtils.htmlEscape(this.email);
+        this.numCell = HtmlUtils.htmlEscape(this.numCell);
+        this.username = HtmlUtils.htmlEscape(this.username);
     }
 }

@@ -2,6 +2,7 @@ package com.howtodoinjava.app.applicationcore.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -142,5 +143,10 @@ public class Prodotto {
 
     public void setListaProdottiOrdine(List<ProdottoOrdine> listaProdottiOrdine) {
         this.listaProdottiOrdine = listaProdottiOrdine;
+    }
+
+    public void escape(){
+        this.descrizione = HtmlUtils.htmlEscape(this.descrizione);
+        this.nomeProdotto = HtmlUtils.htmlEscape(this.nomeProdotto);
     }
 }

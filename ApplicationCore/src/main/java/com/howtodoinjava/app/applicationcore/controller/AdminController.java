@@ -30,6 +30,7 @@ public class AdminController {
     public ResponseEntity<List<UtenteDTO>> getUsers(Authentication auth) {
         List<UtenteDTO> users = adminService.getUsers();
         users.removeIf(u -> u.getUsername().equals(JWTUtils.getUsername(auth)));
+        users.forEach(UtenteDTO::escape); // escaping
         return ResponseEntity.ok(users);
     }
 

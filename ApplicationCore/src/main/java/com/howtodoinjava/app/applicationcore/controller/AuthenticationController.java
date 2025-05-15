@@ -1,5 +1,8 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
+import com.howtodoinjava.app.applicationcore.dto.ClienteDTO;
+import com.howtodoinjava.app.applicationcore.dto.RivenditoreDTO;
+import com.howtodoinjava.app.applicationcore.dto.UtenteDTO;
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
 import com.howtodoinjava.app.applicationcore.service.AuthenticationService;
@@ -7,12 +10,14 @@ import com.howtodoinjava.app.applicationcore.service.ClienteService;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
 import java.net.URI;
 import java.util.*;
@@ -29,11 +34,14 @@ public class AuthenticationController {
     @GetMapping("/user-details")
     ResponseEntity<?> printUser(Authentication auth) {
         try{
-            Account account = new Account(
+            UtenteDTO utenteDTO = new UtenteDTO(
                     JWTUtils.getUsername(auth),
-                    JWTUtils.getAuthorities(auth)
+                    JWTUtils.getEmail(auth),
+                    JWTUtils.getPhoneNumber(auth),
+                    JWTUtils.getAuthorities(auth),
+                    true // TODO modify with the rigth value of the claim
             );
-            return ResponseEntity.ok(account);
+            return ResponseEntity.ok(utenteDTO);
         } catch (RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -65,7 +73,9 @@ public class AuthenticationController {
             Rivenditore rivenditore = authenticationService.registerRivenditore(
                     username, email, phoneNumber, nomeSocieta, partitaIva, iban);
             session.invalidate();
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/rivenditore/index")).body(rivenditore);
+            RivenditoreDTO rivenditoreDTO = new RivenditoreDTO(rivenditore);
+            rivenditoreDTO.escape(); // escaping
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/rivenditore/index")).body(rivenditoreDTO);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -89,7 +99,9 @@ public class AuthenticationController {
             Cliente cliente = authenticationService.registerCliente(username, email, phoneNumber, nome, cognome, numeroCarta,
                     dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
             httpSession.invalidate();
-            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/cliente/index")).body(cliente);
+            ClienteDTO clienteDTO = new ClienteDTO(cliente);
+            clienteDTO.escape();
+            return ResponseEntity.status(HttpStatus.SEE_OTHER).location(URI.create("/cliente/index")).body(clienteDTO);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -99,11 +111,12 @@ public class AuthenticationController {
     @PostMapping("/csp-report")
     public ResponseEntity<?> cspReport(@RequestBody String requestBody){
         LoggerFactory.getLogger(AuthenticationController.class).info(requestBody);
+        // escaping
+        JacksonJsonParser jsonParser = new JacksonJsonParser();
+        Map<String, Object> report = jsonParser.parseMap(requestBody);
+        for (Map.Entry<String, Object> entry : report.entrySet()) {
+            entry.setValue(HtmlUtils.htmlEscape(entry.getValue().toString()));
+        }
         return ResponseEntity.ok(requestBody);
     }
 }
-
-record Account(
-        String name,
-        List<String> roles
-){}

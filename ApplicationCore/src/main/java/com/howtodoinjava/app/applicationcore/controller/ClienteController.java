@@ -1,5 +1,8 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
+import com.howtodoinjava.app.applicationcore.dto.ClienteDTO;
+import com.howtodoinjava.app.applicationcore.dto.ProdottoDTO;
+import com.howtodoinjava.app.applicationcore.mapper.ProdottoMapper;
 import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.service.ClienteService;
@@ -25,8 +28,8 @@ public class ClienteController {
 
     //TODO changed this URI
     @GetMapping("/prodotti")
-    public ResponseEntity<List<Prodotto>> visualizzaProdotti() {
-        List<Prodotto> prodotti = clienteService.visualizzaProdotti();
+    public ResponseEntity<List<ProdottoDTO>> visualizzaProdotti(ProdottoMapper prodottoMapper) {
+        List<ProdottoDTO> prodotti = clienteService.visualizzaProdotti();
         return ResponseEntity.ok(prodotti);
     }
 
@@ -42,6 +45,7 @@ public class ClienteController {
             }
 
             Carrello carrello = clienteService.aggiungiProdottoCarrello(username, idProdotto, quantita);
+            carrello.escape();
             return ResponseEntity.ok(carrello);
 
         } catch (IllegalArgumentException e) {
@@ -69,6 +73,7 @@ public class ClienteController {
         try {
             String username = JWTUtils.getUsername(auth);
             CarrelloResponse prodottiAndPrezzo = clienteService.visualizzaProdottiCarrello(username);
+            prodottiAndPrezzo.escape();
             return ResponseEntity.ok(prodottiAndPrezzo);
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
@@ -121,11 +126,13 @@ public class ClienteController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<Cliente> getClienteInfo(Authentication auth) {
+    public ResponseEntity<ClienteDTO> getClienteInfo(Authentication auth) {
         try {
             String username = JWTUtils.getUsername(auth);
             Cliente cliente = clienteService.getCliente(username);
-            return ResponseEntity.ok(cliente);
+            ClienteDTO clienteDTO = new ClienteDTO(cliente);
+            clienteDTO.escape();
+            return ResponseEntity.ok(clienteDTO);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

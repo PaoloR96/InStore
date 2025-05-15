@@ -1,5 +1,7 @@
 package com.howtodoinjava.app.applicationcore.dto;
 
+import org.springframework.web.util.HtmlUtils;
+
 import java.io.Serializable;
 
 public class ProdottoDTO implements Serializable {
@@ -81,5 +83,11 @@ public class ProdottoDTO implements Serializable {
 
     public void setQuantitaTotale(Integer quantitaTotale) {
         this.quantitaTotale = quantitaTotale;
+    }
+
+    public void escape(){
+        this.descrizione = HtmlUtils.htmlEscape(this.descrizione);
+        this.nomeProdotto = HtmlUtils.htmlEscape(this.nomeProdotto);
+        this.taglia = HtmlUtils.htmlEscape(this.taglia);
     }
 }

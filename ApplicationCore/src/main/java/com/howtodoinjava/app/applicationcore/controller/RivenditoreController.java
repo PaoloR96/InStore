@@ -1,6 +1,7 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
 import com.howtodoinjava.app.applicationcore.dto.ProdottoDTO;
+import com.howtodoinjava.app.applicationcore.dto.RivenditoreDTO;
 import com.howtodoinjava.app.applicationcore.entity.Cliente;
 import com.howtodoinjava.app.applicationcore.entity.Rivenditore;
 import com.howtodoinjava.app.applicationcore.service.RivenditoreService;
@@ -50,6 +51,7 @@ public class RivenditoreController {
         try{
             String username = JWTUtils.getUsername(auth);
             List<ProdottoDTO> prodotti = rivenditoreService.getProdottiByRivenditore(username);
+            prodotti.forEach(ProdottoDTO::escape);
             return ResponseEntity.ok(prodotti);
         } catch (RuntimeException e) {
             logger.info(e.getMessage());
@@ -58,14 +60,15 @@ public class RivenditoreController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<Rivenditore> getRivenditoreInfo(Authentication auth) {
+    public ResponseEntity<RivenditoreDTO> getRivenditoreInfo(Authentication auth) {
         try {
             String username = JWTUtils.getUsername(auth);
             Rivenditore rivenditore = rivenditoreService.getRivenditore(username);
-            return ResponseEntity.ok(rivenditore);
+            RivenditoreDTO rivenditoreDTO = new RivenditoreDTO(rivenditore);
+            rivenditoreDTO.escape();
+            return ResponseEntity.ok(rivenditoreDTO);
         } catch (RuntimeException e) {
             logger.error(e.getMessage());
-
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }

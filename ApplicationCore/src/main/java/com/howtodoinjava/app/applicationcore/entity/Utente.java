@@ -7,11 +7,11 @@ public abstract class Utente {
 
     @Id
     @Column(name = "username", nullable = false)
-    private String username;
+    protected String username;
     @Column(unique = true, nullable = false)
-    private String email;
+    protected String email;
     @Column(name = "num_cell", nullable = false, unique = true)
-    private String numCell;
+    protected String numCell;
 
     public Utente() {
     }
