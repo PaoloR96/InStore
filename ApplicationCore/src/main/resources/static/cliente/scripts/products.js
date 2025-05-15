@@ -27,11 +27,21 @@ function displayProducts(products) {
                     <input type="number" min="1" max="${product.quantitaTotale}" value="1" id="qty-${product.idProdotto}">
                 </div>
                 <div class="product-actions">
-                    <button class="add-to-cart-btn" onclick="addToCart(${product.idProdotto})">
+                    <button class="add-to-cart-btn" data-prodotto="${product.idProdotto}"">
                         <i class="fas fa-cart-plus"></i> Aggiungi al carrello
                     </button>
                 </div>
             </div>
         </div>
     `).join('');
+
+    const buttons = Array.from(document.getElementsByClassName("add-to-cart-btn"));
+    buttons.forEach( btn => {
+            btn.addEventListener("click", addToCartListener);
+        }
+    );
+}
+
+function addToCartListener(evt) {
+    addToCart(evt.currentTarget.getAttribute("data-prodotto"));
 }

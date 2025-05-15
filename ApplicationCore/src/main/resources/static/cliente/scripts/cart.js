@@ -21,9 +21,7 @@ async function addToCart(productId) {
     const quantity = parseInt(quantityInput.value);
 
     try {
-        const response = await fetch(`${API_BASE_URL}/carrello/aggiungi?idProdotto=${productId}&quantita=${quantity}`, {
-            method: 'POST'
-        });
+        const response = await sendRequest(`${API_BASE_URL}/carrello/aggiungi?idProdotto=${productId}&quantita=${quantity}`, 'POST')
 
         if (response.ok) {
             updateCart();
@@ -51,17 +49,23 @@ function displayCartItems(totalPrice, discount, tipoCliente) {
                 <small>Taglia: ${item.taglia}</small>
             </div>
             <div class="cart-item-actions">
-                <button class="remove-item-btn" onclick="removeFromCart(${item.idProdotto})" title="Rimuovi">
+                <button class="remove-item-btn" data-prodotto="${item.idProdotto}" title="Rimuovi">
                     <i class="fas fa-trash-alt"></i>
                 </button>
             </div>
         </div>
     `).join('');
 
+    const buttons = Array.from(document.getElementsByClassName("remove-item-btn"));
+    buttons.forEach( btn => {
+            btn.addEventListener("click", removeFromCart);
+        }
+    );
+
     // Mostra le informazioni sullo sconto se presente
     if (tipoCliente === 'PREMIUM') {
         discountInfo.innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
                 <span>Sconto Premium applicato:</span>
                 <strong>-${discount}%</strong>
             </div>
@@ -73,11 +77,14 @@ function displayCartItems(totalPrice, discount, tipoCliente) {
     document.getElementById('cartTotal').textContent = totalPrice.toFixed(2);
 }
 
-async function removeFromCart(productId) {
+async function removeFromCart(evt) {
     try {
-        const response = await fetch(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, {
-            method: 'DELETE'
-        });
+        // const response = await fetch(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, {
+        //     method: 'DELETE'
+        // });
+        const productId = evt.currentTarget.getAttribute("data-prodotto");
+
+        const response = await sendRequest(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, 'DELETE')
 
         if (response.ok) {
             updateCart();
@@ -92,9 +99,11 @@ async function removeFromCart(productId) {
 
 async function checkout() {
     try {
-        const response = await fetch(`${API_BASE_URL}/pagamento`, {
-            method: 'POST'
-        });
+        // const response = await fetch(`${API_BASE_URL}/pagamento`, {
+        //     method: 'POST'
+        // });
+
+        const response = await sendRequest(`${API_BASE_URL}/pagamento`, 'POST')
 
         if (response.ok) {
             alert('Pagamento effettuato con successo!');

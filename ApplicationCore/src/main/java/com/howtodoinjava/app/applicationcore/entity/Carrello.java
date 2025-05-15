@@ -61,4 +61,8 @@ public class Carrello {
         public void setListaProdottiCarrello(List<ProdottoCarrello> listaProdottiCarrello) {
                 this.listaProdottiCarrello = listaProdottiCarrello;
         }
+
+        public void escape(){
+                this.listaProdottiCarrello.forEach(ProdottoCarrello::escape);
+        }
 }

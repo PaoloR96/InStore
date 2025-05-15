@@ -30,11 +30,6 @@ public class Cliente extends Utente {
         @JsonIgnore
         private Carrello carrello;
 
-        // TODO remove
-//        @Column(name = "stato_cliente", nullable = false)
-//        @Enumerated(EnumType.STRING)
-//        private StatoCliente statoCliente;
-
         @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
         @JsonIgnore
         private List<Ordine> listaClienteOrdini;
@@ -104,15 +99,6 @@ public class Cliente extends Utente {
         public void setCarrello(Carrello carrello) {
                 this.carrello = carrello;
         }
-
-        //TODO remove
-//        public StatoCliente getStatoCliente() {
-//                return statoCliente;
-//        }
-//
-//        public void setStatoCliente(StatoCliente statoCliente) {
-//                this.statoCliente = statoCliente;
-//        }
 
         public List<Ordine> getListaClienteOrdini() {
                 return listaClienteOrdini;

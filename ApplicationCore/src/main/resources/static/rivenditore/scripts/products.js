@@ -3,7 +3,7 @@ async function loadProducts() {
 
     // Mostra stato di caricamento
     productsGrid.innerHTML = `
-        <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+        <div class="products-grid">
             <i class="fas fa-spinner fa-spin fa-2x"></i>
             <p>Caricamento prodotti...</p>
         </div>
@@ -16,7 +16,7 @@ async function loadProducts() {
     } catch (error) {
         console.error("Errore nel caricamento prodotti:", error);
         productsGrid.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--accent-color);">
+            <div class="products-grid error">
                 <i class="fas fa-exclamation-circle fa-2x"></i>
                 <p>Errore nel caricamento dei prodotti</p>
             </div>
@@ -31,7 +31,7 @@ function displayProducts(products) {
 
     if (products.length === 0) {
         productsGrid.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+            <div class="products-grid">
                 <i class="fas fa-box-open fa-2x"></i>
                 <p>Nessun prodotto disponibile</p>
             </div>
@@ -44,6 +44,7 @@ function displayProducts(products) {
 
     productsGrid.innerHTML = products.map(product => `
         <div class="product-card">
+<!--            TODO non funziona l'upload delle immagini-->
             <img src="${product.pathImmagine}" alt="${product.nomeProdotto}" class="product-image">
             <div class="product-info">
                 <h3 class="product-title">${product.nomeProdotto}</h3>
@@ -81,9 +82,15 @@ async function addProduct(event) {
     };
 
     try {
+        let csrf_token = $("meta[name='_csrf']").attr("content");
+        let csrf_header = $("meta[name='_csrf_header']").attr("content");
+
         await fetch(`${API_BASE_URL}/insprodotti`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                [csrf_header]: csrf_token,
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(nuovoProdotto)
         });
 
@@ -102,7 +109,7 @@ function showSuccessAnimation(message = "Operazione completata con successo!") {
     const successDiv = document.createElement("div");
     successDiv.className = "success-animation";
     successDiv.innerHTML = `
-        <i class="fas fa-check-circle fa-3x" style="color: var(--success-color); margin-bottom: 1rem;"></i>
+        <i class="fas fa-check-circle fa-3x success-text"></i>
         <p>${message}</p>
     `;
     document.body.appendChild(successDiv);
@@ -116,7 +123,7 @@ function showErrorMessage(message) {
     const errorDiv = document.createElement("div");
     errorDiv.className = "error-animation";
     errorDiv.innerHTML = `
-        <i class="fas fa-times-circle fa-3x" style="color: var(--accent-color); margin-bottom: 1rem;"></i>
+        <i class="fas fa-times-circle fa-3x error-msg"></i>
         <p>${message}</p>
     `;
     document.body.appendChild(errorDiv);

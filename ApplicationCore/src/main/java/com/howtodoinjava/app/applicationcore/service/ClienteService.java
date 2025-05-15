@@ -1,5 +1,7 @@
 package com.howtodoinjava.app.applicationcore.service;
 
+import com.howtodoinjava.app.applicationcore.dto.ProdottoDTO;
+import com.howtodoinjava.app.applicationcore.mapper.ProdottoMapper;
 import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.repository.*;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //TODO eliminare funzionalità di creazione cliente standard
 @Service
@@ -36,14 +39,18 @@ public class ClienteService {
     private OrdineRepository ordineRepository;
 
     private final KeycloakService keycloakService;
+    private final ProdottoMapper prodottoMapper;
 
-    public ClienteService(KeycloakService keycloakService) {
+    public ClienteService(KeycloakService keycloakService, ProdottoMapper prodottoMapper) {
         this.keycloakService = keycloakService;
+        this.prodottoMapper = prodottoMapper;
     }
 
 
-    public List<Prodotto> visualizzaProdotti(){
-        return prodottoRepository.findAll();
+    public List<ProdottoDTO> visualizzaProdotti(){
+        List<Prodotto> prodotti = prodottoRepository.findAll();
+        List<ProdottoDTO> prodottiDTO = prodotti.stream().map(this.prodottoMapper::prodottoToProdottoDTO).collect(Collectors.toList());
+        return prodottiDTO;
     }
 
     @Transactional

@@ -18,7 +18,9 @@
 
 services:
   mysql-db:
-    image: mysql:9.2.0
+    build:
+      context: ./MysqlService
+      dockerfile: Dockerfile
     container_name: mysql.instore.puntoitstore.it
     restart: "no"
     ports:
@@ -30,74 +32,63 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - mysql-certs:/etc/mysql/certs:ro
+      - mysql-keyring:/var/lib/mysql-keyring/
     command:
       - --lower_case_table_names=1
       - --require-secure-transport=ON
       - --ssl-cert=/etc/mysql/certs/fullchain1.pem
       - --ssl-key=/etc/mysql/certs/privkey1.pem
+      - --default-table-encryption
+      - --max_connections=100
+      - --long_query_time=2 # Logga query lente (>2s)
+      - --slow_query_log=ON # Abilita slow query log
+      - --slow_query_log_file=/var/lib/mysql/mysql-slow.log # Percorso del file di log
+      - --log_output=FILE # Log su file
+      - --wait_timeout=3600 # Timeout connessioni inattive
+      - --interactive_timeout=3600  # Timeout client interattivi
+    networks:
+      - instore_net
 
-#  ##########################
-#
-#   3 users:
-#    - user1   ->  CLIENTE
-#    - seller1 ->  RIVENDITORE
-#    - admin1  ->  ADMIN
-#  username and password are the same.
-#
-#  ########################
-#  keycloak:
-#    build: keycloak/keycloak:26.1
-#    ##TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
-#    user: "0:0"
-#    container_name: login.instore.puntoitstore.it
-#    environment:
-#      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-#      KC_BOOTSTRAP_ADMIN_PASSWORD: password
-#      # remember to modify Root URL in instore-client settings by keycloak UI
-#      KC_HOSTNAME: ${KC_EXT_URL}
-#      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
-#      KC_PROXY_HEADERS: "xforwarded"
-#      KC_HOSTNAME_DEBUG: "true"
-#      KC_HTTP_ENABLED: "false"
-#      KC_HTTPS_ENABLED: "true"
-#      KC_HTTPS_PORT: "8443"
-#      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain1.pem"
-#      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey1.pem"
-#    ports:
-#      - "8090:8443"
-#    volumes:
-#      - ./KeycloakService/data:/opt/keycloak/data
-#      - keycloak-certs:/etc/keycloak/certs:ro
-#    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
-
+  #  ##########################
+  #
+  #   Users:
+  #    - user1:user1   ->  CLIENTE
+  #    - seller1:seller1 ->  RIVENDITORE
+  #    - admin1:admin1  ->  ADMIN
+  #
+  #  ########################
   keycloak2604:
     image: keycloak/keycloak:26.0.4
+    ## TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
     user: "0:0"
     container_name: login.instore.puntoitstore.it
     environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: password
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_ADMIN_USR} # TODO implements a secure way to access to keycloak control panel
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_ADMIN_PWD}
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KC_EXT_URL}
-      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
-      KC_PROXY_HEADERS: xforwarded
-      KC_HOSTNAME_DEBUG: true
-      KC_HTTP_ENABLED: false
-      KC_HTTPS_ENABLED: true
-      KC_HTTPS_PORT: 8443
-      KC_HTTPS_CERTIFICATE_FILE: /etc/keycloak/certs/fullchain1.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/keycloak/certs/privkey1.pem
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_PROXY_HEADERS: "xforwarded"
+      KC_HOSTNAME_DEBUG: "true"
+      KC_HTTP_ENABLED: "false"
+      KC_HTTPS_ENABLED: "true"
+      KC_HTTPS_PORT: "8443"
+      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain1.pem"
+      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey1.pem"
     ports:
       - "8090:8443"
     volumes:
       - ./KeycloakService/data2604:/opt/keycloak/data
       - keycloak-certs:/etc/keycloak/certs:ro
-    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
-  #    entrypoint: /opt/keycloak/bin/kc.sh import --file /opt/keycloak/data/realms.cfg
+    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --log-file-level=debug
+    networks:
+      - instore_net
 
   vault:
-    user: "1000:1000"
-    image: hashicorp/vault:1.18.4
+    build:
+      context: ./VaultService
+      dockerfile: Dockerfile
+    user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
     restart: "no"
     ports:
@@ -108,16 +99,22 @@ services:
       - ./VaultService/data:/vault/data
       - ./VaultService/logs:/vault/logs
       - vault-certs:/vault/certs:ro
+
+    environment:
+      VAULT_ADDR: "https://0.0.0.0:8200"
+      VAULT_API_ADDR: "https://0.0.0.0:8200"
     cap_add:
       - IPC_LOCK
       #IPC_LOCK: le pagine di memoria afferenti all’applicazione
       #vengono conservate nella RAM, senza che possa essere effettuato lo swap
     entrypoint: vault server -config=/vault/config/config.hcl
+    networks:
+      - instore_net
 
   vault-init:
-    user: "1000:1000"
     container_name: vault-init
     image: hashicorp/vault:1.18.4
+    user: "vault"
     restart: "no"
     environment:
       VAULT_ADDR: ${VAULT_URL}
@@ -128,6 +125,8 @@ services:
       - IPC_LOCK
     depends_on:
       - vault
+    networks:
+      - instore_net
 
   application-core:
     image: openjdk:17-jdk-slim
@@ -144,26 +143,31 @@ services:
     ports:
       - "8081:8080"
     volumes:
-      - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar
+      - ./spring_log:/var/log/spring
+      - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar:ro
       - application-core-certs:/app/certs:ro
     entrypoint: java -jar /target/app.jar
+    networks:
+      - instore_net
 
   nginx:
     build:
-      context: ./NgnixService
+      context: ./NginxService
       dockerfile: Dockerfile
     container_name: nginx
-    #image: bise97/instore-nginx
     restart: "no"
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf
+      - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./NginxService/log:/var/log/nginx
       - letsencrypt:/etc/letsencrypt  # Volume per i certificati
       #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
     depends_on:
       - application-core
+    networks:
+      - instore_net
 
 #  debug:
 #    image: weibeld/ubuntu-networking
@@ -195,8 +199,7 @@ services:
 
 volumes:
   mysql-data:
-    name: instore-mysql
-
+  mysql-keyring:
   certbot-data:
   letsencrypt:
 
@@ -228,3 +231,6 @@ volumes:
       o: bind
       device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/login.instore.puntoitstore.it
 
+networks:
+  instore_net:
+    external: true
