@@ -91,14 +91,14 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: password
       # remember to modify Root URL in instore-client settings by keycloak UI
       KC_HOSTNAME: ${KC_EXT_URL}
-      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
-      KC_PROXY_HEADERS: xforwarded
-      KC_HOSTNAME_DEBUG: true
-      KC_HTTP_ENABLED: false
-      KC_HTTPS_ENABLED: true
-      KC_HTTPS_PORT: 8443
-      KC_HTTPS_CERTIFICATE_FILE: /etc/keycloak/certs/fullchain1.pem
-      KC_HTTPS_CERTIFICATE_KEY_FILE: /etc/keycloak/certs/privkey1.pem
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_PROXY_HEADERS: "xforwarded"
+      KC_HOSTNAME_DEBUG: "true"
+      KC_HTTP_ENABLED: "false"
+      KC_HTTPS_ENABLED: "true"
+      KC_HTTPS_PORT: "8443"
+      KC_HTTPS_CERTIFICATE_FILE: "/etc/keycloak/certs/fullchain1.pem"
+      KC_HTTPS_CERTIFICATE_KEY_FILE: "/etc/keycloak/certs/privkey1.pem"
     ports:
       - "8090:8443"
     volumes:

@@ -27,12 +27,12 @@ jobs:
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             rm -r InStore/
             git clone https://github.com/PaoloR96/InStore.git
-            cd ~/InStore/VaultService
+            cd InStore/VaultService
             chmod +x unseal-vault.sh
             cd ..
             docker-compose down
             docker-compose build   
-            cd ~/ApplicationCore
+            cd ApplicationCore
             mvn clean package -DskipTests
             cd ..
             docker-compose up -d
