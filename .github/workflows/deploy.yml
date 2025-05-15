@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean
 on:
   push:
     branches:
-      - biagio
+      - master
 
 env:
   DOCKER_COMPOSE_VERSION: "1.29.2"
@@ -22,32 +22,36 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
           
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+#      - name: Login to Docker Hub
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_TOKEN }}
           
-      - name: Build and push Docker images
-        run: |
-          docker compose build
-          docker compose push
+#      - name: Build and push Docker images
+#        run: |
+#          docker compose build
+#          docker compose push
           
       - name: Deploy to DigitalOcean
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             rm -r InStore/
-            git clone https://github.com/PaoloR96/InStore.git -b biagio
+            git clone https://github.com/PaoloR96/InStore.git
             cd ~/InStore/VaultService
             chmod +x unseal-vault.sh
-            cd
-            cd ~/InStore/KeycloakService
-            chmod -R 777 data
             cd ..
+#            cd ~/InStore/KeycloakService
+#            chmod -R 777 data
+#            cd ..
             docker-compose down
-            docker rmi bise97/application-core
-            docker rmi bise97/instore-nginx
-            docker-compose pull
+            docker-compose build   
+            cd ~/ApplicationCore
+            mvn clean package -DskipTests
+            cd ..
+#            docker rmi bise97/application-core
+#            docker rmi bise97/instore-nginx
+#            docker-compose pull
             docker-compose up -d
             docker-compose up -d
           EOF

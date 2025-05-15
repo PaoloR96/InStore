@@ -18,7 +18,9 @@
 
 services:
   mysql-db:
-    image: mysql:9.2.0
+    build:
+      context: ./MysqlService
+      dockerfile: Dockerfile
     container_name: mysql.instore.puntoitstore.it
     restart: "no"
     ports:
@@ -35,6 +37,16 @@ services:
       - --require-secure-transport=ON
       - --ssl-cert=/etc/mysql/certs/fullchain1.pem
       - --ssl-key=/etc/mysql/certs/privkey1.pem
+      - --default-table-encryption
+      - --max_connections=100
+      - --long_query_time=2 # Logga query lente (>2s)
+      - --slow_query_log=ON # Abilita slow query log
+      - --slow_query_log_file=/var/lib/mysql/mysql-slow.log # Percorso del file di log
+      - --log_output=FILE # Log su file
+      - --wait_timeout=3600 # Timeout connessioni inattive
+      - --interactive_timeout=3600  # Timeout client interattivi
+    networks:
+      - instore_net
 
 #  ##########################
 #
@@ -94,9 +106,14 @@ services:
       - keycloak-certs:/etc/keycloak/certs:ro
     entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file"
   #    entrypoint: /opt/keycloak/bin/kc.sh import --file /opt/keycloak/data/realms.cfg
+    networks:
+      - instore_net
 
   vault:
-    image: hashicorp/vault:1.18.4
+    build:
+      context: ./VaultService
+      dockerfile: Dockerfile
+    #user: "1000:1000"
     container_name: vault.instore.puntoitstore.it
     restart: "no"
     ports:
@@ -116,10 +133,13 @@ services:
       #IPC_LOCK: le pagine di memoria afferenti all’applicazione
       #vengono conservate nella RAM, senza che possa essere effettuato lo swap
     entrypoint: vault server -config=/vault/config/config.hcl
+    networks:
+      - instore_net
 
   vault-init:
     container_name: vault-init
     image: hashicorp/vault:1.18.4
+    #user: "1000:1000"
     restart: "no"
     environment:
       VAULT_ADDR: ${VAULT_URL}
@@ -130,6 +150,8 @@ services:
       - IPC_LOCK
     depends_on:
       - vault
+    networks:
+      - instore_net
 
   application-core:
     image: openjdk:17-jdk-slim
@@ -149,6 +171,8 @@ services:
       - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar
       - application-core-certs:/app/certs:ro
     entrypoint: java -jar /target/app.jar
+    networks:
+      - instore_net
 
   nginx:
     build:
@@ -166,6 +190,8 @@ services:
       #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
     depends_on:
       - application-core
+    networks:
+      - instore_net
 
 #  debug:
 #    image: weibeld/ubuntu-networking
@@ -230,3 +256,6 @@ volumes:
       o: bind
       device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/login.instore.puntoitstore.it
 
+networks:
+  instore_net:
+    external: true
