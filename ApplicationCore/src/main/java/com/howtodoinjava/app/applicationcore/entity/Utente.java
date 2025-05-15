@@ -7,17 +7,14 @@ public abstract class Utente {
 
     @Id
     @Column(name = "username", nullable = false)
-    private String username;
+    protected String username;
     @Column(unique = true, nullable = false)
-    private String email;
-    @Column(name="num_cell",nullable = false, unique = true)
-    private String numCell;
-    // TODO remove
-//    @Column(nullable = false)
-//    private boolean enabled = true;
+    protected String email;
+    @Column(name = "num_cell", nullable = false, unique = true)
+    protected String numCell;
 
-
-    public Utente() {}
+    public Utente() {
+    }
 
     public Utente(String username, String email, String numCell) {
         this.username = username;
@@ -54,12 +51,4 @@ public abstract class Utente {
         this.numCell = numCell;
     }
 
-    //TODO remove
-//    public boolean isEnabled() {
-//        return enabled;
-//    }
-//
-//    public void setEnabled(boolean enabled) {
-//        this.enabled = enabled;
-//    }
 }

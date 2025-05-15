@@ -68,4 +68,8 @@ public class ProdottoCarrello {
         this.quantita = quantita;
     }
 
+    public void escape(){
+        this.prodotto.escape();
+    }
+
 }
