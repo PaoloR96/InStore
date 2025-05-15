@@ -30,17 +30,11 @@ jobs:
             cd ~/InStore/VaultService
             chmod +x unseal-vault.sh
             cd ..
-#            cd ~/InStore/KeycloakService
-#            chmod -R 777 data
-#            cd ..
             docker-compose down
             docker-compose build   
             cd ~/ApplicationCore
             mvn clean package -DskipTests
             cd ..
-#            docker rmi bise97/application-core
-#            docker rmi bise97/instore-nginx
-#            docker-compose pull
             docker-compose up -d
             docker-compose up -d
           EOF
