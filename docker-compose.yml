@@ -67,7 +67,7 @@ services:
     volumes:
       - ./KeycloakService/data2604:/opt/keycloak/data
       - keycloak-certs:/etc/keycloak/certs:ro
-    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --log-file-level=debug --verbose
+    entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --log-file-level=debug
 
   vault:
     image: hashicorp/vault:1.18.4
