@@ -30,6 +30,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
+      - mysql-keyring:/var/lib/mysql-keyring/
       - ./MysqlService/data:/var/lib/mysql
       - ./letsencrypt/archive/mysql.instore.puntoitstore.it:/etc/mysql/certs:ro
     command:
@@ -87,7 +88,7 @@ services:
     build:
       context: ./VaultService
       dockerfile: Dockerfile
-#    user: "1000:1000" # TODO de-comment in remote
+    user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
     restart: "no"
     ports:
@@ -113,7 +114,7 @@ services:
   vault-init:
     container_name: vault-init
     image: hashicorp/vault:1.18.4
-#    user: "1000:1000" # TODO de-comment in remote
+    user: "vault"
     restart: "no"
     environment:
       VAULT_ADDR: ${VAULT_URL}
@@ -197,6 +198,9 @@ services:
       #- --no-eff-email
       #- -d
       #- instore.puntoitstore.it
+
+volumes:
+  mysql-keyring:
 
 networks:
   instore_net:
