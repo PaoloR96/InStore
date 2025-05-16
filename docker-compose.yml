@@ -155,7 +155,7 @@ services:
 
   nginx:
     build:
-      context: ./NgnixService
+      context: ./NginxService
       dockerfile: Dockerfile
     container_name: nginx
     restart: "no"
