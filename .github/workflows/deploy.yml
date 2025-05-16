@@ -68,39 +68,30 @@ jobs:
           format: sarif
           output: trivy-results-appcore.sarif
 
-      - name: Trivy scan - filesystem (JAR / deps)
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: fs
-          scan-ref: ./ApplicationCore/target
-          format: sarif
-          output: trivy-results-fs.sarif
-
       # Upload SARIF reports
       - name: Upload Trivy SARIF - mysql-db
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results-mysql-db.sarif
+          category: trivy-mysql
 
       - name: Upload Trivy SARIF - vault
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results-vault.sarif
+          category: trivy-vault
 
       - name: Upload Trivy SARIF - nginx
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results-nginx.sarif
+          category: trivy-nginx
 
       - name: Upload Trivy SARIF - application-core
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results-appcore.sarif
-
-      - name: Upload Trivy SARIF - filesystem
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: trivy-results-fs.sarif
+          category: trivy-appcore
 
       # SSH + Deploy
       - name: Install SSH key
