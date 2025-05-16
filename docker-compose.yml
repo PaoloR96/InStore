@@ -61,6 +61,22 @@ services:
       - --log_output=FILE # Log su file
       - --wait_timeout=3600 # Timeout connessioni inattive
       - --interactive_timeout=3600  # Timeout client interattivi
+    # Sicurezza container
+    privileged: false
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    # Risorse
+    mem_limit: 3g
+    mem_reservation: 2g
+    cpus: 2.0
+    ulimits:
+      nproc: 256
+      nofile: 4096
+
     networks:
       instore-network:
         ipv4_address: 172.28.0.10
@@ -128,12 +144,10 @@ services:
       - ALL
     cap_add:
       - NET_BIND_SERVICE
-
-      # Risorse
+    # Risorse
     mem_limit: 2g
     mem_reservation: 1g
     cpus: 2.0
-
     ulimits:
       nproc: 256
       nofile: 4096
@@ -160,11 +174,29 @@ services:
     environment:
       VAULT_ADDR: "https://0.0.0.0:8200"
       VAULT_API_ADDR: "https://0.0.0.0:8200"
+#    cap_add:
+#      - IPC_LOCK
+#      #IPC_LOCK: le pagine di memoria afferenti all’applicazione
+#      #vengono conservate nella RAM, senza che possa essere effettuato lo swap
+    entrypoint: vault server -config=/vault/config/config.hcl
+    # Sicurezza container
+    privileged: false
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     cap_add:
+      - NET_BIND_SERVICE
       - IPC_LOCK
       #IPC_LOCK: le pagine di memoria afferenti all’applicazione
       #vengono conservate nella RAM, senza che possa essere effettuato lo swap
-    entrypoint: vault server -config=/vault/config/config.hcl
+    # Risorse
+    mem_limit: 2g
+    mem_reservation: 1g
+    cpus: 2.0
+    ulimits:
+      nproc: 256
+      nofile: 4096
     networks:
         instore-network:
           ipv4_address: 172.28.0.30
@@ -179,10 +211,26 @@ services:
     volumes:
       - ./VaultService/unseal-vault.sh:/vault/unseal-vault.sh
     entrypoint: sh -c "sleep 3 && /vault/unseal-vault.sh"
-    cap_add:
-      - IPC_LOCK
     depends_on:
       - vault
+    # Sicurezza container
+    privileged: false
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+      - IPC_LOCK
+      #IPC_LOCK: le pagine di memoria afferenti all’applicazione
+      #vengono conservate nella RAM, senza che possa essere effettuato lo swap
+    # Risorse
+#    mem_limit: 512m
+#    mem_reservation: 256m
+#    cpus: 0.5
+#    ulimits:
+#      nproc: 100
+#      nofile: 50
     networks:
       instore-network:
         ipv4_address: 172.28.0.60
