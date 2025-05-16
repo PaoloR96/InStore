@@ -1,8 +1,15 @@
-# Usa un'immagine base di OpenJDK
 FROM openjdk:17-jdk-slim
+
 LABEL authors="Gaetano"
-
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-
-ENTRYPOINT ["java", "-jar","/app.jar"]
+# Crea un utente non-root e una cartella per l'app
+RUN groupadd -r app && useradd -r -g app app && \
+    mkdir -p /app && chown -R app:app /app
+# Imposta la working directory
+WORKDIR /app
+# Copia il JAR con i giusti permessi
+COPY --chown=app:app target/*.jar app.jar
+# Esegui il container come utente non-root
+USER app
+# Espone la porta applicativa
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
