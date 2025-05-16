@@ -27,6 +27,7 @@ jobs:
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             rm -r InStore/
             git clone https://github.com/PaoloR96/InStore.git
+            chown -R 999:999 InStore/MysqlService
             chown -R vaultuser:vaultgroup InStore/VaultService
             cd InStore/VaultService
             chmod +x unseal-vault.sh
@@ -39,4 +40,6 @@ jobs:
             docker-compose up -d
             sleep 10
             docker-compose up -d
+            sleep 10
+            docker-compose restart nginx
           EOF
