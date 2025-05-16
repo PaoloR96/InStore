@@ -12,18 +12,18 @@ jobs:
     permissions:
       actions: read
       contents: read
-      security-events: write  # Necessario per caricare i report SARIF su GitHub Security
+      security-events: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker Compose
+      - name: Set up Docker and Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install docker-compose -y
           docker --version
-          docker-compose --version
+          docker compose version
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -35,6 +35,7 @@ jobs:
           docker build -t instore/nginx ./NginxService
           docker build -t instore/application-core ./ApplicationCore
 
+      # Trivy scans
       - name: Trivy scan - mysql-db
         uses: aquasecurity/trivy-action@master
         with:
@@ -59,7 +60,7 @@ jobs:
           format: sarif
           output: trivy-results-nginx.sarif
 
-      - name: Trivy scan - application-core (optional)
+      - name: Trivy scan - application-core
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
@@ -67,27 +68,41 @@ jobs:
           format: sarif
           output: trivy-results-appcore.sarif
 
-      - name: Upload Trivy SARIF results - mysql-db
+      - name: Trivy scan - filesystem (JAR / deps)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: ./ApplicationCore/target
+          format: sarif
+          output: trivy-results-fs.sarif
+
+      # Upload SARIF reports
+      - name: Upload Trivy SARIF - mysql-db
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results-mysql-db.sarif
 
-      - name: Upload Trivy SARIF results - vault
+      - name: Upload Trivy SARIF - vault
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results-vault.sarif
 
-      - name: Upload Trivy SARIF results - nginx
+      - name: Upload Trivy SARIF - nginx
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results-nginx.sarif
 
-      - name: Upload Trivy SARIF results - application-core
-        if: ${{ exists('trivy-results-appcore.sarif') }}
+      - name: Upload Trivy SARIF - application-core
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results-appcore.sarif
 
+      - name: Upload Trivy SARIF - filesystem
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results-fs.sarif
+
+      # SSH + Deploy
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
@@ -97,18 +112,16 @@ jobs:
       - name: Deploy to DigitalOcean
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            rm -r InStore/
+            rm -rf InStore/
             git clone https://github.com/PaoloR96/InStore.git -b biagio
             chown -R vaultuser:vaultgroup InStore/VaultService
             cd InStore/VaultService
             chmod +x unseal-vault.sh
             cd ..
-            docker-compose down
-            docker-compose build   
+            docker compose down
+            docker compose build
             cd ApplicationCore
             mvn clean package -DskipTests
             cd ..
-            docker-compose up -d
-            sleep 10
-            docker-compose up -d
+            docker compose up -d
           EOF
