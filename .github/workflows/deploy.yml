@@ -114,5 +114,7 @@ jobs:
             cd ApplicationCore
             mvn clean package -DskipTests
             cd ..
-            docker compose up -d
+            docker-compose up -d
+            sleep 15
+            docker-compose up -d
           EOF
