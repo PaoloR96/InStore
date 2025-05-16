@@ -30,8 +30,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
-      - mysql-data:/var/lib/mysql
-      - mysql-certs:/etc/mysql/certs:ro
+      - ./MysqlService/data:/var/lib/mysql
+      - ./letsencrypt/archive/mysql.instore.puntoitstore.it:/etc/mysql/certs:ro
     command:
       - --lower_case_table_names=1
       - --require-secure-transport=ON
@@ -78,7 +78,7 @@ services:
       - "8090:8443"
     volumes:
       - ./KeycloakService/data2604:/opt/keycloak/data
-      - keycloak-certs:/etc/keycloak/certs:ro
+      - ./letsencrypt/archive/login.instore.puntoitstore.it:/etc/keycloak/certs:ro
     entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --log-file-level=debug
     networks:
       - instore_net
@@ -97,7 +97,7 @@ services:
       - ./VaultService/policies:/vault/policies
       - ./VaultService/data:/vault/data
       - ./VaultService/logs:/vault/logs
-      - vault-certs:/vault/certs:ro
+      - ./letsencrypt/archive/vault.instore.puntoitstore.it:/vault/certs:ro
 
     environment:
       VAULT_ADDR: "https://0.0.0.0:8200"
@@ -138,13 +138,17 @@ services:
       VAULT_URL: ${VAULT_URL}
       MYSQL_URL: ${MYSQL_URL}
     depends_on:
+      - keycloak2604
+      - vault
+      - mysql-db
       - vault-init
+      - nginx
     ports:
       - "8081:8080"
     volumes:
       - ./spring_log:/var/log/spring
       - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar:ro
-      - application-core-certs:/app/certs:ro
+      - ./letsencrypt/archive/instore.puntoitstore.it:/app/certs:ro
     entrypoint: java -jar /target/app.jar
     networks:
       - instore_net
@@ -161,10 +165,8 @@ services:
     volumes:
       - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./NginxService/log:/var/log/nginx
-      - letsencrypt:/etc/letsencrypt  # Volume per i certificati
+      - ./letsencrypt:/etc/letsencrypt  # Volume per i certificati
       #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
-    depends_on:
-      - application-core
     networks:
       - instore_net
 
@@ -180,8 +182,8 @@ services:
 #    container_name: certbot
 #    restart: "no"
 #    volumes:
-#      - certbot-data:/var/www/certbot
-#      - letsencrypt:/etc/letsencrypt
+#      - ./certbot:/var/www/certbot
+#      - ./letsencrypt:/etc/letsencrypt
 #    depends_on:
 #      - nginx
 #    command:
@@ -195,41 +197,6 @@ services:
       #- --no-eff-email
       #- -d
       #- instore.puntoitstore.it
-
-volumes:
-  mysql-data:
-    name: instore-mysql
-
-  certbot-data:
-  letsencrypt:
-
-  mysql-certs:
-    driver: local
-    driver_opts:
-      type: bind
-      o: bind
-      device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/mysql.instore.puntoitstore.it
-
-  vault-certs:
-    driver: local
-    driver_opts:
-      type: bind
-      o: bind
-      device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/vault.instore.puntoitstore.it
-
-  application-core-certs:
-    driver: local
-    driver_opts:
-      type: bind
-      o: bind
-      device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/instore.puntoitstore.it
-
-  keycloak-certs:
-    driver: local
-    driver_opts:
-      type: bind
-      o: bind
-      device: /var/lib/docker/volumes/instore_letsencrypt/_data/archive/login.instore.puntoitstore.it
 
 networks:
   instore_net:
