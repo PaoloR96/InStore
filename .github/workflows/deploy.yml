@@ -11,7 +11,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,20 +35,81 @@ jobs:
       - name: Build Docker images
         run: docker-compose build
 
-      - name: Run Trivy vulnerability scanner
+      # Run Trivy scan for each image
+      - name: Trivy scan - mysql-db
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'image'
-          images: 'mysql-db, keycloak2604, vault, application-core, nginx'
+          image-ref: 'mysql-db'
           format: 'sarif'
-          output: 'trivy-results.sarif'
+          output: 'trivy-results-mysql-db.sarif'
           exit-code: '1'
           severity: 'HIGH,CRITICAL'
 
-      - name: Upload Trivy scan results to GitHub Security tab
+      - name: Upload SARIF - mysql-db
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: 'trivy-results.sarif' # Carica il file SARIF nella scheda "Security" di github
+          sarif_file: 'trivy-results-mysql-db.sarif'
+
+      - name: Trivy scan - keycloak2604
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'image'
+          image-ref: 'keycloak2604'
+          format: 'sarif'
+          output: 'trivy-results-keycloak2604.sarif'
+          exit-code: '1'
+          severity: 'HIGH,CRITICAL'
+
+      - name: Upload SARIF - keycloak2604
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results-keycloak2604.sarif'
+
+      - name: Trivy scan - vault
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'image'
+          image-ref: 'vault'
+          format: 'sarif'
+          output: 'trivy-results-vault.sarif'
+          exit-code: '1'
+          severity: 'HIGH,CRITICAL'
+
+      - name: Upload SARIF - vault
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results-vault.sarif'
+
+      - name: Trivy scan - application-core
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'image'
+          image-ref: 'application-core'
+          format: 'sarif'
+          output: 'trivy-results-application-core.sarif'
+          exit-code: '1'
+          severity: 'HIGH,CRITICAL'
+
+      - name: Upload SARIF - application-core
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results-application-core.sarif'
+
+      - name: Trivy scan - nginx
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'image'
+          image-ref: 'nginx'
+          format: 'sarif'
+          output: 'trivy-results-nginx.sarif'
+          exit-code: '1'
+          severity: 'HIGH,CRITICAL'
+
+      - name: Upload SARIF - nginx
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results-nginx.sarif'
 
       - name: Deploy to DigitalOcean
         run: |
