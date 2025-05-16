@@ -88,7 +88,7 @@ services:
     build:
       context: ./VaultService
       dockerfile: Dockerfile
-    user: "vaultuser"
+    #user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
     restart: "no"
     ports:

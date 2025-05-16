@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean
 on:
   push:
     branches:
-      - master
+      - biagio
 
 env:
   DOCKER_COMPOSE_VERSION: "1.29.2"
@@ -22,11 +22,39 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install docker-compose -y
+          docker --version
+          docker-compose --version
+
+      - name: Login to GitHub Container Registry
+        run: docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker images
+        run: docker-compose build
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'image'
+          images: 'mysql-db, keycloak2604, vault, application-core, nginx'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          exit-code: '1'
+          severity: 'HIGH,CRITICAL'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif' # Carica il file SARIF nella scheda "Security" di github
+
       - name: Deploy to DigitalOcean
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             rm -r InStore/
-            git clone https://github.com/PaoloR96/InStore.git
+            git clone https://github.com/PaoloR96/InStore.git -b biagio
             chown -R vaultuser:vaultgroup InStore/VaultService
             cd InStore/VaultService
             chmod +x unseal-vault.sh
