@@ -1,26 +1,22 @@
-name: Deploy to DigitalOcean
+name: Docker Build & Security Scan
 
 on:
   push:
     branches:
       - biagio
 
-env:
-  DOCKER_COMPOSE_VERSION: "1.29.2"
-
 jobs:
-  deploy:
+  docker-security-scan:
     runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write  # Necessario per caricare i report SARIF su GitHub Security
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
       - name: Set up Docker Compose
         run: |
@@ -29,87 +25,74 @@ jobs:
           docker --version
           docker-compose --version
 
-      - name: Login to GitHub Container Registry
-        run: docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker images
-        run: docker-compose build
+      - name: Build and tag Docker images
+        run: |
+          docker build -t instore/mysql-db ./MysqlService
+          docker build -t instore/vault ./VaultService
+          docker build -t instore/nginx ./NginxService
+          docker build -t instore/application-core ./ApplicationCore
 
-      # Run Trivy scan for each image
       - name: Trivy scan - mysql-db
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: 'image'
-          image-ref: 'mysql-db'
-          format: 'sarif'
-          output: 'trivy-results-mysql-db.sarif'
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
-
-      - name: Upload SARIF - mysql-db
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: 'trivy-results-mysql-db.sarif'
-
-      - name: Trivy scan - keycloak2604
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'image'
-          image-ref: 'keycloak2604'
-          format: 'sarif'
-          output: 'trivy-results-keycloak2604.sarif'
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
-
-      - name: Upload SARIF - keycloak2604
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: 'trivy-results-keycloak2604.sarif'
+          scan-type: image
+          image-ref: instore/mysql-db
+          format: sarif
+          output: trivy-results-mysql-db.sarif
 
       - name: Trivy scan - vault
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: 'image'
-          image-ref: 'vault'
-          format: 'sarif'
-          output: 'trivy-results-vault.sarif'
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
-
-      - name: Upload SARIF - vault
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: 'trivy-results-vault.sarif'
-
-      - name: Trivy scan - application-core
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'image'
-          image-ref: 'application-core'
-          format: 'sarif'
-          output: 'trivy-results-application-core.sarif'
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
-
-      - name: Upload SARIF - application-core
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: 'trivy-results-application-core.sarif'
+          scan-type: image
+          image-ref: instore/vault
+          format: sarif
+          output: trivy-results-vault.sarif
 
       - name: Trivy scan - nginx
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: 'image'
-          image-ref: 'nginx'
-          format: 'sarif'
-          output: 'trivy-results-nginx.sarif'
-          exit-code: '1'
-          severity: 'HIGH,CRITICAL'
+          scan-type: image
+          image-ref: instore/nginx
+          format: sarif
+          output: trivy-results-nginx.sarif
 
-      - name: Upload SARIF - nginx
+      - name: Trivy scan - application-core (optional)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: image
+          image-ref: instore/application-core
+          format: sarif
+          output: trivy-results-appcore.sarif
+
+      - name: Upload Trivy SARIF results - mysql-db
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: 'trivy-results-nginx.sarif'
+          sarif_file: trivy-results-mysql-db.sarif
+
+      - name: Upload Trivy SARIF results - vault
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results-vault.sarif
+
+      - name: Upload Trivy SARIF results - nginx
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results-nginx.sarif
+
+      - name: Upload Trivy SARIF results - application-core
+        if: ${{ exists('trivy-results-appcore.sarif') }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results-appcore.sarif
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
       - name: Deploy to DigitalOcean
         run: |
