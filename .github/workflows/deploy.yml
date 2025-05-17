@@ -109,10 +109,10 @@ jobs:
             cd /mnt/volume_instore/
             rm -r InStore/
             git clone https://github.com/PaoloR96/InStore.git
-            chown -R 999:999 InStore/MysqlService
-            chown -R vaultuser:vaultgroup InStore/VaultService
             cp -r keyring/ InStore/MysqlService/
             cp -r letsencrypt/ InStore/
+            chown -R 999:999 InStore/MysqlService
+            chown -R vaultuser:vaultgroup InStore/VaultService
             cd InStore/VaultService
             chmod +x unseal-vault.sh
             cd ..
