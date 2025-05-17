@@ -122,8 +122,8 @@ jobs:
             mvn clean package -DskipTests
             cd ..
             docker-compose up -d
-            sleep 15
+            sleep 25
             docker-compose up -d
-            sleep 10
+            sleep 15
             docker-compose restart nginx
           EOF
