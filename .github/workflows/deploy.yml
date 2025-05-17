@@ -109,8 +109,8 @@ jobs:
             cd InStore/VaultService
             chmod +x unseal-vault.sh
             cd ..
-            docker compose down
-            docker compose build
+            docker-compose down
+            docker-compose build
             cd ApplicationCore
             mvn clean package -DskipTests
             cd ..
