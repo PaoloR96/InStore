@@ -1,4 +1,4 @@
-FROM keycloak/keycloak:26.1
+FROM keycloak/keycloak:26.2
 LABEL authors="Gaetano"
 
 ENV KC_BOOTSTRAP_ADMIN_USERNAME=admin \
