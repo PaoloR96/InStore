@@ -30,8 +30,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
+      - mysql-data:/var/lib/mysql
       - ./MysqlService/keyring:/var/lib/mysql-keyring/
-      - ./MysqlService/data:/var/lib/mysql
       - ./letsencrypt/archive/mysql.instore.puntoitstore.it:/etc/mysql/certs:ro
     command:
       - --lower_case_table_names=1
@@ -114,7 +114,7 @@ services:
   vault-init:
     container_name: vault-init
     image: hashicorp/vault:1.18.4
-#    user: "vault"
+    user: "vault"
     restart: "no"
     environment:
       VAULT_ADDR: ${VAULT_URL}
@@ -198,6 +198,9 @@ services:
       #- --no-eff-email
       #- -d
       #- instore.puntoitstore.it
+
+volumes:
+  mysql-data:
 
 networks:
   instore_net:
