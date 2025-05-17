@@ -1,0 +1,68 @@
+version: 2
+# Permette di verificare automaticamente gli aggiornamenti.
+# GitHub segnala la presenza di un aggiornamento mediante il meccanismo delle Pull Request
+updates:
+  - package-ecosystem: "docker"
+    directory: "/MysqlService"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "mysql"
+
+  - package-ecosystem: "docker"
+    directory: "/VaultService"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "vault"
+
+  - package-ecosystem: "docker"
+    directory: "/NginxService"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "nginx"
+
+  - package-ecosystem: "docker"
+    directory: "/KeycloakService"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "keycloak"
+
+  - package-ecosystem: "maven"
+    directory: "/ApplicationCore"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "java"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "chore"
+    labels:
+      - "dependencies"
+      - "github-actions"
