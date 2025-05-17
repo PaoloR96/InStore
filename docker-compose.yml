@@ -252,6 +252,7 @@ services:
     ports:
       - "8081:8080"
     volumes:
+      - ./ApplicationCore/spring_log:/var/log/spring:w
       - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar
       - application-core-certs:/app/certs:ro
     entrypoint: java -jar /target/app.jar
@@ -291,6 +292,7 @@ services:
         - "443:443"
       # Monta i volumi per configurazione e certificati
       volumes:
+        - ./NgnixService/log:/var/log/nginx:w
         - ./NgnixService/nginx.conf:/etc/nginx/nginx.conf:ro  # Monta il file di configurazione nginx.conf in modalità sola lettura
         - letsencrypt:/etc/letsencrypt:ro  # Volume per certificati SSL generati da Let's Encrypt
         #- certbot-data:/var/www/certbot # Volume per il processo di sfida ACME (commentato)
