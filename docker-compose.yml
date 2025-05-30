@@ -17,15 +17,15 @@
 ###########################################
 
 services:
-  #  firewall-monitor:
-  #    build: ./firewall-monitor
-  #    volumes:
-  #      - /var/run/docker.sock:/var/run/docker.sock  # Monta il socket Docker per consentire l'accesso
-  #    network_mode: "host"
-  #    environment:
-  #      - INTERVAL=10
-  #    container_name: firewall-monitor
-  #    privileged: false
+  firewall-monitor:
+    build: ./firewall-monitor
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Monta il socket Docker per consentire l'accesso
+    network_mode: "host"
+    environment:
+      - INTERVAL=10
+    container_name: firewall-monitor
+    privileged: true
   #    depends_on:
   #      - mysql-db
   #      - keycloak2604

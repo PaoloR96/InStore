@@ -21,6 +21,21 @@ function enableFieldset() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const roleFieldset = document.getElementById("roleChoose");
+    if (roleFieldset) {
+        roleFieldset.addEventListener("change", enableFieldset);
+    }
+
+    const logoutButton = document.querySelector(".logout-button");
+    if (logoutButton) {
+        logoutButton.addEventListener("click", function () {
+            window.location.href = "/logout";
+        });
+    }
+});
+
+
 //const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
 
 // function clienteRegistration(){
