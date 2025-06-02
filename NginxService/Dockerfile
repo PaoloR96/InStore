@@ -1,5 +1,5 @@
 # Usa l'immagine base Alpine
-FROM alpine:3.18
+FROM alpine:3.22
 
 # Aggiorna il sistema e installa NGINX
 RUN apk update && apk add --no-cache nginx
