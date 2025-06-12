@@ -12,9 +12,4 @@ import java.util.List;
 @Repository
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
 
-//    List<Prodotto> findByCarrelloId(Long idCarrello);
-
-//    @Modifying
-//    @Query("UPDATE Prodotto p SET p.carrello.idCarrello = :idCarrello WHERE p.idProdotto = :idProdotto")
-//    void updateIdCarrello(@Param("idProdotto") Long idProdotto, @Param("idCarrello") Long idCarrello);
 }
