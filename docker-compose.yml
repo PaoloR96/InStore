@@ -79,6 +79,7 @@ services:
       - "8090:8443"
     volumes:
       - ./KeycloakService/data2604:/opt/keycloak/data
+      - ./KeycloakService/conf/quarkus.properties:/opt/keycloak/conf/quarkus.properties:ro
       - ./letsencrypt/archive/login.instore.puntoitstore.it:/etc/keycloak/certs:ro
     entrypoint: /opt/keycloak/bin/kc.sh start-dev --log="console,file" --log-file-level=debug
     networks:
@@ -166,6 +167,7 @@ services:
     volumes:
       - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./NginxService/log:/var/log/nginx
+      - ./NginxService/logrotate.conf:/etc/logrotate.d/nginx:ro
       - ./letsencrypt:/etc/letsencrypt  # Volume per i certificati
       #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
     networks:
