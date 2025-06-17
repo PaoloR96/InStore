@@ -2,6 +2,10 @@ package com.howtodoinjava.app.applicationcore.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -16,21 +20,31 @@ import java.util.List;
 public class Cliente extends Utente {
 
         @Column(nullable = false)
+        @NotBlank(message = "Il nome del cliente non può essere vuoto.")
+        @Size(max = 50, message = "Il nome del cliente non può superare i 50 caratteri.")
         private String nome;
+
         @Column(nullable = false)
+        @NotBlank(message = "Il cognome del cliente non può essere vuoto.")
+        @Size(max = 50, message = "Il cognome del cliente non può superare i 50 caratteri.")
         private String cognome;
 
         @OneToOne
         @JoinColumn(name = "numero_carta_credito", nullable = false)
+        @NotNull(message = "La carta di credito non può essere nulla.")
+        @Valid
         @JsonIgnore
         private CartaCredito cartaCredito;
 
         @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
         @PrimaryKeyJoinColumn
+        @NotNull(message = "Il carrello non può essere nullo per il cliente.") // Ogni cliente ha un carrello
+        @Valid
         @JsonIgnore
         private Carrello carrello;
 
         @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+        @Valid
         @JsonIgnore
         private List<Ordine> listaClienteOrdini;
 

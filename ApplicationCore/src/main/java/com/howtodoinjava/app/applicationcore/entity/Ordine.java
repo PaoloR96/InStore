@@ -1,6 +1,9 @@
 package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 import java.util.List;
@@ -17,15 +20,21 @@ public class Ordine {
 
         @Column(name = "data_ordine", nullable = false)
         @Temporal(TemporalType.TIMESTAMP)
+        @NotNull(message = "La data dell'ordine non può essere nulla.")
         private Date dataOrdine;
 
         @Column(name = "prezzo_complessivo", nullable = false)
+        @NotNull(message = "Il prezzo complessivo dell'ordine non può essere nullo.")
+        @DecimalMin(value = "0.0", message = "Il prezzo complessivo non può essere negativo.")
         private Float prezzoComplessivo;
 
         @OneToMany(mappedBy = "ordine", cascade = CascadeType.ALL, orphanRemoval = true)
+        @Valid
         private List<ProdottoOrdine> listaProdottiOrdine;
 
         @ManyToOne
+        @NotNull(message = "Il cliente associato all'ordine non può essere nullo.")
+        @Valid
         @JoinColumn(name = "cliente_username", nullable = false)
         private Cliente cliente;
 

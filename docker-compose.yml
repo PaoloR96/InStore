@@ -22,7 +22,7 @@ services:
       context: ./MysqlService
       dockerfile: Dockerfile
     container_name: mysql.instore.puntoitstore.it
-    restart: "no"
+    restart: "unless-stopped"
     ports:
       - "3306:3306"
     environment:
@@ -33,6 +33,7 @@ services:
       - mysql-data:/var/lib/mysql
       - ./MysqlService/keyring:/var/lib/mysql-keyring/
       - ./letsencrypt/archive/mysql.instore.puntoitstore.it:/etc/mysql/certs:ro
+      - ./MysqlService/logs:/var/log/mysql
     command:
       - --lower_case_table_names=1
       - --require-secure-transport=ON
@@ -42,10 +43,13 @@ services:
       - --max_connections=100
       - --long_query_time=2 # Logga query lente (>2s)
       - --slow_query_log=ON # Abilita slow query log
-      - --slow_query_log_file=/var/lib/mysql/mysql-slow.log # Percorso del file di log
-      - --log_output=FILE # Log su file
+      - --slow_query_log_file=/var/log/mysql/mysql-slow.log
+      - --log_error=/var/log/mysql/mysql-error.log  # Log degli errori
+      - --log_error_verbosity=2  # Livello di verbosità errori
+      #- --log_output=FILE # Log su file
       - --wait_timeout=3600 # Timeout connessioni inattive
       - --interactive_timeout=3600  # Timeout client interattivi
+
     networks:
       - instore_net
 
@@ -62,6 +66,7 @@ services:
     ## TODO cercare di non accedere come root, modificando solo i permessi di lettura dei certificati
     user: "0:0"
     container_name: login.instore.puntoitstore.it
+    restart: "unless-stopped"
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_ADMIN_USR} # TODO implements a secure way to access to keycloak control panel
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_ADMIN_PWD}
@@ -90,7 +95,7 @@ services:
       dockerfile: Dockerfile
 #    user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
-    restart: "no"
+    restart: "unless-stopped"
     ports:
       - '8200:8200'
     volumes:
@@ -103,6 +108,7 @@ services:
     environment:
       VAULT_ADDR: "https://0.0.0.0:8200"
       VAULT_API_ADDR: "https://0.0.0.0:8200"
+      #VAULT_LOG_LEVEL: "info"
     cap_add:
       - IPC_LOCK
       #IPC_LOCK: le pagine di memoria afferenti all’applicazione
@@ -131,7 +137,7 @@ services:
   application-core:
     image: openjdk:17-jdk-slim
     container_name: instore.puntoitstore.it
-    restart: "no"
+    restart: "unless-stopped"
     environment:
       APPLICATION_URL: ${APP_EXT_URL}
       KEYCLOAK_URL: ${KC_INT_URL}
@@ -159,7 +165,7 @@ services:
       context: ./NginxService
       dockerfile: Dockerfile
     container_name: nginx
-    restart: "no"
+    restart: "unless-stopped"
     ports:
       - "80:80"
       - "443:443"

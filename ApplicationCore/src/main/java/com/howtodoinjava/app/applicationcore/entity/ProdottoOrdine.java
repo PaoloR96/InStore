@@ -1,5 +1,8 @@
 package com.howtodoinjava.app.applicationcore.entity;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 //TODO CLASSE DTO E MAPPER
 
@@ -12,15 +15,21 @@ public class ProdottoOrdine {
 
     @ManyToOne
     @MapsId("idOrdine")
+    @NotNull(message = "L'ordine non può essere nullo.")
+    @Valid
     @JoinColumn(name = "id_ordine", nullable = false)
     private Ordine ordine;
 
     @ManyToOne
     @MapsId("idProdotto")
+    @NotNull(message = "Il prodotto non può essere nullo.")
+    @Valid
     @JoinColumn(name = "id_prodotto", nullable = false)
     private Prodotto prodotto;
 
     @Column(nullable = false)
+    @NotNull(message = "La quantità del prodotto nell'ordine non può essere nulla.")
+    @Min(value = 1, message = "La quantità del prodotto nell'ordine deve essere almeno 1.")
     private Integer quantita;
 
     public ProdottoOrdine() {}

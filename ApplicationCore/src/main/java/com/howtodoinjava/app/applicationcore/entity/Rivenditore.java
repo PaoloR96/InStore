@@ -2,6 +2,10 @@ package com.howtodoinjava.app.applicationcore.entity;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +17,22 @@ import java.util.List;
 public class Rivenditore  extends Utente {
 
     @Column(name = "nome_societa", nullable = false)
+    @NotBlank(message = "Il nome della società non può essere vuoto.")
+    @Size(max = 100, message = "Il nome della società non può superare i 100 caratteri.")
     private String nomeSocieta;
+
     @Column(name = "partita_iva", nullable = false, unique = true)
+    @NotBlank(message = "La Partita IVA non può essere vuota.")
+    @Pattern(regexp = "^[0-9]{11}$", message = "La Partita IVA deve essere di 11 cifre numeriche.")
     private String partitaIva;
+
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "L'IBAN non può essere vuoto.")
+    @Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{1}[0-9]{10}[A-Z0-9]{1}[0-9]{2}$", message = "L'IBAN non è in un formato valido (es. IT60X0542811101000000123456).")
     private String iban;
+
     @OneToMany(mappedBy = "rivenditore", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Valid
     @JsonIgnore
     private List<Prodotto> listaProdottiRivenditore;
 

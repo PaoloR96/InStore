@@ -9,10 +9,14 @@ import com.howtodoinjava.app.applicationcore.service.ClienteService;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cliente/api")
+@Validated
 public class ClienteController {
 
     @Autowired
@@ -30,42 +35,40 @@ public class ClienteController {
     @GetMapping("/prodotti")
     public ResponseEntity<List<ProdottoDTO>> visualizzaProdotti(ProdottoMapper prodottoMapper) {
         List<ProdottoDTO> prodotti = clienteService.visualizzaProdotti();
+        //TODO aggiungere l'escape ??
         return ResponseEntity.ok(prodotti);
     }
 
     @PostMapping("/carrello/aggiungi")
     public ResponseEntity<?> aggiungiProdottoAlCarrello(
+            @NotNull(message = "L'ID del prodotto non può essere nullo.")
+            @Min(value = 1, message = "L'ID del prodotto deve essere un numero positivo.")
             @RequestParam Long idProdotto,
+            @NotNull(message = "La quantità non può essere nulla.")
+            @Min(value = 1, message = "La quantità deve essere maggiore di zero.")
             @RequestParam Integer quantita,
             Authentication auth) {
-        try {
+//        try {
+//
+//            if (quantita <= 0) {
+//                return ResponseEntity.badRequest().body("La quantità deve essere maggiore di zero.");
+//            }
+        try{
             String username = JWTUtils.getUsername(auth);
-            if (quantita <= 0) {
-                return ResponseEntity.badRequest().body("La quantità deve essere maggiore di zero.");
-            }
-
             Carrello carrello = clienteService.aggiungiProdottoCarrello(username, idProdotto, quantita);
             carrello.escape();
             return ResponseEntity.ok(carrello);
 
+        } catch (ConstraintViolationException e) {
+            return ResponseEntity.badRequest().body("Errore di validazione input: " + e.getMessage());
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+
     }
 
-
-//    @GetMapping("/carrello/{username}/prodotti")
-//    public ResponseEntity<List<ProdottoCarrello>> visualizzaProdottiCarrello(@PathVariable String username) {
-//        try {
-//            List<ProdottoCarrello> prodottiCarrello = clienteService.visualizzaProdottiCarrello(username);
-//            return ResponseEntity.ok(prodottiCarrello);
-//        } catch (RuntimeException e) {
-//            System.out.println(e.getMessage());
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//    }
 
     @GetMapping("/carrello/prodotti")
     public ResponseEntity<CarrelloResponse> visualizzaProdottiCarrello(Authentication auth) {
@@ -82,13 +85,17 @@ public class ClienteController {
     }
 
     @DeleteMapping("/carrello/rimuovi")
-    public ResponseEntity<Void> rimuoviProdottoDalCarrello(
+    public ResponseEntity<?> rimuoviProdottoDalCarrello(
+            @NotNull(message = "L'ID del prodotto non può essere nullo.")
+            @Min(value = 1, message = "L'ID del prodotto deve essere un numero positivo.")
             @RequestParam Long idProdotto,
             Authentication auth) {
         try {
             String username = JWTUtils.getUsername(auth);
             clienteService.rimuoviProdottoCarrello(username, idProdotto);
             return ResponseEntity.noContent().build();
+        } catch (ConstraintViolationException e) { // Cattura le eccezioni di validazione qui
+            return ResponseEntity.badRequest().body("Errore di validazione input: " + e.getMessage());
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

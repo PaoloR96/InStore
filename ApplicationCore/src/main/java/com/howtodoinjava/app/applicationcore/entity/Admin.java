@@ -3,6 +3,8 @@ package com.howtodoinjava.app.applicationcore.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 //TODO CLASSE DTO E MAPPER
 
 @Entity
@@ -10,8 +12,13 @@ import jakarta.persistence.Table;
 public class Admin extends Utente {
 
     @Column(nullable = false)
+    @NotBlank(message = "Il nome dell'admin non può essere vuoto.")
+    @Size(max = 50, message = "Il nome dell'admin non può superare i 50 caratteri.")
     private String nome;
+
     @Column(nullable = false)
+    @NotBlank(message = "Il cognome dell'admin non può essere vuoto.")
+    @Size(max = 50, message = "Il cognome dell'admin non può superare i 50 caratteri.")
     private String cognome;
 
     public String getNome() {
