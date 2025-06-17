@@ -4,7 +4,7 @@ FROM ubuntu:20.04
 ENV TERM=xterm
 
 # Installa i pacchetti necessari
-RUN apt update && apt install -y  iproute2 iputils-ping procps sudo docker.io tcpdump
+RUN apt update && apt install -y  iproute2 iputils-ping procps sudo docker.io tcpdump ntpdate xxd jq bc
 
 # Aggiungi lo script di monitoraggio e rendilo eseguibile
 COPY firewall_monitor.sh /usr/local/bin/firewall_monitor.sh

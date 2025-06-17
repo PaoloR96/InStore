@@ -17,15 +17,15 @@
 ###########################################
 
 services:
-  firewall-monitor:
-    build: ./firewall-monitor
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock  # Monta il socket Docker per consentire l'accesso
-    network_mode: "host"
-    environment:
-      - INTERVAL=10
-    container_name: firewall-monitor
-    privileged: true
+#  firewall-monitor:
+#    build: ./firewall-monitor
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock  # Monta il socket Docker per consentire l'accesso
+#    network_mode: "host"
+#    environment:
+#      - INTERVAL=10
+#    container_name: firewall-monitor
+#    privileged: true
   #    depends_on:
   #      - mysql-db
   #      - keycloak2604
@@ -122,6 +122,10 @@ services:
       KC_SPI_PASSWORD_POLICY_LOWERCASE_MIN: 1
       KC_SPI_PASSWORD_POLICY_DIGITS_MIN: 1
       KC_SPI_PASSWORD_POLICY_NOT_USERNAME: true
+      # Miglioramenti sicurezza - Policy password
+      KC_SPI_PASSWORD_POLICY_HISTORY: 5  # Numero minimo di password precedenti non riutilizzabili
+
+
       KC_SPI_COOKIE_SECURE_COOKIE: true
       KC_SPI_COOKIE_DEFAULT_SAME_SITE: strict
 
