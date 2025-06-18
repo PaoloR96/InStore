@@ -126,6 +126,7 @@ jobs:
             mkdir InStore/MysqlService/logs
             mkdir InStore/VaultService/logs
             mkdir InStore/NginxService/log
+            mkdir InStore/ApplicationCore/spring_log
             
             chown -R 999:999 InStore/letsencrypt/archive/mysql.instore.puntoitstore.it
             chown -R vaultuser:vaultgroup InStore/letsencrypt/archive/vault.instore.puntoitstore.it
