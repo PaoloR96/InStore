@@ -235,7 +235,7 @@ services:
     ports:
       - "8081:8080"
     volumes:
-      - ./ApplicationCore/spring_log:/var/log/spring:w
+      - ./ApplicationCore/spring_log:/var/log/spring
       - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar:ro
       - ./letsencrypt/archive/instore.puntoitstore.it:/app/certs:ro
     entrypoint: java -jar /target/app.jar
@@ -276,7 +276,7 @@ services:
       # Monta i volumi per configurazione e certificati
     volumes:
         - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro # Monta il file di configurazione nginx.conf in modalità sola lettura
-        - ./NginxService/log:/var/log/nginx:w
+        - ./NginxService/log:/var/log/nginx
         - ./NginxService/logrotate.conf:/etc/logrotate.d/nginx:ro
         - ./letsencrypt:/etc/letsencrypt:ro   # Volume per i certificati
           #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
