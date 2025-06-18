@@ -123,6 +123,7 @@ jobs:
             git clone https://github.com/PaoloR96/InStore.git
             cp -r keyring/ InStore/MysqlService/
             cp -r letsencrypt/ InStore/
+            mkdir InStore/MysqlService/logs
             chown -R 999:999 InStore/MysqlService
             chown -R vaultuser:vaultgroup InStore/VaultService
             cd InStore/VaultService

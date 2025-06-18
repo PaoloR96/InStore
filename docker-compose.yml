@@ -37,7 +37,8 @@ services:
       context: ./MysqlService
       dockerfile: Dockerfile
     container_name: mysql.instore.puntoitstore.it
-    restart: "unless-stopped"
+    #restart: "unless-stopped"
+    restart: "no"
     ports:
       - "3306:3306"
     environment:
@@ -97,7 +98,8 @@ services:
       context: ./KeycloakService
       dockerfile: Dockerfile
     container_name: login.instore.puntoitstore.it
-    restart: "unless-stopped"
+    #restart: "unless-stopped"
+    restart: "no"
     user: "0:0"
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_ADMIN_USR} # TODO implements a secure way to access to keycloak control panel
@@ -142,9 +144,10 @@ services:
     build:
       context: ./VaultService
       dockerfile: Dockerfile
-#    user: "vaultuser"
+    user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
-    restart: "unless-stopped"
+    #restart: "unless-stopped"
+    restart: "no"
     ports:
       - '8200:8200'
     volumes:
