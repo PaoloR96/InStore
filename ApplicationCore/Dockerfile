@@ -11,8 +11,9 @@ LABEL authors="Gaetano"
 #    mkdir -p /var/log/spring && chown -R app:app /var/log/spring && chmod  700 /var/log/spring
 
 # Crea un utente non-root e cartelle con accesso esclusivo all'utente `app`
-RUN groupadd -r app && useradd -r -g app app && \
-    mkdir -p /app /var/log/spring && \
+RUN adduser -D -u 1002 -g 1002 app
+
+RUN mkdir -p /app /var/log/spring && \
     chown -R app:app /app /var/log/spring && \
     chmod 700 /app /var/log/spring
 

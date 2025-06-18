@@ -124,8 +124,18 @@ jobs:
             cp -r keyring/ InStore/MysqlService/
             cp -r letsencrypt/ InStore/
             mkdir InStore/MysqlService/logs
+            
+            chown -R 999:999 InStore/letsencrypt/archive/mysql.instore.puntoitstore.it
+            chown -R vaultuser:vaultgroup InStore/letsencrypt/archive/vault.instore.puntoitstore.it
+            chown -R 1002:1002 InStore/letsencrypt/archive/instore.puntoitstore.it
+            chown -R 1003:1003 InStore/letsencrypt/archive/login.instore.puntoitstore.it
+          
             chown -R 999:999 InStore/MysqlService
             chown -R vaultuser:vaultgroup InStore/VaultService
+            chown -R 1002:1002 InStore/ApplicationCore
+            chown -R 1002:1002 InStore/NginxService
+            chown -R 1003:1003 InStore/KeycloakService
+          
             cd InStore/VaultService
             chmod +x unseal-vault.sh
             cd ..
