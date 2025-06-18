@@ -162,8 +162,8 @@ services:
     privileged: false
     security_opt:
       - no-new-privileges:true
-    cap_drop:
-      - ALL
+#    cap_drop:
+#      - ALL
     cap_add:
       - NET_BIND_SERVICE
       - IPC_LOCK
@@ -219,7 +219,7 @@ services:
       context: ./ApplicationCore
       dockerfile: Dockerfile
     container_name: instore.puntoitstore.it
-    restart: "unless-stopped"
+    restart: "no"
     environment:
       APPLICATION_URL: ${APP_EXT_URL}
       KEYCLOAK_URL: ${KC_INT_URL}
