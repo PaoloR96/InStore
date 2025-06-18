@@ -13,16 +13,21 @@ RUN nginx -t
 # Sovrascrive la configurazione temporanea con quella finale
 COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN adduser -D -u 1002 -g 1002 nginx-user
+RUN adduser -D -u 1000 -g 1000 nginx-user
 ## Crea directory necessarie e assegna i permessi corretti all’utente nginx (UID 101/GID 101 su Alpine)
 #RUN mkdir -p /run && chown -R nginx:nginx /run \
 #    && mkdir -p /var/log/nginx \
 #    && chown -R nginx:nginx /var/log/nginx \
 #    && chmod 700 /var/log/nginx
 # Crea directory necessarie e assegna i permessi stretti all’utente nginx (UID 101/GID 101 su Alpine)
-RUN mkdir -p /run /var/log/nginx \
-    && chown -R 1002:1002 /run /var/log/nginx \
-    && chmod 700 /run /var/log/nginx
+RUN mkdir -p /run /var/log/nginx /var/cache/nginx \
+    && chown -R 1000:1000 /run /var/log/nginx /var/cache/nginx \
+    && chmod 750 /run /var/log/nginx \
+    && chmod 755 /var/cache/nginx \
+    && chmod 1777 /tmp
+#
+#RUN mkdir -p /etc/letsencrypt \
+#    && chown -R nginx-user:nginx-user /etc/letsencrypt
 
 
 # Esegui NGINX come utente non-root per motivi di sicurezza

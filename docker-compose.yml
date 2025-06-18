@@ -100,7 +100,7 @@ services:
     container_name: login.instore.puntoitstore.it
     #restart: "unless-stopped"
     restart: "no"
-    user: "0:0"
+    user: "keycloak"
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_ADMIN_USR} # TODO implements a secure way to access to keycloak control panel
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_ADMIN_PWD}
@@ -271,7 +271,8 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
 
-    restart: "always"  # Riavvia il container automaticamente in caso di errori o crash
+    #restart: "always"  # Riavvia il container automaticamente in caso di errori o crash
+    restart: "no"
       # Mappa le porte del container verso il sistema host (porta 80 e 443 per HTTP e HTTPS)
     ports:
         - "80:80"
@@ -281,7 +282,9 @@ services:
         - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro # Monta il file di configurazione nginx.conf in modalità sola lettura
         - ./NginxService/log:/var/log/nginx
         - ./NginxService/logrotate.conf:/etc/logrotate.d/nginx:ro
-        - ./letsencrypt:/etc/letsencrypt:ro   # Volume per i certificati
+        #- ./letsencrypt:/etc/letsencrypt:ro   # Volume per i certificati
+        - ./letsencrypt/archive/instore.puntoitstore.it:/etc/letsencrypt/archive/instore.puntoitstore.it:ro
+        - ./letsencrypt/archive/login.instore.puntoitstore.it:/etc/letsencrypt/archive/login.instore.puntoitstore.it:ro
           #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
       # Disabilita l'esecuzione del container come root, aumentando la sicurezza
     privileged: false
