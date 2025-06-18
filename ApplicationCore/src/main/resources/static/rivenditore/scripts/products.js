@@ -85,7 +85,7 @@ async function addProduct(event) {
         let csrf_token = $("meta[name='_csrf']").attr("content");
         let csrf_header = $("meta[name='_csrf_header']").attr("content");
 
-        await fetch(`${API_BASE_URL}/insprodotti`, {
+        const response = await fetch(`${API_BASE_URL}/insprodotti`, {
             method: "POST",
             headers: {
                 [csrf_header]: csrf_token,
@@ -94,15 +94,29 @@ async function addProduct(event) {
             body: JSON.stringify(nuovoProdotto)
         });
 
-        showSuccessAnimation("Prodotto aggiunto con successo!");
-        refreshStore();
-    } catch (error) {
-        console.error("Errore nell'aggiunta del prodotto:", error);
-        showErrorMessage("Errore nell'aggiunta del prodotto");
-    }
+        if (response.ok) {
 
-    submitButton.disabled = false;
-    submitButton.innerHTML = originalButtonText;
+            const successMessage = await response.text();
+            showSuccessAnimation(successMessage)
+            alert(successMessage || 'Prodotto aggiunto con successo!');
+            refreshStore();
+        } else {
+            const errorMessage = await response.text();
+                    if (response.status === 400) {
+                        alert(errorMessage && "Errore di validazione dell'input. Controlla i campi inseriti.");
+                    } else {
+                        alert(errorMessage && "Si è verificato un errore. Riprova più tardi.");
+                    }
+        }
+
+    } catch (errorMessage) {
+        console.error('Errore nell\'aggiunta del prodotto:', errorMessage);
+        showErrorMessage(errorMessage.message);
+        alert('Si è verificato un errore imprevisto. Riprova più tardi.');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+    }
 }
 
 function showSuccessAnimation(message = "Operazione completata con successo!") {

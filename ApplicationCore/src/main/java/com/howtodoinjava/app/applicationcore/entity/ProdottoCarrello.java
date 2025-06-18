@@ -2,6 +2,9 @@ package com.howtodoinjava.app.applicationcore.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 //TODO CLASSE DTO E MAPPER
 
 @Entity
@@ -15,16 +18,22 @@ public class ProdottoCarrello {
     @ManyToOne
     @MapsId("username") // Mappa il campo idCarrello nella chiave composta
     @JoinColumn(name = "username", nullable = false)
+    @NotNull(message = "Il carrello non può essere nullo per ProdottoCarrello.")
+    @Valid
     @JsonIgnore
     private Carrello carrello;
 
     @ManyToOne
     @MapsId("idProdotto") // Mappa il campo idProdotto nella chiave composta
     @JoinColumn(name = "id_Prodotto", nullable = false)
+    @NotNull(message = "Il prodotto non può essere nullo per ProdottoCarrello.")
+    @Valid
     @JsonIgnore
     private Prodotto prodotto;
 
     @Column(nullable = false)
+    @NotNull(message = "La quantità nel carrello non può essere nulla.")
+    @Min(value = 1, message = "La quantità nel carrello deve essere almeno 1.")
     private Integer quantita;
 
     public ProdottoCarrello() {}

@@ -37,7 +37,7 @@ services:
       context: ./MysqlService
       dockerfile: Dockerfile
     container_name: mysql.instore.puntoitstore.it
-    restart: "no"
+    restart: "unless-stopped"
     ports:
       - "3306:3306"
     environment:
@@ -48,6 +48,7 @@ services:
       - mysql-data:/var/lib/mysql
       - ./MysqlService/keyring:/var/lib/mysql-keyring/
       - ./letsencrypt/archive/mysql.instore.puntoitstore.it:/etc/mysql/certs:ro
+      - ./MysqlService/logs:/var/log/mysql
     command:
       - --lower_case_table_names=1
       - --require-secure-transport=ON
@@ -57,8 +58,10 @@ services:
       - --max_connections=100
       - --long_query_time=2 # Logga query lente (>2s)
       - --slow_query_log=ON # Abilita slow query log
-      - --slow_query_log_file=/var/lib/mysql/mysql-slow.log # Percorso del file di log
-      - --log_output=FILE # Log su file
+      - --slow_query_log_file=/var/log/mysql/mysql-slow.log
+      - --log_error=/var/log/mysql/mysql-error.log  # Log degli errori
+      - --log_error_verbosity=2  # Livello di verbosità errori
+      #- --log_output=FILE # Log su file
       - --wait_timeout=3600 # Timeout connessioni inattive
       - --interactive_timeout=3600  # Timeout client interattivi
     # Sicurezza container
@@ -141,7 +144,7 @@ services:
       dockerfile: Dockerfile
 #    user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
-    restart: "no"
+    restart: "unless-stopped"
     ports:
       - '8200:8200'
     volumes:
@@ -216,7 +219,7 @@ services:
       context: ./ApplicationCore
       dockerfile: Dockerfile
     container_name: instore.puntoitstore.it
-    restart: "no"
+    restart: "unless-stopped"
     environment:
       APPLICATION_URL: ${APP_EXT_URL}
       KEYCLOAK_URL: ${KC_INT_URL}
@@ -260,43 +263,43 @@ services:
         ipv4_address: 172.28.0.40
 
   nginx:
-   build:
+    build:
       context: ./NginxService
       dockerfile: Dockerfile
-   container_name: nginx
+    container_name: nginx
 
-   restart: "always"  # Riavvia il container automaticamente in caso di errori o crash
+    restart: "always"  # Riavvia il container automaticamente in caso di errori o crash
       # Mappa le porte del container verso il sistema host (porta 80 e 443 per HTTP e HTTPS)
-   ports:
+    ports:
         - "80:80"
         - "443:443"
       # Monta i volumi per configurazione e certificati
-   volumes:
+    volumes:
         - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro # Monta il file di configurazione nginx.conf in modalità sola lettura
         - ./NginxService/log:/var/log/nginx:w
         - ./NginxService/logrotate.conf:/etc/logrotate.d/nginx:ro
         - ./letsencrypt:/etc/letsencrypt:ro   # Volume per i certificati
           #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
       # Disabilita l'esecuzione del container come root, aumentando la sicurezza
-   privileged: false
+    privileged: false
       # Limita i privilegi del container, rimuovendo tutti i privilegi e aggiungendo solo quelli strettamente necessari
-   cap_drop:
+    cap_drop:
         - ALL
       # Aggiunge il privilegio di binding alle porte di rete (per il binding a 80 e 443)
-   cap_add:
+    cap_add:
         - NET_BIND_SERVICE
       # Abilita l'opzione di sicurezza per evitare che nuovi privilegi vengano acquisiti da processi nel container
-   security_opt:
+    security_opt:
         - no-new-privileges:true
       # Limita l'uso della memoria del container per evitare che usi risorse eccessive
-   mem_limit: 512m  # Il container non può usare più di 512 MB di RAM.
+    mem_limit: 512m  # Il container non può usare più di 512 MB di RAM.
       # Riserva memoria sufficiente per garantire che il container abbia almeno 256 MB disponibili
-   mem_reservation: 256m  # Il container dovrebbe avere almeno 256 MB di memoria (soft limit).
+    mem_reservation: 256m  # Il container dovrebbe avere almeno 256 MB di memoria (soft limit).
       # Imposta un limite sul numero di CPU che il container può utilizzare
-   cpus: 0.5  # Il container può usare al massimo il 50% di un core CPU
-   ulimits:
+    cpus: 0.5  # Il container può usare al massimo il 50% di un core CPU
+    ulimits:
       nproc: 100 # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
-   networks:
+    networks:
       instore-network:
           ipv4_address: 172.28.0.50
 

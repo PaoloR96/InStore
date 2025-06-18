@@ -3,8 +3,10 @@ FROM mysql:9.2.0
 USER root
 
 RUN mkdir -p /etc/mysql/certs
-
 RUN chown -R mysql:mysql /etc/mysql/certs
+
+RUN mkdir -p /var/log/mysql
+RUN chown -R mysql:mysql /var/log/mysql
 
 RUN echo '{ "components": "file://component_keyring_file" }' > /usr/sbin/mysqld.my && \
     chown root:mysql /usr/sbin/mysqld.my && \

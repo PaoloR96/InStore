@@ -1,19 +1,33 @@
 package com.howtodoinjava.app.applicationcore.dto;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.*;
 import org.springframework.web.util.HtmlUtils;
 
 import java.io.Serializable;
 
 public class ProdottoDTO implements Serializable {
     private Long idProdotto;
-    private String nomeProdotto;
-    private String descrizione;
-    private Float prezzo;
-    private String taglia;
-    private String pathImmagine;
-    private Integer quantitaTotale;
 
-    // Costruttore
+    @NotBlank(message = "Il nome del prodotto non può essere vuoto.")
+    @Size(max = 30, message = "Il nome del prodotto non può superare i 30 caratteri.")
+    private String nomeProdotto;
+
+    @Size(max = 200, message = "La descrizione non può superare i 200 caratteri.")
+    private String descrizione;
+
+    @NotNull(message = "Il prezzo non può essere nullo.")
+    @DecimalMin(value = "0.0", message = "Il prezzo non può essere negativo.") // Usato DecimalMin per float
+    private Float prezzo;
+
+    @NotBlank(message = "La taglia non può essere vuota.") // Se Taglia è un enum convertito in String
+    private String taglia;
+
+    private String pathImmagine;
+
+    @NotNull(message = "La quantità totale non può essere nulla.")
+    @Min(value = 0, message = "La quantità totale non può essere negativa.")
+    private Integer quantitaTotale;
 
 
     // Costruttore con parametri
