@@ -15,5 +15,5 @@ ui = true
 
 log_level = "info"
 log_file = "/vault/logs/vault.log"
-log_rotate_duration = "24h"
-log_rotate_max_files = 7
+log_rotate_duration = "720h"
+log_rotate_max_files = 12

@@ -144,7 +144,7 @@ services:
     build:
       context: ./VaultService
       dockerfile: Dockerfile
-    user: "vaultuser"
+    #user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
     #restart: "unless-stopped"
     restart: "no"
@@ -260,7 +260,7 @@ services:
     # Imposta un limite sul numero di CPU che il container può utilizzare
     cpus: 2.0  # Il container può usare al massimo 2 core CPU
     ulimits:
-      nproc: 100 # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
+      nproc: 1024 # Limita il numero massimo di processi che il container può avviare, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
     networks:
       instore-network:
         ipv4_address: 172.28.0.40
@@ -282,7 +282,6 @@ services:
         - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro # Monta il file di configurazione nginx.conf in modalità sola lettura
         - ./NginxService/log:/var/log/nginx
         - ./NginxService/logrotate.conf:/etc/logrotate.d/nginx:ro
-        #- ./letsencrypt:/etc/letsencrypt:ro   # Volume per i certificati
         - ./letsencrypt/archive/instore.puntoitstore.it:/etc/letsencrypt/archive/instore.puntoitstore.it:ro
         - ./letsencrypt/archive/login.instore.puntoitstore.it:/etc/letsencrypt/archive/login.instore.puntoitstore.it:ro
           #- certbot-data:/var/www/certbot   # Volume per la sfida ACME

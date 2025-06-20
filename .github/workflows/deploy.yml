@@ -150,6 +150,6 @@ jobs:
             docker-compose up -d
             sleep 40
             docker-compose up -d
-            sleep 20
+            sleep 40
             docker-compose restart nginx
           EOF
