@@ -3,7 +3,7 @@ name: Docker Build & Security Scan
 on:
   push:
     branches:
-      - master
+      - biagio
 
 env:
   DOCKER_COMPOSE_VERSION: "1.29.2"
