@@ -50,6 +50,7 @@ services:
       - ./MysqlService/keyring:/var/lib/mysql-keyring/
       - ./letsencrypt/archive/mysql.instore.puntoitstore.it:/etc/mysql/certs:ro
       - ./MysqlService/logs:/var/log/mysql
+      - ./MysqlService/logrotate-mysql.conf:/etc/logrotate.d/mysql/
     command:
       - --lower_case_table_names=1
       - --require-secure-transport=ON
@@ -241,6 +242,7 @@ services:
       - ./ApplicationCore/spring_log:/var/log/spring
       - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar:ro
       - ./letsencrypt/archive/instore.puntoitstore.it:/app/certs:ro
+      - app-uploads:/app/uploads
     entrypoint: java -jar /target/app.jar
     # Disabilita l'esecuzione del container come root, aumentando la sicurezza
     privileged: false
@@ -270,7 +272,6 @@ services:
       context: ./NginxService
       dockerfile: Dockerfile
     container_name: nginx
-
     #restart: "always"  # Riavvia il container automaticamente in caso di errori o crash
     restart: "no"
       # Mappa le porte del container verso il sistema host (porta 80 e 443 per HTTP e HTTPS)
@@ -303,7 +304,7 @@ services:
       # Imposta un limite sul numero di CPU che il container può utilizzare
     cpus: 0.5  # Il container può usare al massimo il 50% di un core CPU
     ulimits:
-      nproc: 100 # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
+      nproc: 512 # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
     networks:
       instore-network:
           ipv4_address: 172.28.0.50
@@ -339,6 +340,7 @@ services:
 
 volumes:
   mysql-data:
+  app-uploads:
 
 networks:
   instore-network:

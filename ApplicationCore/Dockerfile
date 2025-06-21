@@ -25,6 +25,8 @@ WORKDIR /app
 COPY --chown=app:app target/*.jar app.jar
 # Esegui il container come utente non-root
 USER app
+
+RUN mkdir -p /app/uploads
 # Espone la porta applicativa
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

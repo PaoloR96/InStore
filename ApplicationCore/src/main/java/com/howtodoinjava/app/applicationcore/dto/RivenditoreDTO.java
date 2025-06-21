@@ -17,8 +17,10 @@ public class RivenditoreDTO extends Utente {
     @Pattern(regexp = "^[0-9]{11}$", message = "La Partita IVA deve essere di 11 cifre numeriche.")
     private String partitaIva;
 
-    @NotBlank(message = "L'IBAN non può essere vuoto.")
-    @Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{1}[0-9]{10}[A-Z0-9]{1}[0-9]{2}$", message = "L'IBAN non è in un formato valido (es. IT60X0542811101000000123456).")
+    @Pattern(
+            regexp = "^IT\\d{2}[A-Z]\\d{5}\\d{5}\\d{12}$",
+            message = "L'IBAN non è in un formato valido (es. IT60X0542811101000000123456)."
+    )
     private String iban;
 
     public RivenditoreDTO(Rivenditore rivenditore) {

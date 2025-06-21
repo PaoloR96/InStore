@@ -25,9 +25,6 @@ RUN mkdir -p /run /var/log/nginx /var/cache/nginx \
     && chmod 750 /run /var/log/nginx \
     && chmod 755 /var/cache/nginx \
     && chmod 1777 /tmp
-#
-#RUN mkdir -p /etc/letsencrypt \
-#    && chown -R nginx-user:nginx-user /etc/letsencrypt
 
 
 # Esegui NGINX come utente non-root per motivi di sicurezza
