@@ -120,7 +120,7 @@ jobs:
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             cd /mnt/volume_instore/
             rm -r InStore/
-            git clone https://github.com/PaoloR96/InStore.git
+            git clone https://github.com/PaoloR96/InStore.git -b biagio
             cp -r keyring/ InStore/MysqlService/
             cp -r letsencrypt/ InStore/
             mkdir InStore/MysqlService/logs
