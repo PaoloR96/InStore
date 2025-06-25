@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Completato</title>
+    <link rel="stylesheet" href="/cliente/css/payment-success.css">
+</head>
+<body>
+<div class="container">
+    <div class="success-icon">
+        <span class="checkmark">✓</span>
+    </div>
+
+    <h1>Pagamento Completato con Successo!</h1>
+
+    <p class="message">
+        Grazie per il tuo acquisto! Il pagamento è stato elaborato correttamente.
+    </p>
+
+    <div class="details" th:if="${transactionId != null or state != null}">
+        <div class="detail-item" th:if="${transactionId != null}">
+            <span class="detail-label">ID Transazione:</span><br>
+            <span class="detail-value" th:text="${transactionId}">N/A</span>
+        </div>
+        <div class="detail-item" th:if="${state != null}">
+            <span class="detail-label">Stato:</span><br>
+            <span class="detail-value" th:text="${state}">N/A</span>
+        </div>
+        <div class="detail-item" th:if="${paymentId != null}">
+            <span class="detail-label">ID Pagamento:</span><br>
+            <span class="detail-value" th:text="${paymentId}">N/A</span>
+        </div>
+    </div>
+
+    <div class="details" th:unless="${transactionId != null or state != null}">
+        <p class="message">
+            Il tuo pagamento è in elaborazione. Riceverai una conferma via email a breve.
+        </p>
+    </div>
+
+    <a href="/" class="btn">Torna alla Home</a>
+</div>
+</body>
+</html>

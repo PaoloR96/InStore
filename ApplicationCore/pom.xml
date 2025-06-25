@@ -31,6 +31,19 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- PayPal SDK -->
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>1.14.0</version>
+        </dependency>
+
+        <!-- Lombok (opzionale) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- Dipendenza per Spring Data JPA, utile per la gestione dei dati tramite JPA (Java Persistence API) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

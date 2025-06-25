@@ -66,37 +66,37 @@ public class ClienteService {
         ProdottoCarrelloId prodottoCarrelloId = new ProdottoCarrelloId(carrello.getCliente().getUsername(), prodotto.getIdProdotto());
         Optional<ProdottoCarrello> esistente = prodottoCarrelloRepository.findById(prodottoCarrelloId);
 
-            if (esistente.isPresent()) {
-                // Aggiorna la quantità se il prodotto è già presente nel carrello
-                ProdottoCarrello prodottoCarrello = esistente.get();
-                if(prodottoCarrello.getQuantita() + quantita <= prodotto.getQuantitaTotale()) {
-                    prodottoCarrello.setQuantita(prodottoCarrello.getQuantita() + quantita);
-                    prodottoCarrelloRepository.save(prodottoCarrello);
-                }else {
-                    throw new IllegalArgumentException("Quantità richiesta (" + quantita + " + " + prodottoCarrello.getQuantita() + ") maggiore della quantità disponibile (" + prodotto.getQuantitaTotale() + ").");
-                }
-
-            } else {
-
-                if(quantita<=prodotto.getQuantitaTotale()) {
-                    // Aggiungi un nuovo prodotto al carrello
-                    ProdottoCarrello nuovoProdottoCarrello = new ProdottoCarrello(
-                            prodottoCarrelloId,
-                            carrello,
-                            prodotto,
-                            quantita);
-
-                    prodottoCarrelloRepository.save(nuovoProdottoCarrello);
-                }else {
-                    throw new IllegalArgumentException("Quantità richiesta (" + quantita + ") maggiore della quantità disponibile (" + prodotto.getQuantitaTotale() + ").");
-                }
+        if (esistente.isPresent()) {
+            // Aggiorna la quantità se il prodotto è già presente nel carrello
+            ProdottoCarrello prodottoCarrello = esistente.get();
+            if(prodottoCarrello.getQuantita() + quantita <= prodotto.getQuantitaTotale()) {
+                prodottoCarrello.setQuantita(prodottoCarrello.getQuantita() + quantita);
+                prodottoCarrelloRepository.save(prodottoCarrello);
+            }else {
+                throw new IllegalArgumentException("Quantità richiesta (" + quantita + " + " + prodottoCarrello.getQuantita() + ") maggiore della quantità disponibile (" + prodotto.getQuantitaTotale() + ").");
             }
 
-            carrelloRepository.updatePrezzoComplessivoByUsername(username);
-            //Per restituire in carrello il prezzoComplessivo giusto e aggiornato
-            carrello.setPrezzoComplessivo(carrelloRepository.findPrezzoComplessivoByUsername(username));
+        } else {
 
-            Hibernate.initialize(carrello.getListaProdottiCarrello());
+            if(quantita<=prodotto.getQuantitaTotale()) {
+                // Aggiungi un nuovo prodotto al carrello
+                ProdottoCarrello nuovoProdottoCarrello = new ProdottoCarrello(
+                        prodottoCarrelloId,
+                        carrello,
+                        prodotto,
+                        quantita);
+
+                prodottoCarrelloRepository.save(nuovoProdottoCarrello);
+            }else {
+                throw new IllegalArgumentException("Quantità richiesta (" + quantita + ") maggiore della quantità disponibile (" + prodotto.getQuantitaTotale() + ").");
+            }
+        }
+
+        carrelloRepository.updatePrezzoComplessivoByUsername(username);
+        //Per restituire in carrello il prezzoComplessivo giusto e aggiornato
+        carrello.setPrezzoComplessivo(carrelloRepository.findPrezzoComplessivoByUsername(username));
+
+        Hibernate.initialize(carrello.getListaProdottiCarrello());
 
         return carrello;
     }
@@ -167,8 +167,7 @@ public class ClienteService {
 
 
     @Transactional
-    public void effettuaPagamento(String username) {
-
+    public Ordine preparaOrdine(String username) {
         Cliente cliente = clienteRepository.findById(username)
                 .orElseThrow(() -> new RuntimeException("Cliente non trovato"));
 
@@ -179,26 +178,31 @@ public class ClienteService {
 
         Ordine ordine = new Ordine(
                 new Date(),
-                applicaSconto(cliente,carrello),
+                applicaSconto(cliente, carrello),
                 cliente);
 
         ordine = ordineRepository.save(ordine);
 
         // Creazione prodotti ordine e aggiornamento quantità
         List<ProdottoOrdine> prodottiOrdine = createProdottiOrdineAndUpdateQuantity(prodottiCarrello, ordine);
-
         prodottoOrdineRepository.saveAll(prodottiOrdine);
         prodottoRepository.saveAll(prodottiCarrello.stream().map(ProdottoCarrello::getProdotto).toList());
+
+        return ordine;
+    }
+
+    @Transactional
+    public void svuotaCarrello(String username) {
+        Carrello carrello = carrelloRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("Carrello non trovato"));
+
+        List<ProdottoCarrello> prodottiCarrello = new ArrayList<>(carrello.getListaProdottiCarrello());
 
         // Svuotamento e azzeramento prezzo complessivo del carrello
         carrello.getListaProdottiCarrello().clear();
         carrelloRepository.save(carrello);
         prodottoCarrelloRepository.deleteAll(prodottiCarrello);
         carrelloRepository.updatePrezzoComplessivoByUsername(username);
-
-        if(!eseguiPagamento(ordine)){
-            throw new RuntimeException("Errore di Pagamento");
-        }
     }
 
     private static List<ProdottoOrdine> createProdottiOrdineAndUpdateQuantity(List<ProdottoCarrello> prodottiCarrello, Ordine ordine) {
@@ -209,7 +213,7 @@ public class ClienteService {
 
             ProdottoOrdine prodottoOrdine = new ProdottoOrdine(
                     new ProdottoOrdineId(ordine.getIdOrdine(),
-                    prodotto.getIdProdotto()),
+                            prodotto.getIdProdotto()),
                     ordine,
                     prodotto,
                     pc.getQuantita());
@@ -236,9 +240,9 @@ public class ClienteService {
     }
 
     // TODO implementare metodo di pagamento
-    private Boolean eseguiPagamento(Ordine ordine) {
-            return true;
-    }
+//    private Boolean eseguiPagamento(Ordine ordine) {
+//            return true;
+//    }
 
     private Float applicaSconto(Cliente cliente, Carrello carrello) {
         Float prezzoTotale;

@@ -79,17 +79,30 @@ function displayCartItems(totalPrice, discount, tipoCliente) {
 
 async function removeFromCart(evt) {
     try {
-        // const response = await fetch(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, {
-        //     method: 'DELETE'
-        // });
         const productId = evt.currentTarget.getAttribute("data-prodotto");
+        console.log('Rimozione prodotto con ID:', productId);
 
-        const response = await sendRequest(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, 'DELETE')
+        // Usa la stessa logica di autenticazione delle altre richieste
+        let csrf_token = $("meta[name='_csrf']").attr("content");
+        let csrf_header = $("meta[name='_csrf_header']").attr("content");
+
+        const response = await fetch(`${API_BASE_URL}/carrello/rimuovi?idProdotto=${productId}`, {
+            method: 'DELETE',
+            headers: {
+                [csrf_header]: csrf_token,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        console.log('Risposta rimozione:', response.status, response.statusText);
 
         if (response.ok) {
-            updateCart();
+            console.log('Prodotto rimosso con successo');
+            await updateCart();
         } else {
-            alert('Errore nella rimozione del prodotto');
+            const errorText = await response.text();
+            console.error('Errore nella rimozione:', errorText);
+            alert('Errore nella rimozione del prodotto: ' + errorText);
         }
     } catch (error) {
         console.error('Errore nella rimozione dal carrello:', error);
@@ -97,28 +110,125 @@ async function removeFromCart(evt) {
     }
 }
 
+// Funzione per il checkout con PayPal basata sui prodotti del carrello
 async function checkout() {
     try {
-        // const response = await fetch(`${API_BASE_URL}/pagamento`, {
-        //     method: 'POST'
-        // });
+        // Verifica che il carrello non sia vuoto
+        if (!cartItems || cartItems.length === 0) {
+            alert('Il carrello è vuoto! Aggiungi alcuni prodotti prima di procedere al pagamento.');
+            return;
+        }
 
-        const response = await sendRequest(`${API_BASE_URL}/pagamento`, 'POST')
+        // Disabilita il pulsante checkout per prevenire doppi click
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const originalText = checkoutBtn.innerHTML;
+        checkoutBtn.disabled = true;
+        checkoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creazione pagamento...';
+
+        // Ottieni il totale attuale del carrello dal DOM
+        const cartTotalElement = document.getElementById('cartTotal');
+        const currentTotal = parseFloat(cartTotalElement.textContent);
+
+        // Prepara i dati per la richiesta di pagamento
+        const paymentData = {
+            currency: 'EUR',
+            method: 'paypal',
+            intent: 'sale'
+            // Non specifichiamo il total, lasciamo che il backend lo calcoli dal carrello
+        };
+
+        console.log('Invio richiesta di pagamento per importo carrello:', currentTotal);
+
+        // Crea il pagamento PayPal
+        const response = await sendRequestWithBody(`${API_BASE_URL}/pagamento/create`, 'POST', paymentData);
 
         if (response.ok) {
-            alert('Pagamento effettuato con successo!');
-            updateCart();
-            toggleCart();
+            const paymentResponse = await response.json();
+            console.log('Risposta pagamento:', paymentResponse);
+
+            // Reindirizza l'utente alla pagina di pagamento PayPal
+            if (paymentResponse.approvalUrl) {
+                console.log('Reindirizzamento a PayPal:', paymentResponse.approvalUrl);
+                window.location.href = paymentResponse.approvalUrl;
+            } else {
+                throw new Error('URL di approvazione PayPal non ricevuto');
+            }
         } else {
             const error = await response.text();
-            alert(error);
+            console.error('Errore nella creazione del pagamento:', error);
+            alert('Errore nella creazione del pagamento: ' + error);
         }
     } catch (error) {
-        console.error('Errore durante il pagamento:', error);
-        alert('Si è verificato un errore durante il pagamento. Riprova più tardi.');
+        console.error('Errore durante il checkout:', error);
+        alert('Si è verificato un errore durante il checkout. Riprova più tardi.');
+    } finally {
+        // Riabilita il pulsante checkout
+        const checkoutBtn = document.getElementById('checkout-btn');
+        if (checkoutBtn) {
+            checkoutBtn.disabled = false;
+            checkoutBtn.innerHTML = originalText || '<i class="fas fa-credit-card"></i> Procedi al pagamento';
+        }
     }
+}
+
+// Funzione helper per inviare richieste con body JSON
+async function sendRequestWithBody(uri, method, data) {
+    let csrf_token = $("meta[name='_csrf']").attr("content");
+    let csrf_header = $("meta[name='_csrf_header']").attr("content");
+
+    return await fetch(uri, {
+        method: method,
+        headers: {
+            [csrf_header]: csrf_token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 }
 
 function toggleCart() {
     document.getElementById('cartModal').classList.toggle('active');
 }
+
+// Funzione per gestire il ritorno da PayPal
+function handlePaymentReturn() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentId = urlParams.get('paymentId');
+    const PayerID = urlParams.get('PayerID');
+
+    if (paymentId && PayerID) {
+        console.log('Ritorno da PayPal - PaymentID:', paymentId, 'PayerID:', PayerID);
+
+        // Mostra un messaggio di elaborazione
+        const processingMessage = document.createElement('div');
+        processingMessage.style.cssText = `
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            background: #007bff; 
+            color: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        processingMessage.innerHTML = `
+            <i class="fas fa-spinner fa-spin"></i> 
+            Elaborazione pagamento in corso...
+        `;
+        document.body.appendChild(processingMessage);
+
+        // Il pagamento verrà completato automaticamente dal backend
+        // Aggiorna il carrello dopo un breve delay per dare tempo al backend
+        setTimeout(() => {
+            updateCart();
+            document.body.removeChild(processingMessage);
+        }, 2000);
+    }
+}
+
+// Chiamata per gestire il ritorno da PayPal quando la pagina si carica
+document.addEventListener('DOMContentLoaded', function() {
+    handlePaymentReturn();
+});
