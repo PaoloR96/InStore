@@ -75,7 +75,7 @@ public class AuthenticationController {
          @Pattern(regexp = "^[0-9]{11}$", message = "La Partita IVA deve essere di 11 cifre numeriche.")
          @RequestParam String partitaIva,
          @NotBlank(message = "L'IBAN non può essere vuoto.")
-         @Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{1}[0-9]{10}[A-Z0-9]{1}[0-9]{2}$", message = "L'IBAN non è in un formato valido (es. IT60X0542811101000000123456).") // Esempio per IBAN italiano o generico SEPA
+         @Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,30}$", message = "L'IBAN non è in un formato valido.")
          @RequestParam String iban,
          HttpSession session) {
         try{

@@ -3,7 +3,7 @@ name: Docker Build & Security Scan
 on:
   push:
     branches:
-      - biagio
+      - master
 
 env:
   DOCKER_COMPOSE_VERSION: "1.29.2"
@@ -120,7 +120,7 @@ jobs:
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
             cd /mnt/volume_instore/
             rm -r InStore/
-            git clone https://github.com/PaoloR96/InStore.git -b biagio
+            git clone https://github.com/PaoloR96/InStore.git
             cp -r keyring/ InStore/MysqlService/
             cp -r letsencrypt/ InStore/
             mkdir InStore/MysqlService/logs
