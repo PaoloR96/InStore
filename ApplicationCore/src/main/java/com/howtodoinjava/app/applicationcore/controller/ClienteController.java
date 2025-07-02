@@ -150,11 +150,16 @@ public ResponseEntity<?> createPayment(Authentication auth, @RequestBody Payment
 
         // Crea l'ordine basato sul carrello reale
         try {
-            Ordine ordine = clienteService.preparaOrdine(username);
-            totalAmount = BigDecimal.valueOf(ordine.getPrezzoComplessivo());
-            orderId = String.valueOf(ordine.getIdOrdine());
-            customerEmail = ordine.getCliente().getEmail();
-            customerName = ordine.getCliente().getUsername();
+//            Ordine ordine = clienteService.preparaOrdine(username);
+//            totalAmount = BigDecimal.valueOf(ordine.getPrezzoComplessivo());
+//            orderId = String.valueOf(ordine.getIdOrdine());
+//            customerEmail = ordine.getCliente().getEmail();
+//            customerName = ordine.getCliente().getUsername();
+            Carrello carrello = clienteService.preparaCarrello(username);
+            totalAmount = BigDecimal.valueOf(carrello.getPrezzoComplessivo());
+            orderId = String.valueOf(carrello.getId());
+            customerEmail = carrello.getCliente().getEmail();
+            customerName = carrello.getCliente().getUsername();
 
             logger.info("Ordine creato per il pagamento - ID: {}, Importo: {}", orderId, totalAmount);
 
@@ -227,51 +232,6 @@ public ResponseEntity<?> createPayment(Authentication auth, @RequestBody Payment
         }
     }
 
-    @GetMapping("/pagamento/execute")
-    public ModelAndView executePayment(
-            @RequestParam("paymentId") String paymentId,
-            @RequestParam("PayerID") String payerId,
-            Authentication auth) {
-        logger.info("Esecuzione pagamento ID: {}, PayerID: {}", paymentId, payerId);
-
-        try {
-            ExecutePaymentResponse response = payPalService.executePayment(paymentId, payerId);
-            logger.info("Risposta esecuzione pagamento: {}", response);
-
-            if ("approved".equalsIgnoreCase(response.getState())) {
-                logger.info("Pagamento approvato, ID transazione: {}", response.getTransactionId());
-
-                // Finalizza l'ordine e svuota il carrello
-                try {
-                    String username = JWTUtils.getUsername(auth);
-                    clienteService.svuotaCarrello(username);
-                    logger.info("Carrello svuotato per l'utente: {} dopo pagamento approvato", username);
-                } catch (Exception e) {
-                    logger.error("Errore durante lo svuotamento del carrello dopo pagamento approvato", e);
-                    // Non bloccare il flusso anche se lo svuotamento fallisce
-                }
-
-                ModelAndView modelAndView = new ModelAndView("cliente/payment-success");
-                modelAndView.addObject("transactionId", response.getTransactionId());
-                modelAndView.addObject("state", response.getState());
-                modelAndView.addObject("paymentId", paymentId);
-                return modelAndView;
-            } else {
-                logger.warn("Pagamento non approvato, stato: {}", response.getState());
-
-                ModelAndView modelAndView = new ModelAndView("cliente/payment-error");
-                modelAndView.addObject("errorMessage", "Pagamento non completato. Stato: " + response.getState());
-                return modelAndView;
-            }
-        } catch (Exception e) {
-            logger.error("Errore durante l'esecuzione del pagamento {}", paymentId, e);
-
-            ModelAndView modelAndView = new ModelAndView("cliente/payment-error");
-            modelAndView.addObject("errorMessage", "Errore durante l'esecuzione del pagamento: " + e.getMessage());
-            return modelAndView;
-        }
-    }
-
     @GetMapping("/pagamento/success")
     public ModelAndView paymentSuccess(Authentication auth,
                                        @RequestParam(required = false) String paymentId,
@@ -290,6 +250,8 @@ public ResponseEntity<?> createPayment(Authentication auth, @RequestBody Payment
                 // Finalizza l'ordine solo se il pagamento è stato approvato
                 if ("approved".equalsIgnoreCase(response.getState())) {
                     try {
+                        //pagamento avvenuto,preparo l'ordine
+                        clienteService.preparaOrdine(username);
                         clienteService.svuotaCarrello(username);
                         logger.info("Carrello svuotato per l'utente: {} dopo pagamento completato", username);
                     } catch (Exception e) {
