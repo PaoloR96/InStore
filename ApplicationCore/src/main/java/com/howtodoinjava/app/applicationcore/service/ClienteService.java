@@ -126,7 +126,7 @@ public class ClienteService {
 
         CarrelloResponse response = new CarrelloResponse();
         response.setProdotti(prodotti);
-        response.setPrezzoTotale(applicaSconto(cliente,carrello));
+        response.setPrezzoTotale(getPrezzoComplessivoScontato(cliente,carrello));
 
         if (cliente instanceof ClientePremium) {
             response.setScontoApplicato(((ClientePremium) cliente).getSconto());
@@ -167,7 +167,7 @@ public class ClienteService {
 
 
     @Transactional
-    public Ordine preparaOrdine(String username) {
+    public void preparaOrdine(String username) {
         Cliente cliente = clienteRepository.findById(username)
                 .orElseThrow(() -> new RuntimeException("Cliente non trovato"));
 
@@ -178,7 +178,7 @@ public class ClienteService {
 
         Ordine ordine = new Ordine(
                 new Date(),
-                applicaSconto(cliente, carrello),
+                getPrezzoComplessivoScontato(cliente, carrello),
                 cliente);
 
         ordine = ordineRepository.save(ordine);
@@ -188,15 +188,13 @@ public class ClienteService {
         prodottoOrdineRepository.saveAll(prodottiOrdine);
         prodottoRepository.saveAll(prodottiCarrello.stream().map(ProdottoCarrello::getProdotto).toList());
 
-        return ordine;
     }
 
     @Transactional
     public Carrello preparaCarrello(String username) {
-        Carrello carrello = carrelloRepository.findById(username)
-                .orElseThrow(() -> new RuntimeException("Carrello non trovato"));
 
-        return carrello;
+        return carrelloRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("Carrello non trovato"));
     }
 
     @Transactional
@@ -247,12 +245,8 @@ public class ClienteService {
         return prodottiCarrello;
     }
 
-    // TODO implementare metodo di pagamento
-//    private Boolean eseguiPagamento(Ordine ordine) {
-//            return true;
-//    }
 
-    private Float applicaSconto(Cliente cliente, Carrello carrello) {
+    public Float getPrezzoComplessivoScontato(Cliente cliente, Carrello carrello) {
         Float prezzoTotale;
 
         // TODO modify this check

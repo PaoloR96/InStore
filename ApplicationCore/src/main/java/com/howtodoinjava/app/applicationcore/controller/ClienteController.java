@@ -152,10 +152,11 @@ public ResponseEntity<?> createPayment(Authentication auth, @RequestBody Payment
         // Crea l'ordine basato sul carrello reale
         try {
             Carrello carrello = clienteService.preparaCarrello(username);
-            totalAmount = BigDecimal.valueOf(carrello.getPrezzoComplessivo()).setScale(2, RoundingMode.HALF_UP);;
-            orderId = String.valueOf(carrello.getId());
-            customerEmail = carrello.getCliente().getEmail();
-            customerName = carrello.getCliente().getUsername();
+            Cliente cliente = clienteService.getCliente(username);
+            totalAmount = BigDecimal.valueOf(clienteService.getPrezzoComplessivoScontato(cliente,carrello)).setScale(2, RoundingMode.HALF_UP);
+            orderId = username;
+            customerEmail = cliente.getEmail();
+            customerName = cliente.getNome();
 
             logger.info("Ordine creato per il pagamento - ID: {}, Importo: {}", orderId, totalAmount);
 
@@ -169,7 +170,7 @@ public ResponseEntity<?> createPayment(Authentication auth, @RequestBody Payment
         }
 
         // Validazione dell'importo
-        if (totalAmount == null || totalAmount.compareTo(BigDecimal.ZERO) <= 0) {
+        if (totalAmount.compareTo(BigDecimal.ZERO) <= 0) {
             logger.warn("Importo non valido: {}", totalAmount);
             return ResponseEntity.badRequest().body("L'importo deve essere maggiore di zero");
         }
