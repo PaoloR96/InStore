@@ -29,6 +29,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 //TODO eliminare funzionalità di creazione cliente standard
@@ -151,7 +152,7 @@ public ResponseEntity<?> createPayment(Authentication auth, @RequestBody Payment
         // Crea l'ordine basato sul carrello reale
         try {
             Ordine ordine = clienteService.preparaOrdine(username);
-            totalAmount = BigDecimal.valueOf(ordine.getPrezzoComplessivo());
+            totalAmount = BigDecimal.valueOf(ordine.getPrezzoComplessivo()).setScale(2, RoundingMode.HALF_UP);
             orderId = String.valueOf(ordine.getIdOrdine());
             customerEmail = ordine.getCliente().getEmail();
             customerName = ordine.getCliente().getUsername();
