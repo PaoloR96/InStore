@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Errore nel Pagamento</title>
+    <link rel="stylesheet" href="/cliente/css/payment-error.css">
+</head>
+<body>
+<div class="container">
+    <div class="error-icon">
+        <span class="error-symbol">✕</span>
+    </div>
+
+    <h1>Errore nel Pagamento</h1>
+
+    <div class="error-details">
+        <p class="error-message" th:if="${errorMessage != null}" th:text="${errorMessage}">
+            Si è verificato un errore durante il processo di pagamento.
+        </p>
+        <p class="error-message" th:unless="${errorMessage != null}">
+            Si è verificato un errore imprevisto durante il processo di pagamento. Ti preghiamo di riprovare.
+        </p>
+    </div>
+
+    <div class="suggestions">
+        <h3>Cosa puoi fare:</h3>
+        <ul>
+            <li>Verifica i dati della tua carta di credito</li>
+            <li>Assicurati di avere fondi sufficienti sul conto</li>
+            <li>Controlla la connessione internet</li>
+            <li>Riprova tra qualche minuto</li>
+            <li>Usa un metodo di pagamento diverso</li>
+        </ul>
+    </div>
+
+    <div class="btn-container">
+        <a href="/cliente/carrello" class="btn btn-primary">Ritorna al Carrello</a>
+        <a href="/" class="btn btn-secondary">Torna alla Home</a>
+    </div>
+
+    <div class="support-info">
+        <strong>Hai bisogno di aiuto?</strong><br>
+        Se il problema persiste, contatta il nostro supporto clienti per assistenza.
+    </div>
+</div>
+</body>
+</html>

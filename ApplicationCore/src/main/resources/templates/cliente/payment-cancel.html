@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Annullato</title>
+    <link rel="stylesheet" href="/cliente/css/payment-cancel.css">
+</head>
+<body>
+<div class="container">
+    <div class="cancel-icon">
+        <span class="cancel-symbol">⚠</span>
+    </div>
+
+    <h1>Pagamento Annullato</h1>
+
+    <div class="cancel-details">
+        <p class="cancel-message">
+            Il pagamento è stato annullato. Nessun addebito è stato effettuato sul tuo conto.
+        </p>
+    </div>
+
+    <div class="info-box">
+        <h3>I tuoi articoli sono ancora nel carrello</h3>
+        <ul class="info-list">
+            <li>Tutti i prodotti selezionati sono stati mantenuti</li>
+            <li>Puoi modificare le quantità se necessario</li>
+            <li>Scegli un metodo di pagamento diverso</li>
+            <li>Oppure continua a fare acquisti</li>
+        </ul>
+    </div>
+
+    <div class="btn-container">
+        <a href="/cliente/carrello" class="btn btn-primary">Ritorna al Carrello</a>
+        <a href="/prodotti" class="btn btn-outline">Continua Shopping</a>
+        <a href="/" class="btn btn-secondary">Torna alla Home</a>
+    </div>
+
+    <div class="reassurance">
+        <strong>Tranquillo!</strong> Il tuo carrello è al sicuro e potrai completare l'acquisto quando vorrai.
+    </div>
+</div>
+</body>
+</html>

@@ -1,24 +1,34 @@
 package com.howtodoinjava.app.applicationcore.controller;
 
 import com.howtodoinjava.app.applicationcore.dto.ClienteDTO;
+import com.howtodoinjava.app.applicationcore.entity.PaymentRequest;
+import com.howtodoinjava.app.applicationcore.entity.PaymentResponse;
 import com.howtodoinjava.app.applicationcore.dto.ProdottoDTO;
 import com.howtodoinjava.app.applicationcore.mapper.ProdottoMapper;
+import com.howtodoinjava.app.applicationcore.service.PayPalService;
 import com.howtodoinjava.app.applicationcore.utility.CarrelloResponse;
 import com.howtodoinjava.app.applicationcore.entity.*;
 import com.howtodoinjava.app.applicationcore.service.ClienteService;
 import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
+import com.paypal.base.rest.PayPalRESTException;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 //TODO eliminare funzionalità di creazione cliente standard
@@ -30,6 +40,11 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+
+    private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
+
+    @Autowired
+    private PayPalService payPalService;
 
     //TODO changed this URI
     @GetMapping("/prodotti")
@@ -120,16 +135,209 @@ public class ClienteController {
         }
     }
 
-    @PostMapping("/pagamento")
-    public ResponseEntity<String> effettuaPagamento(Authentication auth) {
+@PostMapping("/pagamento/create")
+public ResponseEntity<?> createPayment(Authentication auth, @RequestBody PaymentRequest paymentRequest) {
+    logger.info("Ricevuta richiesta di creazione pagamento: {}", paymentRequest);
+
+    try {
+        String username = JWTUtils.getUsername(auth);
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+
+        BigDecimal totalAmount;
+        String orderId;
+        String customerEmail;
+        String customerName;
+
+        // Crea l'ordine basato sul carrello reale
         try {
-            String username = JWTUtils.getUsername(auth);
-            clienteService.effettuaPagamento(username);
-            return ResponseEntity.ok("Pagamento effettuato con successo");
+            Ordine ordine = clienteService.preparaOrdine(username);
+            totalAmount = BigDecimal.valueOf(ordine.getPrezzoComplessivo());
+            orderId = String.valueOf(ordine.getIdOrdine());
+            customerEmail = ordine.getCliente().getEmail();
+            customerName = ordine.getCliente().getUsername();
+
+            logger.info("Ordine creato per il pagamento - ID: {}, Importo: {}", orderId, totalAmount);
+
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            if (e.getMessage().contains("carrello è vuoto") || e.getMessage().contains("Carrello non trovato")) {
+                logger.warn("Carrello vuoto o non trovato per l'utente: {}", username);
+                return ResponseEntity.badRequest().body("Il carrello è vuoto. Aggiungi alcuni prodotti prima di procedere al pagamento.");
+            }
+            logger.error("Errore durante la preparazione dell'ordine: {}", e.getMessage());
+            throw e;
         }
+
+        // Validazione dell'importo
+        if (totalAmount == null || totalAmount.compareTo(BigDecimal.ZERO) <= 0) {
+            logger.warn("Importo non valido: {}", totalAmount);
+            return ResponseEntity.badRequest().body("L'importo deve essere maggiore di zero");
+        }
+
+        // Impostazione dei valori nella richiesta
+        paymentRequest.setTotal(totalAmount);
+        paymentRequest.setCurrency(paymentRequest.getCurrency() != null ?
+                paymentRequest.getCurrency() : "EUR");
+        paymentRequest.setMethod(paymentRequest.getMethod() != null ?
+                paymentRequest.getMethod() : "paypal");
+        paymentRequest.setIntent(paymentRequest.getIntent() != null ?
+                paymentRequest.getIntent() : "sale");
+        paymentRequest.setCancelUrl(paymentRequest.getCancelUrl() != null ?
+                paymentRequest.getCancelUrl() : baseUrl + "/cliente/api/pagamento/cancel");
+        paymentRequest.setSuccessUrl(paymentRequest.getSuccessUrl() != null ?
+                paymentRequest.getSuccessUrl() : baseUrl + "/cliente/api/pagamento/success");
+
+        // Imposta i dati del cliente e dell'ordine
+        paymentRequest.setOrderId(orderId);
+        paymentRequest.setCustomerEmail(customerEmail);
+        paymentRequest.setCustomerName(customerName);
+
+        logger.debug("PaymentRequest completa: {}", paymentRequest);
+
+        PaymentResponse response = payPalService.createPayment(paymentRequest);
+        logger.info("Pagamento creato con successo - PaymentId: {}, OrderId: {}",
+                response.getPaymentId(), orderId);
+
+        return ResponseEntity.ok(response);
+
+    } catch (IllegalArgumentException e) {
+        logger.error("Errore di validazione: {}", e.getMessage());
+        return ResponseEntity.badRequest().body(e.getMessage());
+    } catch (PayPalRESTException e) {
+        logger.error("Errore PayPal durante la creazione del pagamento", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Errore PayPal: " + e.getMessage());
+    } catch (Exception e) {
+        logger.error("Errore generico durante la creazione del pagamento", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Errore interno del server: " + e.getMessage());
+    }
+}
+
+    @GetMapping("/pagamento/redirect/{paymentId}")
+    public RedirectView redirectToPayPal(@PathVariable String paymentId) {
+        logger.info("Reindirizzamento per pagamento ID: {}", paymentId);
+
+        try {
+            String approvalUrl = payPalService.getApprovalUrl(paymentId);
+            logger.debug("URL di approvazione PayPal: {}", approvalUrl);
+            return new RedirectView(approvalUrl);
+        } catch (Exception e) {
+            logger.error("Errore durante il reindirizzamento a PayPal per il pagamento {}", paymentId, e);
+            return new RedirectView("/cliente/api/pagamento/error");
+        }
+    }
+
+    @GetMapping("/pagamento/execute")
+    public ModelAndView executePayment(
+            @RequestParam("paymentId") String paymentId,
+            @RequestParam("PayerID") String payerId,
+            Authentication auth) {
+        logger.info("Esecuzione pagamento ID: {}, PayerID: {}", paymentId, payerId);
+
+        try {
+            ExecutePaymentResponse response = payPalService.executePayment(paymentId, payerId);
+            logger.info("Risposta esecuzione pagamento: {}", response);
+
+            if ("approved".equalsIgnoreCase(response.getState())) {
+                logger.info("Pagamento approvato, ID transazione: {}", response.getTransactionId());
+
+                // Finalizza l'ordine e svuota il carrello
+                try {
+                    String username = JWTUtils.getUsername(auth);
+                    clienteService.svuotaCarrello(username);
+                    logger.info("Carrello svuotato per l'utente: {} dopo pagamento approvato", username);
+                } catch (Exception e) {
+                    logger.error("Errore durante lo svuotamento del carrello dopo pagamento approvato", e);
+                    // Non bloccare il flusso anche se lo svuotamento fallisce
+                }
+
+                ModelAndView modelAndView = new ModelAndView("cliente/payment-success");
+                modelAndView.addObject("transactionId", response.getTransactionId());
+                modelAndView.addObject("state", response.getState());
+                modelAndView.addObject("paymentId", paymentId);
+                return modelAndView;
+            } else {
+                logger.warn("Pagamento non approvato, stato: {}", response.getState());
+
+                ModelAndView modelAndView = new ModelAndView("cliente/payment-error");
+                modelAndView.addObject("errorMessage", "Pagamento non completato. Stato: " + response.getState());
+                return modelAndView;
+            }
+        } catch (Exception e) {
+            logger.error("Errore durante l'esecuzione del pagamento {}", paymentId, e);
+
+            ModelAndView modelAndView = new ModelAndView("cliente/payment-error");
+            modelAndView.addObject("errorMessage", "Errore durante l'esecuzione del pagamento: " + e.getMessage());
+            return modelAndView;
+        }
+    }
+
+    @GetMapping("/pagamento/success")
+    public ModelAndView paymentSuccess(Authentication auth,
+                                       @RequestParam(required = false) String paymentId,
+                                       @RequestParam(required = false) String PayerID) {
+
+        logger.info("Richiesta successo pagamento - paymentId: {}, PayerID: {}", paymentId, PayerID);
+
+        if (paymentId != null && PayerID != null) {
+            try {
+                String username = JWTUtils.getUsername(auth);
+
+                logger.info("Esecuzione pagamento da callback successo");
+                ExecutePaymentResponse response = payPalService.executePayment(paymentId, PayerID);
+                logger.info("Pagamento eseguito con successo da callback, ID transazione: {}", response.getTransactionId());
+
+                // Finalizza l'ordine solo se il pagamento è stato approvato
+                if ("approved".equalsIgnoreCase(response.getState())) {
+                    try {
+                        clienteService.svuotaCarrello(username);
+                        logger.info("Carrello svuotato per l'utente: {} dopo pagamento completato", username);
+                    } catch (Exception e) {
+                        logger.error("Errore durante lo svuotamento del carrello", e);
+                        // Non bloccare il flusso
+                    }
+                }
+
+                ModelAndView modelAndView = new ModelAndView("cliente/payment-success");
+                modelAndView.addObject("transactionId", response.getTransactionId());
+                modelAndView.addObject("state", response.getState());
+                modelAndView.addObject("paymentId", paymentId);
+                modelAndView.addObject("message", "Pagamento completato con successo! Il tuo ordine è stato elaborato.");
+                return modelAndView;
+
+            } catch (Exception e) {
+                logger.error("Errore durante l'esecuzione del pagamento da callback successo", e);
+
+                ModelAndView modelAndView = new ModelAndView("cliente/payment-error");
+                modelAndView.addObject("errorMessage", "Errore durante il completamento del pagamento: " + e.getMessage());
+                return modelAndView;
+            }
+        }
+
+        logger.info("Pagamento completato senza parametri (redirect semplice)");
+        ModelAndView modelAndView = new ModelAndView("cliente/payment-success");
+        modelAndView.addObject("transactionId", null);
+        modelAndView.addObject("state", "completato");
+        modelAndView.addObject("paymentId", null);
+        modelAndView.addObject("message", "Pagamento in elaborazione. Controlla la tua email per la conferma.");
+        return modelAndView;
+    }
+
+    @GetMapping("/pagamento/cancel")
+    public ModelAndView paymentCancel() {
+        logger.info("Pagamento cancellato dall'utente");
+        ModelAndView modelAndView = new ModelAndView("cliente/payment-cancel");
+        modelAndView.addObject("message", "Il pagamento è stato cancellato. Puoi riprovare quando vuoi.");
+        return modelAndView;
+    }
+
+    @GetMapping("/pagamento/error")
+    public ModelAndView paymentError(@RequestParam(required = false) String message) {
+        logger.error("Errore generico nel pagamento: {}", message);
+
+        ModelAndView modelAndView = new ModelAndView("cliente/payment-error");
+        modelAndView.addObject("errorMessage", message != null ? message : "Si è verificato un errore durante il processo di pagamento.");
+        return modelAndView;
     }
 
     @GetMapping("/info")
