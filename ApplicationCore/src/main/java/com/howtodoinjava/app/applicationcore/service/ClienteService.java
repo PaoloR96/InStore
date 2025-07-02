@@ -192,6 +192,14 @@ public class ClienteService {
     }
 
     @Transactional
+    public Carrello preparaCarrello(String username) {
+        Carrello carrello = carrelloRepository.findById(username)
+                .orElseThrow(() -> new RuntimeException("Carrello non trovato"));
+
+        return carrello;
+    }
+
+    @Transactional
     public void svuotaCarrello(String username) {
         Carrello carrello = carrelloRepository.findById(username)
                 .orElseThrow(() -> new RuntimeException("Carrello non trovato"));
