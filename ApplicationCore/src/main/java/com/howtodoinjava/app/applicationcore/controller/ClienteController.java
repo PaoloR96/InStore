@@ -151,13 +151,8 @@ public ResponseEntity<?> createPayment(Authentication auth, @RequestBody Payment
 
         // Crea l'ordine basato sul carrello reale
         try {
-//            Ordine ordine = clienteService.preparaOrdine(username);
-//            totalAmount = BigDecimal.valueOf(ordine.getPrezzoComplessivo());
-//            orderId = String.valueOf(ordine.getIdOrdine());
-//            customerEmail = ordine.getCliente().getEmail();
-//            customerName = ordine.getCliente().getUsername();
             Carrello carrello = clienteService.preparaCarrello(username);
-            totalAmount = BigDecimal.valueOf(carrello.getPrezzoComplessivo());
+            totalAmount = BigDecimal.valueOf(carrello.getPrezzoComplessivo()).setScale(2, RoundingMode.HALF_UP);;
             orderId = String.valueOf(carrello.getId());
             customerEmail = carrello.getCliente().getEmail();
             customerName = carrello.getCliente().getUsername();
