@@ -72,46 +72,48 @@ async function addProduct(event) {
     submitButton.disabled = true;
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Aggiunta in corso...';
 
-    const nuovoProdotto = {
-        nomeProdotto: document.getElementById("nomeProdotto").value,
-        descrizione: document.getElementById("descrizione").value,
-        prezzo: parseFloat(document.getElementById("prezzo").value),
-        taglia: document.getElementById("taglia").value,
-        pathImmagine: document.getElementById("pathImmagine").value,
-        quantitaTotale: parseInt(document.getElementById("quantitaTotale").value),
+    // Crea l'oggetto prodotto
+    const prodotto = {
+        nomeProdotto: document.getElementById('nomeProdotto').value,
+        descrizione: document.getElementById('descrizione').value,
+        prezzo: parseFloat(document.getElementById('prezzo').value),
+        taglia: document.getElementById('taglia').value,
+        quantitaTotale: parseInt(document.getElementById('quantitaTotale').value)
     };
+
+    // Crea un oggetto FormData
+    const formData = new FormData();
+    formData.append('prodotto', new Blob([JSON.stringify(prodotto)], { type: 'application/json' }));
+    formData.append('immagineProdotto', document.getElementById('immagineProdotto').files[0]);
 
     try {
         let csrf_token = $("meta[name='_csrf']").attr("content");
         let csrf_header = $("meta[name='_csrf_header']").attr("content");
 
         const response = await fetch(`${API_BASE_URL}/insprodotti`, {
-            method: "POST",
+            method: 'POST',
             headers: {
                 [csrf_header]: csrf_token,
-                "Content-Type": "application/json"
             },
-            body: JSON.stringify(nuovoProdotto)
+            body: formData,
         });
 
         if (response.ok) {
-
             const successMessage = await response.text();
-            showSuccessAnimation(successMessage)
+            showSuccessAnimation(successMessage);
             alert(successMessage || 'Prodotto aggiunto con successo!');
             refreshStore();
         } else {
             const errorMessage = await response.text();
-                    if (response.status === 400) {
-                        alert(errorMessage && "Errore di validazione dell'input. Controlla i campi inseriti.");
-                    } else {
-                        alert(errorMessage && "Si è verificato un errore. Riprova più tardi.");
-                    }
+            if (response.status === 400) {
+                alert(errorMessage || 'Errore di validazione dell\'input. Controlla i campi inseriti.');
+            } else {
+                alert(errorMessage || 'Si è verificato un errore. Riprova più tardi.');
+            }
         }
-
-    } catch (errorMessage) {
-        console.error('Errore nell\'aggiunta del prodotto:', errorMessage);
-        showErrorMessage(errorMessage.message);
+    } catch (error) {
+        console.error('Errore nell\'aggiunta del prodotto:', error);
+        showErrorMessage(error.message);
         alert('Si è verificato un errore imprevisto. Riprova più tardi.');
     } finally {
         submitButton.disabled = false;

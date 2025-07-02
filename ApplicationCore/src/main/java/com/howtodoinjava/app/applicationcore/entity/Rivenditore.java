@@ -28,8 +28,10 @@ public class Rivenditore  extends Utente {
 
     @Column(nullable = false, unique = true)
     @NotBlank(message = "L'IBAN non può essere vuoto.")
-    @Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{1}[0-9]{10}[A-Z0-9]{1}[0-9]{2}$", message = "L'IBAN non è in un formato valido (es. IT60X0542811101000000123456).")
+    @Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,30}$", message = "L'IBAN non è in un formato valido.")
     private String iban;
+
+
 
     @OneToMany(mappedBy = "rivenditore", cascade = CascadeType.ALL, orphanRemoval = true)
     @Valid

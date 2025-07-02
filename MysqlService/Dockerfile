@@ -2,6 +2,12 @@ FROM mysql:9.2.0
 
 USER root
 
+#RUN microdnf install -y logrotate
+
+#RUN mkdir -p /etc/logrotate.d/mysql
+#RUN chmod 755 /etc/logrotate.d/mysql
+#RUN chown root:root /etc/logrotate.d/mysql
+
 RUN mkdir -p /etc/mysql/certs
 RUN chown -R mysql:mysql /etc/mysql/certs
 

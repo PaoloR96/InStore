@@ -12,7 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,4 +111,38 @@ public class RivenditoreService {
                 .orElseThrow(() -> new RuntimeException("Rivenditore non trovato con username: " + username));
     }
 
+
+    public String salvaImmagine(MultipartFile immagine) throws IOException {
+        if (immagine.isEmpty()) {
+            throw new IllegalArgumentException("Il file immagine non può essere vuoto.");
+        }
+
+        // Verifica il tipo di file
+        String contentType = immagine.getContentType();
+        if (!contentType.equals("image/jpeg") && !contentType.equals("image/png")) {
+            throw new IllegalArgumentException("Sono consentiti solo file JPEG o PNG.");
+        }
+
+        // Definisci la directory di destinazione (configurabile)
+        String uploadDir = System.getProperty("user.dir") + "/uploads/images/";
+        File dir = new File(uploadDir);
+        if (!dir.exists()) {
+            boolean created = dir.mkdirs(); // Crea la directory se non esiste
+            if (!created) {
+                throw new IOException("Impossibile creare la directory: " + uploadDir);
+            }
+        }
+
+        // Genera un nome unico per il file
+        String fileName = System.currentTimeMillis() + "_" + immagine.getOriginalFilename();
+        String filePath = uploadDir + fileName;
+
+        // Salva il file
+        File dest = new File(filePath);
+        immagine.transferTo(dest);
+
+        // Restituisci il path relativo per l'accesso dal frontend
+        return "/uploads/images/" + fileName;
+    }
 }
+

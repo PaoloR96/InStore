@@ -50,6 +50,7 @@ services:
       - ./MysqlService/keyring:/var/lib/mysql-keyring/
       - ./letsencrypt/archive/mysql.instore.puntoitstore.it:/etc/mysql/certs:ro
       - ./MysqlService/logs:/var/log/mysql
+      - ./MysqlService/logrotate-mysql.conf:/etc/logrotate.d/mysql/
     command:
       - --lower_case_table_names=1
       - --require-secure-transport=ON
@@ -144,7 +145,7 @@ services:
     build:
       context: ./VaultService
       dockerfile: Dockerfile
-#    user: "vaultuser"
+    #user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
     #restart: "unless-stopped"
     restart: "no"
@@ -241,6 +242,7 @@ services:
       - ./ApplicationCore/spring_log:/var/log/spring
       - ./ApplicationCore/target/${JAR_FILE}:/target/app.jar:ro
       - ./letsencrypt/archive/instore.puntoitstore.it:/app/certs:ro
+      - app-uploads:/app/uploads
     entrypoint: java -jar /target/app.jar
     # Disabilita l'esecuzione del container come root, aumentando la sicurezza
     privileged: false
@@ -283,7 +285,6 @@ services:
         - ./NginxService/nginx.conf:/etc/nginx/nginx.conf:ro # Monta il file di configurazione nginx.conf in modalità sola lettura
         - ./NginxService/log:/var/log/nginx
         - ./NginxService/logrotate.conf:/etc/logrotate.d/nginx:ro
-        #- ./letsencrypt:/etc/letsencrypt:ro   # Volume per i certificati
         - ./letsencrypt/archive/instore.puntoitstore.it:/etc/letsencrypt/archive/instore.puntoitstore.it:ro
         - ./letsencrypt/archive/login.instore.puntoitstore.it:/etc/letsencrypt/archive/login.instore.puntoitstore.it:ro
           #- certbot-data:/var/www/certbot   # Volume per la sfida ACME
@@ -342,6 +343,7 @@ services:
 
 volumes:
   mysql-data:
+  app-uploads:
 
 networks:
   instore-network:
