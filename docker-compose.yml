@@ -251,13 +251,13 @@ services:
     security_opt:
       - no-new-privileges:true
     # Limita l'uso della memoria del container per evitare che usi risorse eccessive
-    mem_limit: 2g  # Il container non può usare più di 2 GB RAM.
+    mem_limit: 3g  # Il container non può usare più di 2 GB RAM.
     # Riserva memoria sufficiente per garantire che il container abbia almeno 1 GB RAM disponibili
-    mem_reservation: 1g   # Il container dovrebbe avere almeno 1 GB  di memoria (soft limit).
+    mem_reservation: 3g   # Il container dovrebbe avere almeno 1 GB  di memoria (soft limit).
     # Imposta un limite sul numero di CPU che il container può utilizzare
     cpus: 2.0  # Il container può usare al massimo 2 core CPU
     ulimits:
-      nproc: 100 # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
+      nproc: 500 # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
     networks:
       instore-network:
         ipv4_address: 172.28.0.40
