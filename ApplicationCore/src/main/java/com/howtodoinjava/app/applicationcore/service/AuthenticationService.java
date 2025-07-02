@@ -44,12 +44,11 @@ public class AuthenticationService {
 
     public Cliente registerCliente(
         String username, String email, String numCell,
-        String nome, String cognome, String numeroCarta, Date dataScadenza,
-        String nomeIntestatario, String cognomeIntestatario, String cvc
+        String nome, String cognome
     ){
         keycloakService.addRole(username, KeycloakRoles.CLIENTE);
         return clienteService.creareClienteStandard(
-                username, email, numCell, nome, cognome, numeroCarta, dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
+                username, email, numCell, nome, cognome);
     }
 
     public Rivenditore registerRivenditore(

@@ -16,15 +16,11 @@ public class ClienteDTO extends Utente {
     @Size(max = 50, message = "Il cognome non può superare i 50 caratteri.")
     private String cognome;
 
-    @NotBlank(message = "Il numero della carta non può essere vuoto.")
-    @CreditCardNumber(message = "Il numero della carta di credito non è valido.")
-    private String numeroCarta;
 
     public ClienteDTO(Cliente cliente) {
         super(cliente.getUsername(), cliente.getEmail(), cliente.getNumCell());
         this.nome = cliente.getNome();
         this.cognome = cliente.getCognome();
-        this.numeroCarta = cliente.getCartaCredito().getNumeroCarta();
     }
 
     public String getNome() {
@@ -35,9 +31,6 @@ public class ClienteDTO extends Utente {
         return cognome;
     }
 
-    public String getNumeroCarta() {
-        return numeroCarta;
-    }
 
     public void escape(){
         this.username = HtmlUtils.htmlEscape(this.username);
@@ -45,6 +38,5 @@ public class ClienteDTO extends Utente {
         this.numCell = HtmlUtils.htmlEscape(this.numCell);
         this.nome = HtmlUtils.htmlEscape(this.nome);
         this.cognome = HtmlUtils.htmlEscape(this.cognome);
-        this.numeroCarta = HtmlUtils.htmlEscape(this.numeroCarta);
     }
 }

@@ -32,8 +32,6 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
-    private CartaCreditoRepository cartaCreditoRepository;
-    @Autowired
     private ProdottoOrdineRepository prodottoOrdineRepository;
     @Autowired
     private OrdineRepository ordineRepository;
@@ -269,26 +267,16 @@ public class ClienteService {
 
 
     public Cliente creareClienteStandard(String username, String email, String numCell,
-                                         String nome, String cognome, String numeroCarta, Date dataScadenza,
-                                         String nomeIntestatario, String cognomeIntestatario, String cvc) {
+                                         String nome, String cognome) {
 
-        CartaCredito cartaCredito = new CartaCredito(
-                numeroCarta,
-                dataScadenza,
-                nomeIntestatario,
-                cognomeIntestatario,
-                cvc);
 
-        cartaCreditoRepository.save(cartaCredito); // Salviamo prima la carta di credito
 
         Cliente clienteStandard = new Cliente(
                 email,
                 username,
                 numCell,
                 nome,
-                cognome,
-                cartaCredito
-//                StatoCliente.ABILITATO
+                cognome
         );
 
         Carrello carrello = new Carrello(clienteStandard, 0.0f);

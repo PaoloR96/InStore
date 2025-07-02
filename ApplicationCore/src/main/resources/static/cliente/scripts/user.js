@@ -14,6 +14,7 @@ async function upgradeToPremium() {
 
         if (response.ok) {
             alert('Congratulazioni! Ora sei un cliente PREMIUM!');
+            window.location.reload();
         } else {
             if(response.status === 400) {
                 const error = await response.text();

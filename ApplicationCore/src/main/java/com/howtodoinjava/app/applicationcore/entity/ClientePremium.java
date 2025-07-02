@@ -25,8 +25,8 @@ public class ClientePremium extends Cliente {
                 this.sconto = sconto;
         }
 
-        public ClientePremium(String nome, String cognome, CartaCredito cartaCredito, Carrello carrello, StatoCliente statoCliente, List<Ordine> listaClienteOrdini, String numeroCartaFedelta, Integer sconto) {
-                super(nome, cognome, cartaCredito, carrello, listaClienteOrdini);
+        public ClientePremium(String nome, String cognome, Carrello carrello, StatoCliente statoCliente, List<Ordine> listaClienteOrdini, String numeroCartaFedelta, Integer sconto) {
+                super(nome, cognome, carrello, listaClienteOrdini);
                 this.sconto = sconto;
         }
 

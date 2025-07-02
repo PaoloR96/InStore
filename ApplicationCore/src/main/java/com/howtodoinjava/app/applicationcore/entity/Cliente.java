@@ -29,13 +29,6 @@ public class Cliente extends Utente {
         @Size(max = 50, message = "Il cognome del cliente non può superare i 50 caratteri.")
         private String cognome;
 
-        @OneToOne
-        @JoinColumn(name = "numero_carta_credito", nullable = false)
-        @NotNull(message = "La carta di credito non può essere nulla.")
-        @Valid
-        @JsonIgnore
-        private CartaCredito cartaCredito;
-
         @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
         @PrimaryKeyJoinColumn
         @NotNull(message = "Il carrello non può essere nullo per il cliente.") // Ogni cliente ha un carrello
@@ -52,34 +45,24 @@ public class Cliente extends Utente {
 
         public Cliente(String nome,
                        String cognome,
-                       CartaCredito cartaCredito,
                        Carrello carrello,
-//                       StatoCliente statoCliente,
                        List<Ordine> listaClienteOrdini
         ) {
                 this.nome = nome;
                 this.cognome = cognome;
-                this.cartaCredito = cartaCredito;
                 this.carrello = carrello;
-//                this.statoCliente = statoCliente;
                 this.listaClienteOrdini = listaClienteOrdini;
         }
 
         public Cliente(String email,
                        String username,
                        String numCell,
-//                       boolean status,
                        String nome,
-                       String cognome,
-                       CartaCredito cartaCredito
-//                       StatoCliente statoCliente
+                       String cognome
         ) {
                 super(username, email, numCell);
-//                super(username, email, numCell, status);
                 this.nome = nome;
                 this.cognome = cognome;
-                this.cartaCredito = cartaCredito;
-//                this.statoCliente = statoCliente;
         }
 
         public String getNome() {
@@ -96,14 +79,6 @@ public class Cliente extends Utente {
 
         public void setCognome(String cognome) {
                 this.cognome = cognome;
-        }
-
-        public CartaCredito getCartaCredito() {
-                return cartaCredito;
-        }
-
-        public void setCartaCredito(CartaCredito cartaCredito) {
-                this.cartaCredito = cartaCredito;
         }
 
         public Carrello getCarrello() {

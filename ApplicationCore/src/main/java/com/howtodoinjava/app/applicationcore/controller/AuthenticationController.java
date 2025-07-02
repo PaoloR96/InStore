@@ -102,30 +102,12 @@ public class AuthenticationController {
          @NotBlank(message = "Il cognome non può essere vuoto.")
          @Size(max = 50, message = "Il cognome non può superare i 50 caratteri.")
          @RequestParam String cognome,
-         @NotBlank(message = "Il numero della carta non può essere vuoto.")
-         @CreditCardNumber(message = "Il numero della carta di credito non è valido.")
-         @RequestParam String numeroCarta,
-         @NotNull(message = "La data di scadenza non può essere nulla.")
-         @Future(message = "La data di scadenza deve essere nel futuro.")
-         @DateTimeFormat(pattern = "yyyy-MM-dd")
-         @RequestParam Date dataScadenza,
-         @NotBlank(message = "Il nome dell'intestatario non può essere vuoto.")
-         @Size(max = 100, message = "Il nome dell'intestatario non può superare i 100 caratteri.")
-         @RequestParam String nomeIntestatario,
-         @NotBlank(message = "Il cognome dell'intestatario non può essere vuoto.")
-         @Size(max = 100, message = "Il cognome dell'intestatario non può superare i 100 caratteri.")
-         @RequestParam String cognomeIntestatario,
-         @NotBlank(message = "Il CVC non può essere vuoto.")
-         @Size(min = 3, max = 3, message = "Il CVC deve avere 3 cifre.")
-         @Pattern(regexp = "^[0-9]{3}$", message = "Il CVC deve contenere solo numeri.")
-         @RequestParam String cvc,
          HttpSession httpSession) {
         try{
             String username = JWTUtils.getUsername(auth);
             String email = JWTUtils.getEmail(auth);
             String phoneNumber = JWTUtils.getPhoneNumber(auth);
-            Cliente cliente = authenticationService.registerCliente(username, email, phoneNumber, nome, cognome, numeroCarta,
-                    dataScadenza, nomeIntestatario, cognomeIntestatario, cvc);
+            Cliente cliente = authenticationService.registerCliente(username, email, phoneNumber, nome, cognome);
             httpSession.invalidate();
             ClienteDTO clienteDTO = new ClienteDTO(cliente);
             clienteDTO.escape();
