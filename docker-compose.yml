@@ -95,9 +95,10 @@ services:
   #
   #  ########################
   keycloak2604:
-    build:
-      context: ./KeycloakService
-      dockerfile: Dockerfile
+    image: keycloak/keycloak:26.0.4
+#    build:
+#      context: ./KeycloakService
+#      dockerfile: Dockerfile
     container_name: login.instore.puntoitstore.it
     #restart: "unless-stopped"
     restart: "no"
@@ -131,11 +132,11 @@ services:
     cap_add:
       - NET_BIND_SERVICE
     # Risorse
-    mem_limit: 2g
-    mem_reservation: 1g
-    cpus: 2.0
+    mem_limit: 4g
+    mem_reservation: 4g
+    cpus: 4.0
     ulimits:
-      nproc: 256
+      nproc: 1024
       nofile: 4096
     networks:
       instore-network:
@@ -263,7 +264,7 @@ services:
     cpus: 2.0  # Il container può usare al massimo 2 core CPU
     ulimits:
       nproc: 1024
-#      nproc:100  # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
+      #nproc:100  # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
     networks:
       instore-network:
         ipv4_address: 172.28.0.40
@@ -307,7 +308,7 @@ services:
     cpus: 0.5  # Il container può usare al massimo il 50% di un core CPU
     ulimits:
       nproc: 512
-#      nproc: 100 # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
+##      nproc: 100 # Limita il numero massimo di processi che il container può avviare a 100, impedendo attacchi DoS basati sulla creazione eccessiva di processi (es. fork bomb)
     networks:
       instore-network:
           ipv4_address: 172.28.0.50
