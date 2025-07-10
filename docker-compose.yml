@@ -95,10 +95,10 @@ services:
   #
   #  ########################
   keycloak2604:
-    image: keycloak/keycloak:26.0.4
-#    build:
-#      context: ./KeycloakService
-#      dockerfile: Dockerfile
+    #image: keycloak/keycloak:26.0.4
+    build:
+      context: ./KeycloakService
+      dockerfile: Dockerfile
     container_name: login.instore.puntoitstore.it
     #restart: "unless-stopped"
     restart: "no"
