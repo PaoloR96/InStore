@@ -98,11 +98,11 @@ iptables -A FORWARD -i $INSTORE_BR -o $INSTORE_BR -s 172.28.0.20 -d 172.28.0.10 
 iptables -A FORWARD -i $INSTORE_BR -o $INSTORE_BR -s 172.28.0.50 -d 172.28.0.10 -j LOG --log-prefix "BLOCKED:NGINX→MYSQL " --log-level 4
 iptables -A FORWARD -i $INSTORE_BR -o $INSTORE_BR -s 172.28.0.50 -d 172.28.0.10 -j LOGGING
 
-# 🛡️ Protezione DoS base con log
-iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j LOG --log-prefix "LIMIT_HTTP: " --log-level 4
-iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
-iptables -A INPUT -p tcp --dport 443 -m limit --limit 25/minute --limit-burst 100 -j LOG --log-prefix "LIMIT_HTTPS: " --log-level 4
-iptables -A INPUT -p tcp --dport 443 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+## 🛡️ Protezione DoS base con log
+#iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j LOG --log-prefix "LIMIT_HTTP: " --log-level 4
+#iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
+#iptables -A INPUT -p tcp --dport 443 -m limit --limit 25/minute --limit-burst 100 -j LOG --log-prefix "LIMIT_HTTPS: " --log-level 4
+#iptables -A INPUT -p tcp --dport 443 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
 
 # 📝 Logging di default per pacchetti non gestiti
 iptables -A FORWARD -j LOGGING
