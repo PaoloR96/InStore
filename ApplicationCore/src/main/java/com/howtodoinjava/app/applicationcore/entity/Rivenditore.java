@@ -21,17 +21,15 @@ public class Rivenditore  extends Utente {
     @Size(max = 100, message = "Il nome della società non può superare i 100 caratteri.")
     private String nomeSocieta;
 
-    @Column(name = "partita_iva", nullable = false, unique = true)
+    @Column(name = "partita_iva", nullable = false)
     @NotBlank(message = "La Partita IVA non può essere vuota.")
-    @Pattern(regexp = "^[0-9]{11}$", message = "La Partita IVA deve essere di 11 cifre numeriche.")
+    //@Pattern(regexp = "^[0-9]{11}$", message = "La Partita IVA deve essere di 11 cifre numeriche.")
     private String partitaIva;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     @NotBlank(message = "L'IBAN non può essere vuoto.")
-    @Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,30}$", message = "L'IBAN non è in un formato valido.")
+    //@Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,30}$", message = "L'IBAN non è in un formato valido.")
     private String iban;
-
-
 
     @OneToMany(mappedBy = "rivenditore", cascade = CascadeType.ALL, orphanRemoval = true)
     @Valid

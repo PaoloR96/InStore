@@ -60,12 +60,13 @@ services:
       - --max_connections=100
       - --long_query_time=2 # Logga query lente (>2s)
       - --slow_query_log=ON # Abilita slow query log
+      - --wait_timeout=3600 # Timeout connessioni inattive (es. web app)
+      - --interactive_timeout=3600  # Timeout client interattivi (es. terminale o GUI)
       - --slow_query_log_file=/var/log/mysql/mysql-slow.log
       - --log_error=/var/log/mysql/mysql-error.log  # Log degli errori
       - --log_error_verbosity=2  # Livello di verbosità errori
       #- --log_output=FILE # Log su file
-      - --wait_timeout=3600 # Timeout connessioni inattive
-      - --interactive_timeout=3600  # Timeout client interattivi
+
     # Sicurezza container
     privileged: false
     security_opt:

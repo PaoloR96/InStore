@@ -11,10 +11,8 @@ import com.howtodoinjava.app.applicationcore.utility.JWTUtils;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.CreditCardNumber;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.json.JacksonJsonParser;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +20,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
+
+import org.iban4j.IbanUtil;
+import org.iban4j.IbanFormatException;
 
 import java.net.URI;
 import java.util.*;
@@ -72,16 +73,18 @@ public class AuthenticationController {
          @Size(max = 50, message = "Il nome della società non può superare i 50 caratteri.")
          @RequestParam String nomeSocieta,
          @NotBlank(message = "La Partita IVA non può essere vuota.")
-         @Pattern(regexp = "^[0-9]{11}$", message = "La Partita IVA deve essere di 11 cifre numeriche.")
+         //@Pattern(regexp = "^[0-9]{11}$", message = "La Partita IVA deve essere di 11 cifre numeriche.")
          @RequestParam String partitaIva,
          @NotBlank(message = "L'IBAN non può essere vuoto.")
-         @Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,30}$", message = "L'IBAN non è in un formato valido.")
+         //@Pattern(regexp = "^[A-Z]{2}[0-9]{2}[A-Z0-9]{4,30}$", message = "L'IBAN non è in un formato valido.")
          @RequestParam String iban,
          HttpSession session) {
         try{
             String username = JWTUtils.getUsername(auth);
             String email = JWTUtils.getEmail(auth);
             String phoneNumber = JWTUtils.getPhoneNumber(auth);
+            validateIban(iban);
+            validatePartitaIva(partitaIva);
             Rivenditore rivenditore = authenticationService.registerRivenditore(
                     username, email, phoneNumber, nomeSocieta, partitaIva, iban);
             session.invalidate();
@@ -130,5 +133,38 @@ public class AuthenticationController {
             entry.setValue(HtmlUtils.htmlEscape(entry.getValue().toString()));
         }
         return ResponseEntity.ok(requestBody);
+    }
+
+    private void validateIban(String iban) {
+        try {
+            IbanUtil.validate(iban);
+        } catch (IbanFormatException e) {
+            throw new IllegalArgumentException("IBAN non valido: " + e.getMessage());
+        }
+    }
+
+    private static void validatePartitaIva(String partitaIva) {
+        if (!partitaIva.matches("^[0-9]{11}$")) {
+            throw new IllegalArgumentException("La Partita IVA deve essere composta da 11 cifre numeriche.");
+        }
+
+        // Algoritmo di validazione del checksum
+        int sum = 0;
+        for (int i = 0; i < 10; i++) {
+            int digit = Character.getNumericValue(partitaIva.charAt(i));
+            if (i % 2 == 0) {
+                sum += digit;
+            } else {
+                int doubled = digit * 2;
+                sum += (doubled > 9) ? (doubled - 9) : doubled;
+            }
+        }
+
+        int checkDigit = Character.getNumericValue(partitaIva.charAt(10));
+        int calculatedCheckDigit = (10 - (sum % 10)) % 10;
+
+        if (checkDigit != calculatedCheckDigit) {
+            throw new IllegalArgumentException("Checksum della Partita IVA non valido.");
+        }
     }
 }

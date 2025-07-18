@@ -677,6 +677,13 @@ button {
     padding: 2rem;
 }
 
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
+    display: block;
+}
+
 .products-grid.error {
     color: var(--accent-color);
 }
