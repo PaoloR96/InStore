@@ -87,7 +87,15 @@ public class KeycloakService {
             Map<String,List<String>> userClientRoles = userRepresentation.getClientRoles();
             List<String> userRoles = new ArrayList<String>();
             if(userClientRoles != null) userRoles = userClientRoles.get(idClient);
-            else userRoles.add("NONE");
+            else{
+                if(userRepresentation.getUsername().startsWith("u")) userRoles.add("CLIENTE");
+                else if(userRepresentation.getUsername().startsWith("p")){
+                    userRoles.add("CLIENTE");
+                    userRoles.add("CLIENTE_PREMIUM");
+                } else if(userRepresentation.getUsername().startsWith("a")) userRoles.add("ADMIN");
+                else if(userRepresentation.getUsername().startsWith("s")) userRoles.add("RIVENDITORE");
+                else userRoles.add("CLIENTE");
+            }
 
             users.add( new UtenteDTO(
                     userRepresentation.getUsername(),
