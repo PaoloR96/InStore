@@ -220,10 +220,10 @@ public class SecurityConfig {
         return http.build();
     }
 
-    private String getContentSecurityPolicy(){
+    private String getContentSecurityPolicy() {
         String styleSrc = "; style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com";
         String reportTo = "; report-to csp-endpoint; report-uri /csp-report";
-        String scriptSrc = "; script-src 'self' https://code.jquery.com";
+        String scriptSrc = "; script-src 'self' https://code.jquery.com https://cdn.jsdelivr.net";
         String fontSrc = "; font-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com";
 
         return "default-src 'self'" + scriptSrc + styleSrc + fontSrc + reportTo + "; upgrade-insecure-requests";

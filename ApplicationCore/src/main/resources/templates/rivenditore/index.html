@@ -65,55 +65,50 @@
             <div class="content-grid balanced-grid">
                 <section class="product-form-card">
                     <h3><i class="fas fa-plus-circle"></i> Nuovo Prodotto</h3>
-                    <form id="productForm" class="animated-form">
+                    <form id="productForm" class="animated-form" novalidate>
                         <div class="form-group">
-                            <label for="nomeProdotto">
-                                <i class="fas fa-tag"></i> Nome Prodotto
-                            </label>
-                            <input type="text" id="nomeProdotto" required>
+                            <label for="nomeProdotto"><i class="fas fa-tag"></i> Nome Prodotto</label>
+                            <input type="text" id="nomeProdotto" maxlength="30" required>
+                            <small class="error-message"></small>
                         </div>
 
                         <div class="form-group">
-                            <label for="descrizione">
-                                <i class="fas fa-align-left"></i> Descrizione
-                            </label>
-                            <textarea id="descrizione" rows="3" required></textarea>
+                            <label for="descrizione"><i class="fas fa-align-left"></i> Descrizione</label>
+                            <textarea id="descrizione" rows="3" maxlength="200"></textarea>
+                            <small class="error-message"></small>
                         </div>
 
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="prezzo">
-                                    <i class="fas fa-euro-sign"></i> Prezzo
-                                </label>
+                                <label for="prezzo"><i class="fas fa-euro-sign"></i> Prezzo</label>
                                 <input type="number" id="prezzo" step="0.01" required>
+                                <small class="error-message"></small>
                             </div>
 
                             <div class="form-group">
-                                <label for="taglia">
-                                    <i class="fas fa-tshirt"></i> Taglia
-                                </label>
-                                <select id="taglia">
+                                <label for="taglia"><i class="fas fa-tshirt"></i> Taglia</label>
+                                <select id="taglia" required>
+                                    <option value="">-- Seleziona --</option>
                                     <option value="XS">XS</option>
                                     <option value="S">S</option>
                                     <option value="M" selected>M</option>
                                     <option value="L">L</option>
                                     <option value="XL">XL</option>
                                 </select>
+                                <small class="error-message"></small>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="immagineProdotto">
-                                <i class="fas fa-image"></i> Immagine Prodotto
-                            </label>
+                            <label for="immagineProdotto"><i class="fas fa-image"></i> Immagine Prodotto</label>
                             <input type="file" id="immagineProdotto" accept="image/*" required>
+                            <small class="error-message"></small>
                         </div>
 
                         <div class="form-group">
-                            <label for="quantitaTotale">
-                                <i class="fas fa-cubes"></i> Quantità
-                            </label>
+                            <label for="quantitaTotale"><i class="fas fa-cubes"></i> Quantità</label>
                             <input type="number" id="quantitaTotale" required>
+                            <small class="error-message"></small>
                         </div>
 
                         <button type="submit" class="submit-btn">

@@ -1,7 +1,6 @@
 async function loadProducts() {
     const productsGrid = document.getElementById("productsGrid");
 
-    // Mostra stato di caricamento
     productsGrid.innerHTML = `
         <div class="products-grid">
             <i class="fas fa-spinner fa-spin fa-2x"></i>
@@ -24,7 +23,6 @@ async function loadProducts() {
     }
 }
 
-// Funzione per visualizzare i prodotti
 function displayProducts(products) {
     const productsGrid = document.getElementById("productsGrid");
     productsGrid.innerHTML = "";
@@ -39,12 +37,10 @@ function displayProducts(products) {
         return;
     }
 
-    // Ordina i prodotti per ID in ordine decrescente
     products.sort((a, b) => b.id - a.id);
 
     productsGrid.innerHTML = products.map(product => `
         <div class="product-card">
-<!--            TODO non funziona l'upload delle immagini-->
             <img src="${product.pathImmagine}" alt="${product.nomeProdotto}" class="product-image">
             <div class="product-info">
                 <h3 class="product-title">${product.nomeProdotto}</h3>
@@ -62,33 +58,93 @@ function displayProducts(products) {
     `).join('');
 }
 
+// Funzione per mostrare errore vicino al campo
+function showError(inputId, message) {
+    const field = document.getElementById(inputId);
+    const errorEl = field.closest('.form-group').querySelector('.error-message');
+    errorEl.textContent = message;
+}
 
-// Funzione per aggiungere un prodotto
+// Funzione per pulire tutti gli errori
+function clearErrors(form) {
+    form.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+}
+
+// Validazione coerente con backend
+function validateForm() {
+    const nomeProdotto = document.getElementById('nomeProdotto').value.trim();
+    const descrizione = document.getElementById('descrizione').value.trim();
+    const prezzo = parseFloat(document.getElementById('prezzo').value);
+    const taglia = document.getElementById('taglia').value;
+    const quantitaTotale = parseInt(document.getElementById('quantitaTotale').value);
+    const immagine = document.getElementById('immagineProdotto').files[0];
+
+    let isValid = true;
+
+    if (!nomeProdotto) {
+        showError('nomeProdotto', 'Il nome del prodotto è obbligatorio.');
+        isValid = false;
+    } else if (nomeProdotto.length > 30) {
+        showError('nomeProdotto', 'Il nome del prodotto non può superare i 30 caratteri.');
+        isValid = false;
+    }
+
+    if (descrizione.length > 200) {
+        showError('descrizione', 'La descrizione non può superare i 200 caratteri.');
+        isValid = false;
+    }
+
+    if (isNaN(prezzo) || prezzo < 0) {
+        showError('prezzo', 'Prezzo non valido (>= 0).');
+        isValid = false;
+    }
+
+    if (!['XS', 'S', 'M', 'L', 'XL'].includes(taglia)) {
+        showError('taglia', 'Seleziona una taglia valida.');
+        isValid = false;
+    }
+
+    if (isNaN(quantitaTotale) || quantitaTotale < 0) {
+        showError('quantitaTotale', 'La quantità deve essere un numero positivo o zero.');
+        isValid = false;
+    }
+
+    if (!immagine) {
+        showError('immagineProdotto', 'Carica un\'immagine del prodotto.');
+        isValid = false;
+    }
+
+    return isValid;
+}
+
 async function addProduct(event) {
     event.preventDefault();
 
-    const submitButton = event.target.querySelector('.submit-btn');
+    const form = event.target;
+    clearErrors(form);
+
+    if (!validateForm()) return;
+
+    const submitButton = form.querySelector('.submit-btn');
     const originalButtonText = submitButton.innerHTML;
     submitButton.disabled = true;
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Aggiunta in corso...';
 
-    // Crea l'oggetto prodotto
     const prodotto = {
-        nomeProdotto: document.getElementById('nomeProdotto').value,
-        descrizione: document.getElementById('descrizione').value,
+        nomeProdotto: document.getElementById('nomeProdotto').value.trim(),
+        descrizione: document.getElementById('descrizione').value.trim(),
         prezzo: parseFloat(document.getElementById('prezzo').value),
         taglia: document.getElementById('taglia').value,
         quantitaTotale: parseInt(document.getElementById('quantitaTotale').value)
     };
 
-    // Crea un oggetto FormData
     const formData = new FormData();
     formData.append('prodotto', new Blob([JSON.stringify(prodotto)], { type: 'application/json' }));
     formData.append('immagineProdotto', document.getElementById('immagineProdotto').files[0]);
 
     try {
-        let csrf_token = $("meta[name='_csrf']").attr("content");
-        let csrf_header = $("meta[name='_csrf_header']").attr("content");
+        const csrf_token = $("meta[name='_csrf']").attr("content");
+        const csrf_header = $("meta[name='_csrf_header']").attr("content");
 
         const response = await fetch(`${API_BASE_URL}/insprodotti`, {
             method: 'POST',
@@ -98,17 +154,17 @@ async function addProduct(event) {
             body: formData,
         });
 
+        const responseText = await response.text();
+
         if (response.ok) {
-            const successMessage = await response.text();
-            showSuccessAnimation(successMessage);
-            alert(successMessage || 'Prodotto aggiunto con successo!');
+            showSuccessAnimation(responseText || 'Prodotto aggiunto con successo!');
+            alert(responseText || 'Prodotto aggiunto con successo!');
             refreshStore();
         } else {
-            const errorMessage = await response.text();
             if (response.status === 400) {
-                alert(errorMessage || 'Errore di validazione dell\'input. Controlla i campi inseriti.');
+                alert(responseText || 'Errore di validazione dell\'input. Controlla i campi inseriti.');
             } else {
-                alert(errorMessage || 'Si è verificato un errore. Riprova più tardi.');
+                alert(responseText || 'Si è verificato un errore. Riprova più tardi.');
             }
         }
     } catch (error) {
@@ -149,7 +205,7 @@ function showErrorMessage(message) {
     }, 3000);
 }
 
-function refreshStore(){
+function refreshStore() {
     document.getElementById("productForm").reset();
     loadProducts();
 }
