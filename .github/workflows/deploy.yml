@@ -118,7 +118,7 @@ jobs:
       - name: Deploy to DigitalOcean
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            cd /mnt/volume_instore/
+            cd /mnt/volume_ams3_01/
             rm -r InStore/
             git clone https://github.com/PaoloR96/InStore.git
             cp -r keyring/ InStore/MysqlService/
