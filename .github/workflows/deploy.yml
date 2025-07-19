@@ -108,6 +108,12 @@ jobs:
 #          sarif_file: trivy-results-appcore.sarif
 #          category: trivy-appcore
 
+      #     RESTART SERVICE INSTORE
+      #            sleep 40
+      #            docker-compose up -d
+      #            sleep 40
+      #            docker-compose restart nginx
+
       # SSH + Deploy
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
@@ -150,8 +156,4 @@ jobs:
             docker-compose up -d
             sleep 80
             docker-compose restart nginx
-#            sleep 40
-#            docker-compose up -d
-#            sleep 40
-#            docker-compose restart nginx
           EOF
