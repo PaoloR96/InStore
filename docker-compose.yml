@@ -81,7 +81,7 @@ services:
     cpus: 2.0
     ulimits:
       nproc: 256
-      nofile: 4096
+      nofile: 8110
 
     networks:
       instore-network:
