@@ -37,8 +37,8 @@ services:
       context: ./MysqlService
       dockerfile: Dockerfile
     container_name: mysql.instore.puntoitstore.it
-    #restart: "unless-stopped"
-    restart: "no"
+    restart: "unless-stopped"
+    #restart: "no"
     ports:
       - "3306:3306"
     environment:
@@ -101,8 +101,8 @@ services:
       context: ./KeycloakService
       dockerfile: Dockerfile
     container_name: login.instore.puntoitstore.it
-    #restart: "unless-stopped"
-    restart: "no"
+    restart: "unless-stopped"
+    #restart: "no"
     user: "keycloak"
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_ADMIN_USR} # TODO implements a secure way to access to keycloak control panel
@@ -147,10 +147,10 @@ services:
     build:
       context: ./VaultService
       dockerfile: Dockerfile
-    #user: "vaultuser"
+    user: "vaultuser"
     container_name: vault.instore.puntoitstore.it
-    #restart: "unless-stopped"
-    restart: "no"
+    restart: "unless-stopped"
+    #restart: "no"
     ports:
       - '8200:8200'
     volumes:
@@ -168,8 +168,6 @@ services:
     privileged: false
     security_opt:
       - no-new-privileges:true
-#    cap_drop:
-#      - ALL
     cap_add:
       - NET_BIND_SERVICE
       - IPC_LOCK
@@ -210,12 +208,12 @@ services:
       #IPC_LOCK: le pagine di memoria afferenti all’applicazione
       #vengono conservate nella RAM, senza che possa essere effettuato lo swap
     # Risorse
-#    mem_limit: 512m
-#    mem_reservation: 256m
-#    cpus: 0.5
-#    ulimits:
-#      nproc: 100
-#      nofile: 50
+    mem_limit: 512m
+    mem_reservation: 256m
+    cpus: 0.5
+    ulimits:
+      nproc: 100
+      nofile: 50
     networks:
       instore-network:
         ipv4_address: 172.28.0.60
@@ -225,7 +223,8 @@ services:
       context: ./ApplicationCore
       dockerfile: Dockerfile
     container_name: instore.puntoitstore.it
-    restart: "no"
+    #restart: "no"
+    restart: "unless-stopped"
     environment:
       APPLICATION_URL: ${APP_EXT_URL}
       KEYCLOAK_URL: ${KC_INT_URL}
@@ -276,8 +275,8 @@ services:
       dockerfile: Dockerfile
     container_name: nginx
 
-    #restart: "always"  # Riavvia il container automaticamente in caso di errori o crash
-    restart: "no"
+    restart: "unless-stopped"
+    #restart: "no"
       # Mappa le porte del container verso il sistema host (porta 80 e 443 per HTTP e HTTPS)
     ports:
         - "80:80"
