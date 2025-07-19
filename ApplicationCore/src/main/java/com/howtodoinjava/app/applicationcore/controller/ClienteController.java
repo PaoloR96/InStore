@@ -64,11 +64,7 @@ public class ClienteController {
             @Min(value = 1, message = "La quantità deve essere maggiore di zero.")
             @RequestParam Integer quantita,
             Authentication auth) {
-//        try {
-//
-//            if (quantita <= 0) {
-//                return ResponseEntity.badRequest().body("La quantità deve essere maggiore di zero.");
-//            }
+
         try{
             String username = JWTUtils.getUsername(auth);
             Carrello carrello = clienteService.aggiungiProdottoCarrello(username, idProdotto, quantita);
