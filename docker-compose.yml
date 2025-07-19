@@ -46,8 +46,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_OPTS: "--lower_case_table_names=1"
     volumes:
-      - mysql-data:/var/lib/mysql
       - ./MysqlService/keyring:/var/lib/mysql-keyring/
+      - mysql-data:/var/lib/mysql
       - ./letsencrypt/archive/mysql.instore.puntoitstore.it:/etc/mysql/certs:ro
       - ./MysqlService/logs:/var/log/mysql
       - ./MysqlService/logrotate-mysql.conf:/etc/logrotate.d/mysql/
