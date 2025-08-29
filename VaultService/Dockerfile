@@ -1,4 +1,4 @@
-FROM hashicorp/vault:1.18.4
+FROM hashicorp/vault:1.20.3
 
 USER root
 
