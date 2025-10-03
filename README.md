@@ -1,5 +1,3 @@
-<div align="right">
-
 # 🛍️ E-Commerce Development  
 
 The application has been developed following a **microservices architecture**,  
@@ -14,4 +12,3 @@ serving as the **cloud infrastructure (IaaS)**.
 Additionally, to assess the cloud security posture,  
 the **CSA CCM v4 framework** is applied in combination with the **NIST Cybersecurity Framework**.  
 
-</div>
