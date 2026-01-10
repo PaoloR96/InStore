@@ -1,5 +1,5 @@
 # Usa l'immagine base di NGINX con versione 1.25.3 e Alpine 3.18
-FROM nginx:1.25.3-alpine3.18
+FROM nginx:1.25.4-alpine3.18
 
 # Rimuove le directory di configurazione e contenuti predefiniti di NGINX per evitare conflitti
 RUN rm -rf /etc/nginx/conf.d/* /usr/share/nginx/html/*
